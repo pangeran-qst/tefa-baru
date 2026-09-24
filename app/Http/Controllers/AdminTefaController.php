@@ -41,7 +41,7 @@ class AdminTefaController extends Controller
             'nama_produk' => 'required',
             'deskripsi' => 'required',
             'harga' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'status_aktif' => 'required|boolean',
         ]);
 
@@ -148,7 +148,7 @@ class AdminTefaController extends Controller
             'nama_produk' => 'required',
             'deskripsi' => 'required',
             'harga' => 'required|integer',
-            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,|max:2048',
             'status_aktif' => 'required|boolean',
         ]);
 
