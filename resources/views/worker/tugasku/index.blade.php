@@ -1,0 +1,320 @@
+@extends('worker.layouts.app')
+
+@section('title', 'Dashboard Worker')
+
+@section('content')
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tugasku - TeFA Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .line-through-custom { text-decoration: line-through; color: #94a3b8; }
+  </style>
+
+
+<!-- MAIN CONTENT -->
+  <main class="flex-1 p-8 overflow-y-auto">
+    
+    <!-- Header Title & User Status -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-slate-800">Tugasku — Project Management</h1>
+        <p class="text-xs text-slate-500 mt-0.5">Kelola seluruh alur pengerjaan tugas kamu</p>
+      </div>
+      <div class="flex items-center gap-3 self-start sm:self-auto">
+        <span class="text-xs text-slate-400 font-medium">Minggu, 30 Agustus 2026</span>
+        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow">
+          AJ
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB NAVIGATION CARD -->
+    <div class="bg-white rounded-2xl p-2.5 border border-slate-200/80 shadow-sm inline-flex gap-2 mb-6">
+      <button onclick="switchTab('new-project')" id="btn-new-project" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition bg-indigo-600 text-white shadow-md shadow-indigo-600/20">
+        <span>🚨</span> New Project
+      </button>
+      <button onclick="switchTab('project-saya')" id="btn-project-saya" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition text-slate-500 hover:bg-slate-100">
+        <span>🛠️</span> Project Saya
+      </button>
+      <button onclick="switchTab('project-selesai')" id="btn-project-selesai" class="tab-btn px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2 transition text-slate-500 hover:bg-slate-100">
+        <span>🎉</span> Project Selesai
+      </button>
+    </div>
+
+    <!-- TAB CONTENT 1: NEW PROJECT -->
+    <div id="tab-new-project" class="tab-content space-y-4">
+      <!-- Item 1 -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Web Dev</span>
+            <span class="text-xs text-slate-400">Deadline: 2026-09-10</span>
+          </div>
+          <h3 class="text-sm font-bold text-slate-800">Landing Page Produk UMKM</h3>
+          <p class="text-xs text-slate-500 mt-1">Buat landing page responsif dengan CTA dan galeri produk.</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
+            ✓ Terima
+          </button>
+          <button class="px-5 py-2 bg-white hover:bg-rose-50 text-rose-500 border border-slate-200 rounded-xl text-xs font-bold transition">
+            X Tolak
+          </button>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">UI/UX Design</span>
+            <span class="text-xs text-slate-400">Deadline: 2026-09-05</span>
+          </div>
+          <h3 class="text-sm font-bold text-slate-800">Desain Logo & Brand Identity</h3>
+          <p class="text-xs text-slate-500 mt-1">Desain logo profesional beserta panduan warna dan tipografi.</p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
+            ✓ Terima
+          </button>
+          <button class="px-5 py-2 bg-white hover:bg-rose-50 text-rose-500 border border-slate-200 rounded-xl text-xs font-bold transition">
+            X Tolak
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB CONTENT 2: PROJECT SAYA -->
+    <div id="tab-project-saya" class="tab-content hidden space-y-6">
+      
+      <!-- Project 1: Aplikasi Kasir Mobile -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Mobile App</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600 flex items-center gap-1">
+                ⏰ 16 hari lagi
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Aplikasi Kasir Mobile</h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed">
+              🚀 Ajukan QC
+            </button>
+            <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
+              💬 Quick-WA Kajur
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-medium mb-1.5">
+            <span>Progress Pengerjaan</span>
+            <span class="font-bold text-indigo-600">50%</span>
+          </div>
+          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div class="bg-indigo-600 h-full rounded-full" style="width: 50%"></div>
+          </div>
+        </div>
+
+        <!-- Milestone Checklist -->
+        <div class="mb-6">
+          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">MILESTONE CHECKLIST</h4>
+          <div class="space-y-2.5">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-400 line-through-custom">Setup project & environment</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-400 line-through-custom">Desain UI screen utama</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-400 line-through-custom">Implementasi fitur tambah produk</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Integrasi database lokal</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Testing & bug fixing</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Build APK final</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Link Hasil Pengerjaan -->
+        <div>
+          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">LINK HASIL PENGERJAAN</h4>
+          <input type="text" placeholder="https://drive.google.com/... / https://github.com/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-indigo-500 transition">
+        </div>
+      </div>
+
+      <!-- Project 2: Dashboard Analytics Web -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Web Dev</span>
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600 flex items-center gap-1">
+                ⏰ 21 hari lagi
+              </span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">Dashboard Analytics Web</h3>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed">
+              🚀 Ajukan QC
+            </button>
+            <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
+              💬 Quick-WA Kajur
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="mb-6">
+          <div class="flex justify-between items-center text-xs text-slate-500 font-medium mb-1.5">
+            <span>Progress Pengerjaan</span>
+            <span class="font-bold text-indigo-600">40%</span>
+          </div>
+          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div class="bg-indigo-600 h-full rounded-full" style="width: 40%"></div>
+          </div>
+        </div>
+
+        <!-- Milestone Checklist -->
+        <div class="mb-6">
+          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">MILESTONE CHECKLIST</h4>
+          <div class="space-y-2.5">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-400 line-through-custom">Wireframe & prototype</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-400 line-through-custom">Setup React + chart library</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Komponen chart utama</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Integrasi API data</span>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+              <span class="text-xs text-slate-700 font-medium">Responsif & polish UI</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Link Hasil Pengerjaan -->
+        <div>
+          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">LINK HASIL PENGERJAAN</h4>
+          <input type="text" value="https://drive.google.com/... / https://github.com/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-600 focus:outline-none focus:border-indigo-500 transition">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TAB CONTENT 3: PROJECT SELESAI -->
+    <div id="tab-project-selesai" class="tab-content hidden space-y-4">
+      
+      <!-- Alert Information -->
+      <div class="bg-emerald-50/80 border border-emerald-200 text-indigo-950 p-4 rounded-2xl flex items-center gap-2 text-xs font-medium mb-4">
+        <span>🎉</span>
+        <span>Selamat! Project berikut telah lolos QC dan menjadi bagian dari <strong class="text-indigo-900">Portofolio Digital</strong> kamu.</span>
+      </div>
+
+      <!-- Item 1 -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-600">Web Dev</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600">Sangat Baik</span>
+          </div>
+          <h3 class="text-sm font-bold text-slate-800">Website Portfolio Sekolah</h3>
+          <p class="text-xs text-slate-400 mt-1">Selesai: 2026-07-20</p>
+        </div>
+        <button class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition self-start md:self-auto">
+          🔗 Lihat Hasil
+        </button>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-600">Sistem Info</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600">Baik</span>
+          </div>
+          <h3 class="text-sm font-bold text-slate-800">Sistem Informasi Perpustakaan</h3>
+          <p class="text-xs text-slate-400 mt-1">Selesai: 2026-06-15</p>
+        </div>
+        <button class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition self-start md:self-auto">
+          🔗 Lihat Hasil
+        </button>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-600">UI/UX Design</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600">Sangat Baik</span>
+          </div>
+          <h3 class="text-sm font-bold text-slate-800">Desain UI Aplikasi Absensi</h3>
+          <p class="text-xs text-slate-400 mt-1">Selesai: 2026-05-30</p>
+        </div>
+        <button class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 shadow-md shadow-indigo-600/20 transition self-start md:self-auto">
+          🔗 Lihat Hasil
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- SCRIPT INTERAKTIF KHUSUS TABS -->
+  <script>
+    function switchTab(tabName) {
+      // Sembunyikan semua tab content
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+      });
+
+      // Reset style semua tombol tab
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/20');
+        btn.classList.add('text-slate-500', 'hover:bg-slate-100');
+      });
+
+      // Tampilkan tab yang dipilih
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+      // Aktifkan gaya tombol tab yang dipilih
+      const activeBtn = document.getElementById('btn-' + tabName);
+      activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-100');
+      activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/20');
+    }
+  </script>
+  
+
+  
+
+@endsection
