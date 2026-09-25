@@ -6,7 +6,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <title>Layanan & Produk RPL - TeFA SMKN 4 Tanjungpinang</title>
+  <title>Layanan & Produk PSPT - TeFA SMKN 4 Tanjungpinang</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,15 +20,15 @@
     }
 
 
-    /* Hero Section RPL */
+    /* Hero Section PSPT (Warna Merah Khas PSPT) */
     .hero {
-      background-color: rgb(235, 172, 37);
+      background-color: rgb(220, 196, 38);
       color: white;
       padding: 32px 8% 48px 8%;
     }
 
     .back-link {
-      color: #ffffff;
+      color: #fee2e2;
       text-decoration: none;
       font-size: 14px;
       display: inline-block;
@@ -59,7 +59,7 @@
     }
 
     .hero p {
-      color: #ffffff;
+      color: #fee2e2;
       font-size: 14px;
     }
 
@@ -80,7 +80,7 @@
     }
 
     .search-box input::placeholder {
-      color: #ffffff;
+      color: #fee2e2;
     }
 
     .search-icon {
@@ -88,7 +88,7 @@
       left: 12px;
       top: 50%;
       transform: translateY(-50%);
-      color: #ffffff;
+      color: #fee2e2;
     }
 
     /* Content Layout */
@@ -195,13 +195,13 @@
 
     .price-label {
       font-size: 12px;
-      color: #64748b;
+      color: #000000;
     }
 
     .price-value {
       font-size: 16px;
       font-weight: bold;
-      color: #000000;
+      color: rgb(0, 0, 0);
     }
 
     .btn-detail {
@@ -367,10 +367,10 @@
 <body>
 
     <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
-      {{-- LOGO --}}
-      <a href="{{ url('/') }}" class="flex items-center gap-3">
+      
+      <a href="<?php echo e(url('/')); ?>" class="flex items-center gap-3">
           <img
-              src="{{ asset('gambar/tefa/logo.png') }}"
+              src="<?php echo e(asset('gambar/tefa/logo.png')); ?>"
               alt=""
               class="h-10 w-auto max-w-[120px] object-contain"
           >
@@ -387,34 +387,34 @@
       </a>
 
 
-      {{-- BAGIAN KANAN --}}
+      
       <div class="flex items-center gap-4">
 
-          {{-- NAVIGASI --}}
+          
           <nav
               id="navMenu"
               class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
 
               <a
-                  href="{{ url('/') }}"
+                  href="<?php echo e(url('/')); ?>"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                   Beranda
               </a>
 
               <a
-                  href="{{ route('katalog') }}"
+                  href="<?php echo e(route('katalog')); ?>"
                   class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
                   Layanan
               </a>
 
               <a
-                  href="{{ route('cek.ticket') }}"
+                  href="<?php echo e(route('cek.ticket')); ?>"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                   Cek Tiket
               </a>
 
               <a
-                  href="{{ route('kontak') }}"
+                  href="<?php echo e(route('kontak')); ?>"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                   Kontak
               </a>
@@ -422,7 +422,7 @@
           </nav>
 
 
-          {{-- ICON PROFIL --}}
+          
           <button
               type="button"
               class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white shadow-md transition hover:bg-blue-900"
@@ -448,7 +448,7 @@
       </div>
 
 
-      {{-- TOMBOL MENU MOBILE --}}
+      
       <button
           class="block md:hidden rounded-md bg-blue-700 px-3 py-2 text-lg text-white"
           onclick="toggleMenu()"
@@ -458,17 +458,17 @@
   </header>
 
   <section class="hero">
-    <a href="{{ route('katalog') }}" class="back-link">← Kembali ke Katalog</a>
+    <a href="<?php echo e(route('katalog')); ?>" class="back-link">← Kembali ke Katalog</a>
     <div class="hero-title-container">
-      <div class="hero-icon">💻</div>
+      <div class="hero-icon">🎬</div>
       <div>
-        <h1>Layanan & Produk RPL</h1>
-        <p>Rekayasa Perangkat Lunak</p>
+        <h1>Layanan & Produk PSPT</h1>
+        <p>Produksi Siaran Program Televisi</p>
       </div>
     </div>
     <div class="search-box">
       <span class="search-icon">🔍</span>
-      <input type="text" id="searchInput" placeholder="Cari layanan RPL..." onkeyup="filterServices()">
+      <input type="text" id="searchInput" placeholder="Cari layanan PSPT..." onkeyup="filterServices()">
     </div>
   </section>
 
@@ -476,45 +476,47 @@
     <aside class="sidebar">
       <div class="sidebar-title">Jurusan Lain</div>
       <ul class="sidebar-menu">
-        <li class="active"><a href="{{ route('katalog.rpl') }}">RPL</a></li>
-        <li><a href="{{ route('katalog.dkv') }}">DKV</a></li>
-        <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
-        <li><a href="{{ route('katalog.tkj') }}">TKJ</a></li>
-        <li><a href="{{ route('katalog.gim') }}">GIM</a></li>
-        <li><a href="{{ route('katalog.animasi') }}">ANIMASI</a></li>
+        <li><a href="<?php echo e(route('katalog.rpl')); ?>">RPL</a></li>
+        <li><a href="<?php echo e(route('katalog.dkv')); ?>">DKV</a></li>
+        <li class="active"><a href="<?php echo e(route('katalog.pspt')); ?>">PSPT</a></li>
+        <li><a href="<?php echo e(route('katalog.tkj')); ?>">TKJ</a></li>
+        <li><a href="<?php echo e(route('katalog.gim')); ?>">GIM</a></li>
+        <li><a href="<?php echo e(route('katalog.animasi')); ?>">ANIMASI</a></li>
       </ul>
     </aside>
 
     <main class="services-grid" id="servicesGrid">
 
-    @forelse($tefas as $tefa)
+    <?php $__empty_1 = true; $__currentLoopData = $tefas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tefa): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 
         <div class="service-card">
 
-            {{-- FOTO DARI DATABASE --}}
-            @if($tefa->gambar)
+            
+            <?php if($tefa->gambar): ?>
                 <img
-                    src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                    alt="{{ $tefa->nama_produk }}"
+                    src="<?php echo e(asset('gambar/tefa/' . $tefa->gambar)); ?>"
+                    alt="<?php echo e($tefa->nama_produk); ?>"
                     class="service-img">
-            @else
+            <?php else: ?>
                 <div
                     class="service-img"
-                    style="display:flex; align-items:center; justify-content:center; background:#dbeafe; font-size:50px;">
-                    💻
+                    style="display:flex; align-items:center; justify-content:center; background:#fee2e2; font-size:50px;">
+                    🎬
                 </div>
-            @endif
+            <?php endif; ?>
 
             <div class="service-body">
 
-                {{-- NAMA PRODUK --}}
+                
                 <h3>
-                    {{ $tefa->nama_produk }}
+                    <?php echo e($tefa->nama_produk); ?>
+
                 </h3>
 
-                {{-- DESKRIPSI --}}
+                
                 <p>
-                    {{ $tefa->deskripsi }}
+                    <?php echo e($tefa->deskripsi); ?>
+
                 </p>
 
                 <div class="service-footer">
@@ -524,44 +526,47 @@
                             Mulai dari
                         </div>
 
-                        {{-- HARGA DARI DATABASE --}}
+                        
                         <div class="price-value">
-                            Rp {{ number_format($tefa->harga, 0, ',', '.') }}
+                            Rp <?php echo e(number_format($tefa->harga, 0, ',', '.')); ?>
+
                         </div>
                     </div>
 
                     <button
-                      class="btn-detail"
-                      onclick="openDetailModal(
-                          {{ $tefa->id_produk }},
-                          @js($tefa->nama_produk),
-                          @js($tefa->deskripsi),
-                          'Layanan RPL',
-                          'Hubungi kami untuk informasi lebih lanjut',
-                          'Rp {{ number_format($tefa->harga, 0, ',', '.') }}',
-                          @js($tefa->gambar ? asset('gambar/tefa/' . $tefa->gambar) : '')
-                      )">
-                      Detail Jasa
-                  </button>
+                        class="btn-detail"
+                        onclick="openDetailModal(
+                            <?php echo e($tefa->id_produk); ?>,
+                            <?php echo \Illuminate\Support\Js::from($tefa->nama_produk)->toHtml() ?>,
+                            <?php echo \Illuminate\Support\Js::from($tefa->deskripsi)->toHtml() ?>,
+                            'Layanan PSPT',
+                            'Hubungi kami untuk informasi lebih lanjut',
+                            'Rp <?php echo e(number_format($tefa->harga, 0, ',', '.')); ?>',
+                            <?php echo \Illuminate\Support\Js::from($tefa->gambar ? asset('gambar/tefa/' . $tefa->gambar) : '')->toHtml() ?>
+                        )">
+                        Detail Jasa
+                    </button>
+
                 </div>
+
             </div>
         </div>
 
-    @empty
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
 
         <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-            <div style="font-size:50px;">💻</div>
+            <div style="font-size:50px;">🎬</div>
 
             <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                Belum Ada Layanan RPL
+                Belum Ada Layanan PSPT
             </h3>
 
             <p style="margin-top:8px; color:#64748b;">
-                Layanan RPL belum tersedia saat ini.
+                Layanan PSPT belum tersedia saat ini.
             </p>
         </div>
 
-    @endforelse
+    <?php endif; ?>
 
     </main>
   </div>
@@ -571,17 +576,17 @@
       <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
       <img id="detailImg" src="" alt="Detail Image" class="modal-img">
       <div class="modal-body">
-        <h3 id="detailTitle">Layanan Pengembangan Software</h3>
-        <p id="detailDesc" class="modal-desc">Pengembangan website, aplikasi, dan sistem sesuai kebutuhan.</p>
+        <h3 id="detailTitle">Produksi Video</h3>
+        <p id="detailDesc" class="modal-desc">Produksi video untuk kebutuhan dokumentasi, promosi, dan publikasi.</p>
         
         <div class="spec-box">
           <div class="spec-row">
             <span class="spec-label">Spesifikasi</span>
-            <span id="detailSpec" class="spec-value">Hubungi kami untuk informasi lebih lanjut</span>
+            <span id="detailSpec" class="spec-value">Produksi video sesuai kebutuhan dan konsep</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Durasi</span>
-            <span id="detailDuration" class="spec-value">Hubungi kami untuk informasi lebih lanjut</span>
+            <span id="detailDuration" class="spec-value">1-3 hari kerja</span>
           </div>
           <div class="spec-row">
             <span class="spec-label">Mulai dari</span>
@@ -599,47 +604,27 @@
       <button class="modal-close" onclick="closeModal('formModal')">✕</button>
       <div class="modal-body" style="padding-top: 24px;">
         <h3 style="font-size: 18px; color: #000000;">Form Pemesanan</h3>
-        <p id="formServiceName" style="font-size: 13px; color: #000000; font-weight: 600; margin-bottom: 20px;">Layanan RPL</p>
+        <p id="formServiceName" style="font-size: 13px; color: #000000; font-weight: 600; margin-bottom: 20px;">Produksi Video</p>
+        
         <form onsubmit="submitForm(event)">
-
           <div class="form-group">
-              <label for="nama">Nama Lengkap</label>
-              <input
-                  type="text"
-                  id="nama"
-                  placeholder="Nama Anda"
-                  required>
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" placeholder="Nama Anda" required>
           </div>
-
           <div class="form-group">
-              <label for="email">Email</label>
-              <input
-                  type="email"
-                  id="email"
-                  placeholder="nama@email.com"
-                  required>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="nama@email.com" required>
           </div>
-
           <div class="form-group">
-              <label for="whatsapp">Nomor WhatsApp</label>
-              <input
-                  type="tel"
-                  id="whatsapp"
-                  placeholder="08xx-xxxx-xxxx"
-                  required>
+            <label for="whatsapp">Nomor WhatsApp</label>
+            <input type="tel" id="whatsapp" placeholder="08xx-xxxx-xxxx" required>
           </div>
-
           <div class="form-group">
-              <label for="catatan">Catatan / Kebutuhan Proyek</label>
-              <textarea
-                  id="catatan"
-                  placeholder="Ceritakan kebutuhan proyek Anda..."></textarea>
+            <label for="catatan">Catatan / Kebutuhan Proyek</label>
+            <textarea id="catatan" placeholder="Ceritakan kebutuhan proyek Anda..."></textarea>
           </div>
-
-          <button type="submit" class="btn-block">
-              Kirim Pesanan
-          </button>
-      </form>
+          <button type="submit" class="btn-block">Kirim Pesanan</button>
+        </form>
       </div>
     </div>
   </div>
@@ -665,7 +650,7 @@
         </div>
         <div class="flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-blue-300">
         <span>© 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.</span>
-        <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
+        <span>Dibuat dengan ❤️ oleh siswa-siswi TeFa</span>
         </div>
   </footer>
 
@@ -705,12 +690,9 @@
     }
 
     function switchToFormModal() {
-        closeModal('detailModal');
-
-        document.getElementById('formServiceName').innerText =
-            currentService.title;
-
-        document.getElementById('formModal').classList.add('active');
+      closeModal('detailModal');
+      document.getElementById('formServiceName').innerText = currentService.title;
+      document.getElementById('formModal').classList.add('active');
     }
 
     function filterServices() {
@@ -738,11 +720,11 @@
       const catatan = document.getElementById('catatan').value;
 
       try {
-          const response = await fetch("{{ route('pesanan.store') }}", {
+          const response = await fetch("<?php echo e(route('pesanan.store')); ?>", {
               method: "POST",
               headers: {
                   "Content-Type": "application/json",
-                  "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                  "X-CSRF-TOKEN": "<?php echo e(csrf_token()); ?>",
                   "Accept": "application/json"
               },
               body: JSON.stringify({
@@ -772,4 +754,4 @@
     }
   </script>
 </body>
-</html>
+</html><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/laravel-belajar-tefa baru lagi(2) gigithub/resources/views/public/katalog/jurusan/pspt.blade.php ENDPATH**/ ?>
