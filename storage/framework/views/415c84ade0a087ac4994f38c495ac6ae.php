@@ -476,12 +476,12 @@
     <aside class="sidebar">
       <div class="sidebar-title">Jurusan Lain</div>
       <ul class="sidebar-menu">
-        <li><a href="<?php echo e(route('katalog.rpl')); ?>">💻 RPL</a></li>
-        <li><a href="<?php echo e(route('katalog.dkv')); ?>">🎨 DKV</a></li>
-        <li><a href="<?php echo e(route('katalog.pspt')); ?>">🎬 PSPT</a></li>
-        <li><a href="<?php echo e(route('katalog.tkj')); ?>">🔧 TKJ</a></li>
-        <li class="active"><a href="<?php echo e(route('katalog.gim')); ?>">🎮 GIM</a></li>
-        <li><a href="<?php echo e(route('katalog.animasi')); ?>">✨ ANIMASI</a></li>
+        <li><a href="<?php echo e(route('katalog.rpl')); ?>">RPL</a></li>
+        <li><a href="<?php echo e(route('katalog.dkv')); ?>">DKV</a></li>
+        <li><a href="<?php echo e(route('katalog.pspt')); ?>">PSPT</a></li>
+        <li><a href="<?php echo e(route('katalog.tkj')); ?>">TKJ</a></li>
+        <li class="active"><a href="<?php echo e(route('katalog.gim')); ?>">GIM</a></li>
+        <li><a href="<?php echo e(route('katalog.animasi')); ?>">ANIMASI</a></li>
       </ul>
     </aside>
 
@@ -536,12 +536,13 @@
                     <button
                         class="btn-detail"
                         onclick="openDetailModal(
-                            '<?php echo e(addslashes($tefa->nama_produk)); ?>',
-                            '<?php echo e(addslashes($tefa->deskripsi)); ?>',
+                            <?php echo e($tefa->id_produk); ?>,
+                            <?php echo \Illuminate\Support\Js::from($tefa->nama_produk)->toHtml() ?>,
+                            <?php echo \Illuminate\Support\Js::from($tefa->deskripsi)->toHtml() ?>,
                             'Layanan GIM',
                             'Hubungi kami untuk informasi lebih lanjut',
                             'Rp <?php echo e(number_format($tefa->harga, 0, ',', '.')); ?>',
-                            '<?php echo e($tefa->gambar ? asset('gambar/tefa/' . $tefa->gambar) : ''); ?>'
+                            <?php echo \Illuminate\Support\Js::from($tefa->gambar ? asset('gambar/tefa/' . $tefa->gambar) : '')->toHtml() ?>
                         )">
                         Detail Jasa
                     </button>
@@ -593,7 +594,7 @@
           </div>
         </div>
 
-        <button class="btn-block" onclick="switchToFormModal()">Beli / Pesan Jasa</button>
+        <button class="btn-block" onclick="switchToFormModal()">Beli</button>
       </div>
     </div>
   </div>
@@ -611,6 +612,10 @@
             <input type="text" id="nama" placeholder="Nama Anda" required>
           </div>
           <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-group">
             <label for="whatsapp">Nomor WhatsApp</label>
             <input type="tel" id="whatsapp" placeholder="08xx-xxxx-xxxx" required>
           </div>
@@ -618,7 +623,7 @@
             <label for="catatan">Catatan / Kebutuhan Proyek</label>
             <textarea id="catatan" placeholder="Ceritakan kebutuhan proyek Anda..."></textarea>
           </div>
-          <button type="submit" class="btn-block">Kirim Pesanan via WhatsApp</button>
+          <button type="submit" class="btn-block">Kirim Pesanan</button>
         </form>
       </div>
     </div>
@@ -651,6 +656,7 @@
 
   <script>
     let currentService = {
+      id_produk: '',
       title: '',
       desc: '',
       spec: '',
@@ -666,8 +672,8 @@
         nav.classList.toggle('flex');
     }
 
-    function openDetailModal(title, desc, spec, duration, price, img) {
-      currentService = { title, desc, spec, duration, price, img };
+    function openDetailModal(id_produk, title, desc, spec, duration, price, img) {
+      currentService = { id_produk, title, desc, spec, duration, price, img };
 
       document.getElementById('detailTitle').innerText = title;
       document.getElementById('detailDesc').innerText = desc;
@@ -705,18 +711,46 @@
       });
     }
 
-    function submitForm(e) {
+    async function submitForm(e) {
       e.preventDefault();
 
       const nama = document.getElementById('nama').value;
+      const email = document.getElementById('email').value;
       const wa = document.getElementById('whatsapp').value;
       const catatan = document.getElementById('catatan').value;
-      const adminNumber = "6281365004444"; // Nomor CS TeFA SMKN 4 Tanjungpinang
 
-      const message = `Halo TeFA SMKN 4 Tanjungpinang (GIM),%0A%0ASaya ingin memesan layanan:%0A*${currentService.title}* (${currentService.price})%0A%0A*Data Pemesan:*%0A- Nama: ${nama}%0A- No. WA: ${wa}%0A- Catatan: ${catatan || '-'}`;
+      try {
+          const response = await fetch("<?php echo e(route('pesanan.store')); ?>", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  "X-CSRF-TOKEN": "<?php echo e(csrf_token()); ?>",
+                  "Accept": "application/json"
+              },
+              body: JSON.stringify({
+                  id_produk: currentService.id_produk,
+                  nama_pemesan: nama,
+                  email_pemesan: email,
+                  no_hp_pemesan: wa,
+                  catatan_pesanan: catatan
+              })
+          });
 
-      window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
-      closeModal('formModal');
+          const data = await response.json();
+
+          if (!response.ok) {
+              alert(data.message || 'Pesanan gagal disimpan.');
+              return;
+          }
+
+          alert('Pesanan berhasil dikirim!');
+
+          closeModal('formModal');
+
+      } catch (error) {
+          console.error(error);
+          alert('Terjadi kesalahan saat mengirim pesanan.');
+      }
     }
   </script>
 </body>
