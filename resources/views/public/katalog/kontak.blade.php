@@ -107,39 +107,95 @@
           <h1 class="text-2xl md:text-3xl font-bold mb-2.5">Hubungi Kami</h1>
           <p class="text-blue-100 text-sm md:text-base mb-7">Ada pertanyaan seputar pemesanan, kerjasama, atau layanan TeFA? Kontak tim customer service kami.</p>
 
-          <ul class="flex flex-col gap-4">
-            <li class="flex items-start gap-3.5">
-              <span class="text-xl leading-none">📍</span>
-              <div>
-                <strong class="block text-sm md:text-base text-white font-semibold">Alamat Sekolah</strong>
-                <p class="text-xs md:text-sm text-slate-200">Jl. Pramuka No.3, Tanjungpinang, Kepulauan Riau</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3.5">
-              <span class="text-xl leading-none">📱</span>
-              <div>
-                <strong class="block text-sm md:text-base text-white font-semibold">Customer Service (WhatsApp)</strong>
-                <p class="text-xs md:text-sm text-slate-200">+62 813-6500-4444</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3.5">
-              <span class="text-xl leading-none">🕘</span>
-              <div>
-                <strong class="block text-sm md:text-base text-white font-semibold">Jam Layanan</strong>
-                <p class="text-xs md:text-sm text-slate-200">Senin – Jumat (08.00 – 16.00 WIB)</p>
-              </div>
-            </li>
-          </ul>
+    <ul class="flex flex-col gap-6">
+
+    {{-- GOOGLE MAPS --}}
+    <li>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d127654.38416180738!2d104.3584688966797!3d1.0091301928309448!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31d96c8b61440b13%3A0xdc142cab464b148a!2sSMK%20Negeri%204%20Tanjungpinang!5e0!3m2!1sid!2sid!4v1790602608760!5m2!1sid!2sid"
+            width="100%"
+            height="225"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            class="rounded-xl">
+        </iframe>
+    </li>
+
+    {{-- BAGIAN BAWAH MAP --}}
+    <li>
+        <div class="flex flex-col md:flex-row justify-between gap-8">
+
+            {{-- INFORMASI KIRI --}}
+            <div class="flex flex-col gap-4 flex-1">
+
+                {{-- ALAMAT --}}
+                <div class="flex items-start gap-3.5">
+                    <span class="text-xl leading-none">📍</span>
+                    <div>
+                        <strong class="block text-sm md:text-base text-white font-semibold">
+                            Alamat Sekolah
+                        </strong>
+                        <p class="text-xs md:text-sm text-slate-200">
+                        Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157
+                        </p>
+                    </div>
+                </div>
+
+                {{-- CUSTOMER SERVICE --}}
+                <div class="flex items-start gap-3.5">
+                    <span class="text-xl leading-none">📱</span>
+                    <div>
+                        <strong class="block text-sm md:text-base text-white font-semibold">
+                            Customer Service
+                        </strong>
+                        <p class="text-xs md:text-sm text-slate-200">
+                            +62 813-6500-4444
+                        </p>
+                    </div>
+                </div>
+
+                {{-- JAM LAYANAN --}}
+                <div class="flex items-start gap-3.5">
+                    <span class="text-xl leading-none">🕘</span>
+                    <div>
+                        <strong class="block text-sm md:text-base text-white font-semibold">
+                            Jam Layanan
+                        </strong>
+                        <p class="text-xs md:text-sm text-slate-200">
+                            Senin – Jumat (08.00 – 16.00 WIB)
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- TOMBOL KANAN --}}
+            <div class="flex flex-col gap-3.5 w-full md:w-[250px]">
+
+                <a
+                    href="https://wa.me/6281365004444"
+                    target="_blank"
+                    class="rounded-lg bg-green-600 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-green-700 hover:-translate-y-0.5 shadow-md">
+                    💬 Chat via WhatsApp
+                </a>
+
+                <a
+                    href="mailto:tefa@smkn4tpi.sch.id"
+                    class="rounded-lg bg-white/10 border border-white/30 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-white/20 hover:-translate-y-0.5">
+                    ✉️ Kirim Email CS
+                </a>
+
+            </div>
+
+        </div>
+    </li>
+
+</ul>
         </div>
 
-        <div class="flex flex-col gap-3.5 w-full md:min-w-[250px] md:w-auto">
-          <a href="https://wa.me/6281365004444" target="_blank" class="rounded-lg bg-green-600 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-green-700 hover:-translate-y-0.5 shadow-md">
-            💬 Chat via WhatsApp
-          </a>
-          <a href="mailto:tefa@smkn4tpi.sch.id" class="rounded-lg bg-white/10 border border-white/30 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-white/20 hover:-translate-y-0.5">
-            ✉️ Kirim Email CS
-          </a>
-        </div>
+        
 
       </div>
     </main>
