@@ -57,6 +57,14 @@ class TefaController extends Controller
         return view('public.katalog.jurusan.pspt', compact('tefas'));
     }
 
+    public function detail($id_produk)
+    {
+        $tefa = Tefa::where('id_produk', $id_produk)
+            ->where('status_aktif', true)
+            ->firstOrFail();
+
+        return view('public.katalog.jurusan.detail-produk', compact('tefa'));
+    }
 
     public function storePesanan(Request $request)
     {

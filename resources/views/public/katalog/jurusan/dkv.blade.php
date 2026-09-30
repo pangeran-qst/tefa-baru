@@ -569,19 +569,11 @@
                         </div>
                     </div>
 
-                    <button
-                        class="btn-detail"
-                        onclick="openDetailModal(
-                            {{ $tefa->id_produk }},
-                            @js($tefa->nama_produk),
-                            @js($tefa->deskripsi),
-                            'Layanan DKV',
-                            'Hubungi kami untuk informasi lebih lanjut',
-                            'Rp {{ number_format($tefa->harga, 0, ',', '.') }}',
-                            @js($tefa->gambar ? asset('gambar/tefa/' . $tefa->gambar) : '')
-                        )">
-                        Detail Jasa
-                    </button>
+                  <a
+                    href="{{ route('detail.produk', $tefa->id_produk) }}"
+                    class="btn-detail">
+                    Detail Jasa
+                  </a>
 
                 </div>
 
