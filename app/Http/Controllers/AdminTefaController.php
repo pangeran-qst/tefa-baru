@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tefa;
 use App\Models\Jurusan;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -109,21 +110,87 @@ class AdminTefaController extends Controller
     }
 
 
-    public function pesanan()
+    public function pesanan(Request $request)
     {
-        $pesanans = \App\Models\Pesanan::with([
-            'user',
-            'tefa',
-            'worker'
-        ])
-        ->latest('tanggal_pesan')
-        ->get();
+        $status = $request->query('status');
 
-        return view(
-            'admin.tefa.pesanan.index',
-            compact('pesanans')
-        );
+        $statusValid = [
+            'pending',
+            'waiting_response',
+            'in_progress',
+            'completed',
+            'cancelled',
+        ];
+
+        $query = Pesanan::with('tefa')
+            ->latest('tanggal_pesan');
+
+        // Filter kalau tab tertentu dipilih
+        if ($status && in_array($status, $statusValid)) {
+            $query->where('status', $status);
+        }
+
+        $pesanans = $query->get();
+
+        // Jumlah masing-masing status
+        $jumlahPending = Pesanan::where('status', 'pending')->count();
+
+        $jumlahWaitingResponse = Pesanan::where('status', 'waiting_response')->count();
+
+        $jumlahInProgress = Pesanan::where('status', 'in_progress')->count();
+
+        $jumlahCompleted = Pesanan::where('status', 'completed')->count();
+
+        $jumlahCancelled = Pesanan::where('status', 'cancelled')->count();
+
+        return view('admin.tefa.pesanan.index', compact(
+            'pesanans',
+            'status',
+            'jumlahPending',
+            'jumlahWaitingResponse',
+            'jumlahInProgress',
+            'jumlahCompleted',
+            'jumlahCancelled'
+        ));
     }
+
+
+    public function detailPesanan($id_pesanan)
+    {
+        $pesanan = Pesanan::findOrFail($id_pesanan);
+        
+        // 2. Ambil data semua jurusan agar modal bisa nampil list dropdown jurusan
+        $listJurusan = Jurusan::all(); 
+
+        return view('admin.tefa.pesanan.detail', compact('pesanan', 'listJurusan'));
+    }
+
+
+
+    public function prosesPesanan(Request $request, $id_pesanan)
+    {
+        $request->validate([
+            'status'     => 'required|in:diproses,selesai,ditolak',
+            'jurusan_id' => 'required|exists:jurusan,id', // Validasi jurusan wajib dipilih
+            'catatan'    => 'nullable|string',
+        ]);
+
+        $pesanan = Pesanan::findOrFail($id_pesanan);
+        
+        // Update status dan lempar ke ID jurusan yang dipilih
+        $pesanan->status     = $request->status;
+        $pesanan->jurusan_id = $request->jurusan_id; 
+
+        if ($request->filled('catatan')) {
+            $pesanan->catatan = $request->catatan;
+        }
+
+        $pesanan->save();
+
+        return redirect()->back()->with('success', 'Pesanan berhasil diteruskan ke Admin Jurusan!');
+    }
+
+
 
 
     // HALAMAN EDIT PRODUK
@@ -200,6 +267,11 @@ class AdminTefaController extends Controller
             ->route('admin.tefa.produk')
             ->with('success', 'Produk berhasil diperbarui.');
     }
+
+
+    
+
+
 
     //UNTUK MENCETAK PDF KATALOG OLEH ADMIN
     public function cetakKatalog()

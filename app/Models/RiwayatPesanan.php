@@ -9,21 +9,22 @@ class RiwayatPesanan extends Model
 {
     use HasFactory;
 
-    protected $table = 'tracking_pesanans';
-    protected $primaryKey = 'id_tracking';
+    protected $table = 'riwayat_pesanans';
+
+    protected $primaryKey = 'id_riwayat';
 
     protected $fillable = [
         'id_pesanan',
-        'tanggal_tracking',
         'status',
-        'keterangan',
-        'lokasi',
+        'catatan',
+        'tanggal_tracking',
     ];
 
     protected $casts = [
         'tanggal_tracking' => 'datetime',
     ];
 
+    // Relasi ke pesanan
     public function pesanan()
     {
         return $this->belongsTo(

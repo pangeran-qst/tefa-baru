@@ -148,6 +148,12 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::get('/pesanan', [AdminTefaController::class, 'pesanan'])
             ->name('admin.tefa.pesanan');
 
+        Route::get('/pesanan/{id_pesanan}', [AdminTefaController::class, 'detailPesanan'])
+            ->name('admin.tefa.pesanan.detail');
+
+        Route::post('/pesanan/{id_pesanan}/proses', [AdminTefaController::class, 'prosesPesanan'])
+            ->name('admin.tefa.pesanan.proses');
+
         Route::delete('/produk/{id_produk}', [AdminTefaController::class, 'destroyProduk'])
             ->name('admin.tefa.produk.destroy');
 
