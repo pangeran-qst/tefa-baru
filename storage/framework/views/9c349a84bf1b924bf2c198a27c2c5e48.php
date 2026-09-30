@@ -201,162 +201,200 @@
 
 
       
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
         <!-- TKJ -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-emerald-700 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-emerald-700 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box (Desain Awal) -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/tkj.png')); ?>" alt="Logo TKJ" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">TKJ</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Teknik Komputer dan Jaringan
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Instalasi jaringan, maintenance komputer, dan solusi IT infrastruktur.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.tkj')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.tkj')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan TKJ</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
 
 
         <!-- GIM -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-cyan-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-cyan-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/gim.png')); ?>" alt="Logo GIM" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">GIM</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Pengembangan Game
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Pengembangan game mobile, PC, dan game edukasi interaktif.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.gim')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.gim')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan GIM</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
 
 
         <!-- ANIMASI -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-blue-600 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-blue-600 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/animasi.png')); ?>" alt="Logo ANIMASI" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">ANIMASI</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Animasi
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Animasi 2D/3D, motion graphic, ilustrasi, dan konten visual.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.animasi')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.animasi')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan ANIMASI</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
 
 
         <!-- RPL -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-orange-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-orange-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/rpl.png')); ?>" alt="Logo RPL" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">RPL</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Rekayasa Perangkat Lunak
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Pengembangan aplikasi web, mobile, dan sistem informasi.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.rpl')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.rpl')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan RPL</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
 
 
         <!-- DKV -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-red-600 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-red-600 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/dkv.png')); ?>" alt="Logo DKV" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">DKV</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Desain Komunikasi Visual
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Desain grafis, branding, ilustrasi, dan komunikasi visual kreatif.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.dkv')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.dkv')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan DKV</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
 
 
         <!-- PSPT -->
-        <div class="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-yellow-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
+        <div class="group relative flex min-h-[280px] flex-col justify-between overflow-hidden rounded-xl border border-slate-200 border-t-4 border-t-yellow-400 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md">
             <div>
-                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg bg-slate-50 border border-slate-200">
+                <!-- Logo Box -->
+                <div class="mb-4 flex h-14 w-14 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
                     <img src="<?php echo e(asset('gambar/tefa/pspt.png')); ?>" alt="Logo PSPT" class="h-full w-full object-cover">
                 </div>
 
+                <!-- Judul Singkat -->
                 <h3 class="mb-1 text-xl font-bold text-slate-900">PSPT</h3>
 
+                <!-- Nama Panjang Jurusan -->
                 <div class="mb-3 text-sm font-semibold text-blue-600">
                     Produksi Siaran Program Televisi
                 </div>
 
+                <!-- Deskripsi -->
                 <p class="mb-6 text-sm text-slate-500 leading-relaxed">
                     Produksi video, dokumentasi acara, iklan, dan konten multimedia.
                 </p>
             </div>
 
-            <div class="flex items-center justify-between text-xs text-slate-400">
-                <a href="<?php echo e(route('katalog.pspt')); ?>" class="font-semibold text-blue-600 hover:underline">
-                    Lihat Layanan →
-                </a>
-            </div>
+            <!-- Tombol CTA Full-Width -->
+            <a href="<?php echo e(route('katalog.pspt')); ?>" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                <span>Lihat Layanan PSPT</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </div>
+        
+      </div>
 
     </div>
     </section>
