@@ -61,6 +61,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])
             ->name('logout');
 
+
+
+    // Dashboard Client / Pembeli
+    Route::get('/profil', function () {
+        return view('client.dashboard');
+    })->name('client.dashboard');
+
+
     // Dashboard Admin Jurusan
     Route::get('/admin/jurusan', function () {
         return view('admin.jurusan.dashboard');
