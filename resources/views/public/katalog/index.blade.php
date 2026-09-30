@@ -31,64 +31,137 @@
 
 
       {{-- BAGIAN KANAN --}}
-      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
 
-          {{-- NAVIGASI --}}
-          <nav
-              id="navMenu"
-              class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
+            {{-- NAVIGASI --}}
+            <nav
+                id="navMenu"
+                class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
 
-              <a
-                  href="{{ url('/') }}"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Beranda
-              </a>
+                {{-- BERANDA --}}
+                <a
+                    href="{{ url('/') }}"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Beranda
+                </a>
 
-              <a
-                  href="{{ route('katalog') }}"
-                  class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
-                  Layanan
-              </a>
+                {{-- LAYANAN --}}
+                <a
+                    href="{{ route('katalog') }}"
+                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
+                    Layanan
+                </a>
 
-              <a
-                  href="{{ route('cek.ticket') }}"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Cek Tiket
-              </a>
+                {{-- CEK TIKET --}}
+                <a
+                    href="{{ route('cek.ticket') }}"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Cek Tiket
+                </a>
 
-              <a
-                  href="{{ route('kontak') }}"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Kontak
-              </a>
+                {{-- KONTAK --}}
+                <a
+                    href="{{ route('kontak') }}"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Kontak
+                </a>
 
-          </nav>
+            </nav>
 
 
-          {{-- ICON PROFIL --}}
-          <button
-              type="button"
-              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white shadow-md transition hover:bg-blue-900"
-              aria-label="Profil">
+            {{-- ICON PROFIL --}}
+            <div class="relative group">
 
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2">
+                {{-- TOMBOL USER --}}
+                <button
+                    type="button"
+                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white shadow-md transition hover:bg-blue-900"
+                    aria-label="Profil">
 
-                  <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
 
-              </svg>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
 
-          </button>
+                    </svg>
 
-      </div>
+                </button>
+
+
+                {{-- DROPDOWN PROFIL --}}
+                <div class="absolute right-0 top-full z-50 hidden pt-2 group-hover:block">
+
+                    <div class="w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+
+                        {{-- KHUSUS CLIENT --}}
+                        @if(Auth::check() && Auth::user()->role === 'client')
+
+                            {{-- DATA CLIENT --}}
+                            <div class="border-b border-slate-100 px-4 py-2">
+
+                                <p class="text-sm font-semibold text-slate-900">
+                                    {{ Auth::user()->nama }}
+                                </p>
+
+                                <p class="mt-0.5 text-xs text-slate-500">
+                                    {{ Auth::user()->email }}
+                                </p>
+
+                            </div>
+
+
+                            {{-- PROFIL SAYA --}}
+                            <a
+                                href="{{ route('client.dashboard') }}"
+                                class="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
+                                Profil Saya
+                            </a>
+
+
+                            {{-- LOGOUT --}}
+                            <div class="mt-1 border-t border-slate-100 pt-1">
+
+                                <form action="{{ route('logout') }}" method="POST">
+
+                                    @csrf
+
+                                    <button
+                                        type="submit"
+                                        class="w-full rounded-lg px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50">
+                                        Logout
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                        @else
+
+                            {{-- GUEST / ADMIN / ADMIN JURUSAN / WORKER --}}
+                            <a
+                                href="{{ route('login', ['redirect' => url()->current()]) }}"
+                                class="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
+                                Login
+                            </a>
+
+                        @endif
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
 
       {{-- TOMBOL MENU MOBILE --}}

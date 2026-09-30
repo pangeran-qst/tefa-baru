@@ -31,64 +31,139 @@
 
 
       
-      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-4">
 
-          
-          <nav
-              id="navMenu"
-              class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
+            
+            <nav
+                id="navMenu"
+                class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
 
-              <a
-                  href="<?php echo e(url('/')); ?>"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Beranda
-              </a>
+                
+                <a
+                    href="<?php echo e(url('/')); ?>"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Beranda
+                </a>
 
-              <a
-                  href="<?php echo e(route('katalog')); ?>"
-                  class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
-                  Layanan
-              </a>
+                
+                <a
+                    href="<?php echo e(route('katalog')); ?>"
+                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
+                    Layanan
+                </a>
 
-              <a
-                  href="<?php echo e(route('cek.ticket')); ?>"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Cek Tiket
-              </a>
+                
+                <a
+                    href="<?php echo e(route('cek.ticket')); ?>"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Cek Tiket
+                </a>
 
-              <a
-                  href="<?php echo e(route('kontak')); ?>"
-                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Kontak
-              </a>
+                
+                <a
+                    href="<?php echo e(route('kontak')); ?>"
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    Kontak
+                </a>
 
-          </nav>
+            </nav>
 
 
-          
-          <button
-              type="button"
-              class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white shadow-md transition hover:bg-blue-900"
-              aria-label="Profil">
+            
+            <div class="relative group">
 
-              <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2">
+                
+                <button
+                    type="button"
+                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-800 text-white shadow-md transition hover:bg-blue-900"
+                    aria-label="Profil">
 
-                  <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2">
 
-              </svg>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
 
-          </button>
+                    </svg>
 
-      </div>
+                </button>
+
+
+                
+                <div class="absolute right-0 top-full z-50 hidden pt-2 group-hover:block">
+
+                    <div class="w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+
+                        
+                        <?php if(Auth::check() && Auth::user()->role === 'client'): ?>
+
+                            
+                            <div class="border-b border-slate-100 px-4 py-2">
+
+                                <p class="text-sm font-semibold text-slate-900">
+                                    <?php echo e(Auth::user()->nama); ?>
+
+                                </p>
+
+                                <p class="mt-0.5 text-xs text-slate-500">
+                                    <?php echo e(Auth::user()->email); ?>
+
+                                </p>
+
+                            </div>
+
+
+                            
+                            <a
+                                href="<?php echo e(route('client.dashboard')); ?>"
+                                class="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
+                                Profil Saya
+                            </a>
+
+
+                            
+                            <div class="mt-1 border-t border-slate-100 pt-1">
+
+                                <form action="<?php echo e(route('logout')); ?>" method="POST">
+
+                                    <?php echo csrf_field(); ?>
+
+                                    <button
+                                        type="submit"
+                                        class="w-full rounded-lg px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50">
+                                        Logout
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                        <?php else: ?>
+
+                            
+                            <a
+                                href="<?php echo e(route('login', ['redirect' => url()->current()])); ?>"
+                                class="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
+                                Login
+                            </a>
+
+                        <?php endif; ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
 
 
       
