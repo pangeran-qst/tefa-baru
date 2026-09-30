@@ -18,19 +18,23 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
+            if (Auth::user()->role == 'client') {
+            return redirect()->route('client.dashboard');
+        }
+
             if (Auth::user()->role == 'admin_tefa') {
                 return redirect('/admin/tefa');
-            }
+        }
 
             if (Auth::user()->role == 'admin_jurusan') {
                 return redirect('/admin/jurusan');
-            }
+        }
 
             if (Auth::user()->role == 'worker') {
                 return redirect('/worker');
-            }
+        }
 
-            return redirect('/tefa');
+        return redirect('/tefa');
         }
 
         return back()->withErrors([
