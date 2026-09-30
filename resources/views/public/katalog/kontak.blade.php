@@ -102,7 +102,7 @@
 
     <main class="flex-1 px-5 md:px-[8%] py-[40px] md:py-[60px]">
       <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-8 md:gap-[40px] rounded-2xl bg-gradient-to-r from-blue-900 to-blue-600 p-6 md:p-12 text-white shadow-xl shadow-blue-500/10">
-        
+         
         <div class="flex-1">
           <h1 class="text-2xl md:text-3xl font-bold mb-2.5">Hubungi Kami</h1>
           <p class="text-blue-100 text-sm md:text-base mb-7">Ada pertanyaan seputar pemesanan, kerjasama, atau layanan TeFA? Kontak tim customer service kami.</p>
