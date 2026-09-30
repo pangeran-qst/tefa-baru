@@ -10,8 +10,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('/login', function () {
+Route::get('/login', function (Illuminate\Http\Request $request) {
+
+    if ($request->has('redirect')) {
+        session(['url.intended' => $request->query('redirect')]);
+    }
+
     return view('login');
+
 })->name('login');
 
 Route::post('/login-proses', [AuthController::class, 'login'])
@@ -19,7 +25,7 @@ Route::post('/login-proses', [AuthController::class, 'login'])
 
     
 //halaman utama
-Route::get('/tefa', [TefaController::class, 'index']);
+
 
 //katalog produk tefa
 Route::get('/katalog', [TefaController::class, 'katalog'])

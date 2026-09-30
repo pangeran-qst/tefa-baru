@@ -19,7 +19,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 'client') {
-            return redirect()->route('client.dashboard');
+            return redirect()->intended('/tefa');
         }
 
             if (Auth::user()->role == 'admin_tefa') {
@@ -49,6 +49,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect('/');
     }
 }

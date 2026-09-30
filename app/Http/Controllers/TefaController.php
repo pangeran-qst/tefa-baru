@@ -8,13 +8,6 @@ use Illuminate\Http\Request;
 
 class TefaController extends Controller
 {
-    public function index()
-    {
-        $tefas = Tefa::all();
-
-        return view('tefa.index', compact('tefas'));
-    }
-
    public function katalog()
     {
         $tefas = Tefa::where('status_aktif', true)->get();
