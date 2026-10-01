@@ -28,26 +28,26 @@
       
       <!-- Tab 1: Pesanan Masuk -->
       <button onclick="switchTab('pesanan-masuk')" id="tab-pesanan-masuk" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition">
-        <span>📮</span> Pesanan Masuk
-        <span class="bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full">3</span>
+        <span></span> Pesanan Masuk
+        <span class="bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full">{{ $pesananMasuk->count() }}</span>
       </button>
 
       <!-- Tab 2: Dalam Pengerjaan -->
       <button onclick="switchTab('dalam-pengerjaan')" id="tab-dalam-pengerjaan" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">
-        <span>🔧</span> Dalam Pengerjaan
-        <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">2</span>
+        <span></span> Dalam Pengerjaan
+        <span class="bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full">{{ $dalamPengerjaan->count() }}</span>
       </button>
 
       <!-- Tab 3: Peninjauan & QC -->
       <button onclick="switchTab('peninjauan-qc')" id="tab-peninjauan-qc" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">
-        <span>🔍</span> Peninjauan & QC
-        <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">1</span>
+        <span></span> Peninjauan & QC
+        <span class="bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full">{{ $peninjauanQC->count() }}</span>
       </button>
 
       <!-- Tab 4: Pesanan Selesai -->
       <button onclick="switchTab('pesanan-selesai')" id="tab-pesanan-selesai" class="tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition">
-        <span>🎉</span> Pesanan Selesai
-        <span class="bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full">3</span>
+        <span></span> Pesanan Selesai
+        <span class="bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full">{{ $pesananSelesai->count() }}</span>
       </button>
 
     </div>
@@ -57,292 +57,170 @@
     <!-- CONTENT 1: PESANAN MASUK -->
     <div id="content-pesanan-masuk" class="tab-content space-y-4">
       
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-083</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-            <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">Baru</span>
-          </div>
-          <h3 class="text-base font-bold text-slate-800">Sistem Manajemen Aset</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: <span class="text-slate-700 font-semibold">PT Bangun Nusantara</span></p>
-          <p class="text-xs text-slate-500 mt-2 max-w-2xl leading-relaxed">
-            Aplikasi web untuk mengelola aset perusahaan termasuk inventarisasi, pelacakan, dan pelaporan.
-          </p>
-          <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
-            <span>⏰</span> Deadline: <strong class="text-slate-700">10 Sep 2024</strong>
-          </div>
-        </div>
+      @forelse($pesananMasuk as $item)
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+              <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">Baru</span>
+            </div>
 
-        <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto">
-          <button class="w-full text-center px-4 py-2 border border-rose-200 text-rose-500 hover:bg-rose-50 rounded-xl text-xs font-semibold transition">
-            ✕ Tolak
-          </button>
-          <button class="w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition shadow-sm">
-            ✓ Terima & Assign
-          </button>
-          <button class="w-full text-center px-4 py-2 border border-emerald-200 text-emerald-600 hover:bg-emerald-50 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
-            <span>📲</span> Kirim Resi WA
-          </button>
-        </div>
-      </div>
+            <h3 class="text-base font-bold text-slate-800">
+              {{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan Tidak Diketahui' }}
+            </h3>
 
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-082</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-            <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">Baru</span>
-          </div>
-          <h3 class="text-base font-bold text-slate-800">Aplikasi Antrian Digital</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: <span class="text-slate-700 font-semibold">Klinik Medika Sehat</span></p>
-          <p class="text-xs text-slate-500 mt-2 max-w-2xl leading-relaxed">
-            Sistem antrian berbasis web dan display layar untuk klinik dengan fitur notifikasi pasien.
-          </p>
-          <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
-            <span>⏰</span> Deadline: <strong class="text-slate-700">08 Sep 2024</strong>
-          </div>
-        </div>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">
+              Klien: <span class="text-slate-700 font-semibold">{{ $item->nama_pemesan }}</span>
+              @if($item->no_hp_pemesan)
+                · <span class="text-slate-500">{{ $item->no_hp_pemesan }}</span>
+              @endif
+            </p>
 
-        <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto">
-          <button class="w-full text-center px-4 py-2 border border-rose-200 text-rose-500 hover:bg-rose-50 rounded-xl text-xs font-semibold transition">
-            ✕ Tolak
-          </button>
-          <button class="w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition shadow-sm">
-            ✓ Terima & Assign
-          </button>
-          <button class="w-full text-center px-4 py-2 border border-emerald-200 text-emerald-600 hover:bg-emerald-50 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
-            <span>📲</span> Kirim Resi WA
-          </button>
-        </div>
-      </div>
+            <p class="text-xs text-slate-500 mt-2 max-w-2xl leading-relaxed">
+              {{ $item->catatan_pesanan ?? $item->catatan ?? 'Tidak ada catatan khusus dari Admin TEFA / Klien.' }}
+            </p>
 
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-080</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-            <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">Baru</span>
+            <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
+              <span>⏰</span> Tanggal Pesan: 
+              <strong class="text-slate-700">
+                {{ $item->created_at ? $item->created_at->format('d M Y - H:i') : '-' }} WIB
+              </strong>
+            </div>
           </div>
-          <h3 class="text-base font-bold text-slate-800">E-commerce Toko Online</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: <span class="text-slate-700 font-semibold">Toko Elektronik Surya</span></p>
-          <p class="text-xs text-slate-500 mt-2 max-w-2xl leading-relaxed">
-            Platform belanja online lengkap dengan katalog produk, keranjang, dan integrasi payment gateway.
-          </p>
-          <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
-            <span>⏰</span> Deadline: <strong class="text-slate-700">15 Sep 2024</strong>
+
+          <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto">
+            <!-- 1. Chat WA Klien -->
+            @php
+              $noHp = $item->no_hp_pemesan ?? '';
+              if (str_starts_with($noHp, '0')) {
+                  $noHp = '62' . substr($noHp, 1);
+              }
+              $pesanWa = rawurlencode("Halo " . $item->nama_pemesan . ", kami dari Admin Jurusan TeFa ingin mengonfirmasi pesanan #" . str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) . " (" . ($item->tefa->nama_produk ?? 'Layanan') . ").");
+            @endphp
+            <a href="https://wa.me/{{ $noHp }}?text={{ $pesanWa }}" target="_blank" class="px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
+              <span>💬 Chat WA</span>
+            </a>
+
+            <!-- 2. Tombol Tolak -->
+            <form action="{{ route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menolak pesanan ini?')">
+              @csrf
+              <input type="hidden" name="status" value="ditolak">
+              <button type="submit" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition">
+                ✕ Tolak
+              </button>
+            </form>
+
+            <!-- 3. Tombol Terima & Tugaskan (Aktif Membuka Modal) -->
+            <button type="button" 
+              onclick="openAssignModal('{{ $item->id_pesanan ?? $item->id }}', '{{ addslashes($item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan') }}')" 
+              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm transition">
+              ✓ Terima & Tugaskan
+            </button>
           </div>
         </div>
-
-        <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto">
-          <button class="w-full text-center px-4 py-2 border border-rose-200 text-rose-500 hover:bg-rose-50 rounded-xl text-xs font-semibold transition">
-            ✕ Tolak
-          </button>
-          <button class="w-full text-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition shadow-sm">
-            ✓ Terima & Assign
-          </button>
-          <button class="w-full text-center px-4 py-2 border border-emerald-200 text-emerald-600 hover:bg-emerald-50 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
-            <span>📲</span> Kirim Resi WA
-          </button>
+      @empty
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+          <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3 text-lg">
+            📮
+          </div>
+          <h4 class="text-sm font-bold text-slate-700">Belum Ada Pesanan Masuk</h4>
+          <p class="text-xs text-slate-400 mt-1">Pesanan yang diteruskan oleh Admin TEFA ke jurusan ini akan muncul di sini.</p>
         </div>
-      </div>
+      @endforelse
 
     </div>
 
     <!-- CONTENT 2: DALAM PENGERJAAN -->
     <div id="content-dalam-pengerjaan" class="tab-content hidden space-y-4">
-      
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+      @forelse($dalamPengerjaan as $item)
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-semibold text-slate-400">ORD-2024-081</span>
-              <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-md">In Progress</span>
+              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-md">Proses Pengerjaan</span>
             </div>
-            <h3 class="text-base font-bold text-slate-800">Web Company Profile</h3>
-            <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: <span class="text-slate-700 font-semibold">PT Maju Bersama</span></p>
+            <h3 class="text-base font-bold text-slate-800">{{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}</h3>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">
+              Worker: <span class="text-indigo-600 font-bold">{{ $item->worker->name ?? $item->worker->username ?? 'Belum ditugaskan' }}</span>
+              · Klien: <span class="text-slate-700 font-semibold">{{ $item->nama_pemesan }}</span>
+            </p>
           </div>
-          <div class="text-left md:text-right mt-2 md:mt-0">
-            <span class="text-[11px] text-slate-400">Worker</span>
-            <p class="text-xs font-bold text-slate-800">Rizky Aditya (XI RPL 2)</p>
-            <p class="text-[11px] text-slate-500">Deadline: 30 Agu 2024</p>
-          </div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="mb-4">
-          <div class="flex justify-between items-center text-xs font-semibold mb-1.5">
-            <span class="text-slate-500">Progress</span>
-            <span class="text-indigo-600 font-bold">65%</span>
-          </div>
-          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-            <div class="bg-indigo-600 h-2 rounded-full" style="width: 65%"></div>
+          <div class="flex items-center gap-2">
+            <form action="{{ route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id) }}" method="POST">
+              @csrf
+              <input type="hidden" name="status" value="review">
+              <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-semibold transition">
+                Kirim ke QC / Review →
+              </button>
+            </form>
           </div>
         </div>
-
-        <!-- Checklist Badges -->
-        <div class="flex flex-wrap gap-2 pt-2">
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Riset & Wireframe</span>
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Desain UI (Figma)</span>
-          <span class="bg-slate-50 text-slate-400 text-xs px-3 py-1.5 rounded-xl font-medium border border-slate-200">○ Pengembangan Frontend</span>
-          <span class="bg-slate-50 text-slate-400 text-xs px-3 py-1.5 rounded-xl font-medium border border-slate-200">○ Integrasi CMS</span>
-          <span class="bg-slate-50 text-slate-400 text-xs px-3 py-1.5 rounded-xl font-medium border border-slate-200">○ Testing & Review</span>
+      @empty
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+          <p class="text-xs text-slate-400">Belum ada pesanan yang sedang dikerjakan.</p>
         </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-semibold text-slate-400">ORD-2024-078</span>
-              <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-md">In Progress</span>
-            </div>
-            <h3 class="text-base font-bold text-slate-800">Sistem Absensi Siswa</h3>
-            <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: <span class="text-slate-700 font-semibold">SMK Karya Bangsa</span></p>
-          </div>
-          <div class="text-left md:text-right mt-2 md:mt-0">
-            <span class="text-[11px] text-slate-400">Worker</span>
-            <p class="text-xs font-bold text-slate-800">Fajar Nugroho (XII RPL 1)</p>
-            <p class="text-[11px] text-slate-500">Deadline: 02 Sep 2024</p>
-          </div>
-        </div>
-
-        <!-- Progress Bar -->
-        <div class="mb-4">
-          <div class="flex justify-between items-center text-xs font-semibold mb-1.5">
-            <span class="text-slate-500">Progress</span>
-            <span class="text-indigo-600 font-bold">82%</span>
-          </div>
-          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-            <div class="bg-indigo-600 h-2 rounded-full" style="width: 82%"></div>
-          </div>
-        </div>
-
-        <!-- Checklist Badges -->
-        <div class="flex flex-wrap gap-2 pt-2">
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Database Design</span>
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Backend API</span>
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Frontend Dashboard</span>
-          <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1.5 rounded-xl font-medium border border-emerald-200">✓ Fitur QR Code</span>
-          <span class="bg-slate-50 text-slate-400 text-xs px-3 py-1.5 rounded-xl font-medium border border-slate-200">○ Laporan & Export</span>
-        </div>
-      </div>
-
+      @endforelse
     </div>
 
     <!-- CONTENT 3: PENINJAUAN & QC -->
     <div id="content-peninjauan-qc" class="tab-content hidden space-y-4">
-      
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start gap-6">
-        <div class="flex-1">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-079</span>
-            <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-0.5 rounded-md">Menunggu QC</span>
+      @forelse($peninjauanQC as $item)
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+              <span class="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md">Peninjauan / QC</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">{{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}</h3>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Dikerjakan oleh: {{ $item->worker->name ?? 'Worker' }}</p>
           </div>
-          <h3 class="text-base font-bold text-slate-800">Sistem Inventori</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Klien: <span class="text-slate-700 font-semibold">CV Teknindo Jaya</span>
-          </p>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Worker: <span class="text-slate-800 font-semibold">Siti Nurhaliza (XII RPL 2)</span>
-          </p>
-          
-          <p class="text-xs text-slate-500 mt-3 leading-relaxed">
-            Aplikasi manajemen stok barang gudang dengan laporan real-time.
-          </p>
-
-          <div class="flex flex-wrap gap-2 mt-4">
-            <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-xl font-medium border border-emerald-200">✓ Analisis Kebutuhan</span>
-            <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-xl font-medium border border-emerald-200">✓ Desain Database</span>
-            <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-xl font-medium border border-emerald-200">✓ Pengembangan</span>
-            <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-xl font-medium border border-emerald-200">✓ Testing Internal</span>
-            <span class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-xl font-medium border border-emerald-200">✓ Dokumentasi</span>
+          <div class="flex items-center gap-2">
+            <form action="{{ route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id) }}" method="POST">
+              @csrf
+              <input type="hidden" name="status" value="selesai">
+              <button type="submit" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition">
+                ✓ Setujui & Selesaikan
+              </button>
+            </form>
           </div>
-
-          <a href="#" class="inline-flex items-center gap-1.5 text-xs text-indigo-600 hover:text-indigo-800 font-semibold mt-4">
-            📎 Lihat Lampiran Hasil Kerja
-          </a>
         </div>
-
-        <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto shrink-0">
-          <button class="w-full text-center px-4 py-2.5 border border-amber-300 text-amber-600 hover:bg-amber-50 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1">
-            <span>🔄</span> Revisi
-          </button>
-          <button class="w-full text-center px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1">
-            <span>✓</span> Approve QC
-          </button>
+      @empty
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+          <p class="text-xs text-slate-400">Belum ada pesanan dalam peninjauan QC.</p>
         </div>
-      </div>
-
+      @endforelse
     </div>
 
     <!-- CONTENT 4: PESANAN SELESAI -->
     <div id="content-pesanan-selesai" class="tab-content hidden space-y-4">
-      
-      <!-- Card 1 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-074</span>
-            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">✓ Selesai & Lolos QC</span>
+      @forelse($pesananSelesai as $item)
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md">Selesai</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-800">{{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}</h3>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Klien: {{ $item->nama_pemesan }}</p>
           </div>
-          <h3 class="text-base font-bold text-slate-800">Landing Page Promosi</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Klien: <span class="text-slate-700 font-semibold">UD Serba Ada</span> · Worker: <span class="text-slate-700 font-semibold">Dian Pratama (XI RPL 1)</span>
-          </p>
-        </div>
-        <div class="text-left md:text-right">
-          <p class="text-xs text-slate-400">Deadline: 22 Agu 2024</p>
-          <p class="text-xs font-semibold text-emerald-600 mt-0.5">Selesai: 21 Agu 2024</p>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-070</span>
-            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">✓ Selesai & Lolos QC</span>
+          <div>
+            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-xl">✓ Tuntas</span>
           </div>
-          <h3 class="text-base font-bold text-slate-800">Menu Digital QR</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Klien: <span class="text-slate-700 font-semibold">Restoran Dapur Nusantara</span> · Worker: <span class="text-slate-700 font-semibold">Mega Putri (XII RPL 1)</span>
-          </p>
         </div>
-        <div class="text-left md:text-right">
-          <p class="text-xs text-slate-400">Deadline: 15 Agu 2024</p>
-          <p class="text-xs font-semibold text-emerald-600 mt-0.5">Selesai: 14 Agu 2024</p>
+      @empty
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+          <p class="text-xs text-slate-400">Belum ada pesanan yang selesai.</p>
         </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-400">ORD-2024-065</span>
-            <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-md">✓ Selesai & Lolos QC</span>
-          </div>
-          <h3 class="text-base font-bold text-slate-800">Website Event</h3>
-          <p class="text-xs text-slate-500 font-medium mt-0.5">
-            Klien: <span class="text-slate-700 font-semibold">Event Organizer Gemilang</span> · Worker: <span class="text-slate-700 font-semibold">Budi Santoso (XII RPL 2)</span>
-          </p>
-        </div>
-        <div class="text-left md:text-right">
-          <p class="text-xs text-slate-400">Deadline: 05 Agu 2024</p>
-          <p class="text-xs font-semibold text-emerald-600 mt-0.5">Selesai: 04 Agu 2024</p>
-        </div>
-      </div>
-
+      @endforelse
     </div>
 
   </main>
 
-  <!-- JAVASCRIPT UNTUK SWITCH TAB -->
+  <!-- JAVASCRIPT UNTUK SWITCH TAB & MODAL -->
   <script>
     function switchTab(tabId) {
       // Sembunyikan semua konten
@@ -375,9 +253,89 @@
         }
       }
     }
+
+    // FUNGSI MODAL DIPISAH (GLOBAL SCOPE)
+    function openAssignModal(idPesanan, namaProduk) {
+      const modalEl = document.getElementById('assignWorkerModal');
+      const form = document.getElementById('assignWorkerForm');
+      const txtNama = document.getElementById('modalNamaProduk');
+
+      if (txtNama) txtNama.innerText = namaProduk;
+      if (form) form.action = '/admin/jurusan/pesanan/' + idPesanan + '/assign';
+
+      // Jika menggunakan Bootstrap 5 JS Instance:
+      if (typeof bootstrap !== 'undefined') {
+          const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+          bsModal.show();
+      } else {
+          // Fallback jika tanpa instance BS JS
+          modalEl.classList.add('show');
+          modalEl.style.display = 'block';
+      }
+    }
+
+  function closeAssignModal() {
+      const modalEl = document.getElementById('assignWorkerModal');
+      
+      if (typeof bootstrap !== 'undefined') {
+          const bsModal = bootstrap.Modal.getInstance(modalEl);
+          if (bsModal) bsModal.hide();
+      } else {
+          modalEl.classList.remove('show');
+          modalEl.style.display = 'none';
+      }
+    }
   </script>
 
   
+
+<!-- MODAL ASSIGN WORKER (Gaya Bootstrap Acuan) -->
+<div class="modal fade" id="assignWorkerModal" tabindex="-1" aria-labelledby="assignWorkerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="assignWorkerModalLabel">Tugaskan Pesanan ke Worker</h5>
+                <button type="button" class="btn-close" onclick="closeAssignModal()" aria-label="Close"></button>
+            </div>
+            
+            <form id="assignWorkerForm" action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    
+                    <!-- Info Layanan Ringkas -->
+                    <p class="text-muted mb-3" style="font-size: 0.875rem;">
+                        Layanan: <strong id="modalNamaProduk" class="text-dark"></strong>
+                    </p>
+
+                    <!-- 1. Select Worker / Siswa -->
+                    <div class="mb-3">
+                        <label for="id_user_worker" class="form-label font-weight-bold">Worker / Siswa Jurusan</label>
+                        <select name="id_user_worker" id="id_user_worker" class="form-select" required>
+                            <option value="" disabled selected>-- Pilih Siswa / Worker --</option>
+                            @foreach($workers as $worker)
+                                <option value="{{ $worker->id }}">
+                                    {{ $worker->name ?? $worker->username }} ({{ $worker->email }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <small class="text-muted">Siswa yang dipilih akan menerima tugas pengerjaan pesanan ini.</small>
+                    </div>
+
+                    <!-- 2. Catatan / Instruksi Pengerjaan untuk Worker (Opsional) -->
+                    <div class="mb-3">
+                        <label for="catatan_worker" class="form-label font-weight-bold">Catatan / Instruksi Tambahan</label>
+                        <textarea name="catatan_worker" id="catatan_worker" class="form-control" rows="3" placeholder="Masukkan instruksi khusus untuk Worker / Siswa..."></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeAssignModal()">Batal</button>
+                    <button type="submit" class="btn btn-primary">Simpan & Tugaskan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
   
 @endsection

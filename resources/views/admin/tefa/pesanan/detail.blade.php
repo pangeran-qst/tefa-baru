@@ -736,9 +736,10 @@
                         <div class="mb-3">
                             <label for="jurusan_id" class="form-label font-weight-bold">Lempar ke Admin Jurusan</label>
                             <select name="jurusan_id" id="jurusan_id" class="form-select" required>
-                                <option value="">-- Pilih Jurusan Tujuan --</option>
+                                {{-- Bikin default selected + disabled biar wajib milih --}}
+                                <option value="" disabled {{ empty($pesanan->jurusan_id) ? 'selected' : '' }}>-- Pilih Jurusan Tujuan --</option>
                                 @foreach($listJurusan as $jurusan)
-                                    <option value="{{ $jurusan->id }}" {{ ($pesanan->jurusan_id ?? '') == $jurusan->id ? 'selected' : '' }}>
+                                    <option value="{{ $jurusan->id ?? $jurusan->id_jurusan }}" {{ ($pesanan->jurusan_id ?? '') == ($jurusan->id ?? $jurusan->id_jurusan) ? 'selected' : '' }}>
                                         {{ $jurusan->nama_jurusan }}
                                     </option>
                                 @endforeach
