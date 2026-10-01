@@ -13,6 +13,10 @@ Route::get('/', function () {
 Route::get('/detail/{id_produk}', [TefaController::class, 'detail'])
     ->name('detail.produk');
 
+Route::get('/klien/dashboard}',  function () {
+    return view('client.pesanan.index');
+})->name('client.pesanan');
+
 
 Route::get('/login', function (Illuminate\Http\Request $request) {
 
@@ -109,6 +113,10 @@ Route::middleware('auth')->group(function () {
         return view('admin.jurusan.pengguna.index');
     })->name('admin.jurusan.pengguna');
 
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> main
 
 
     // ==========================

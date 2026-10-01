@@ -49,11 +49,6 @@
                   Layanan
               </a>
 
-              <a
-                  href="{{ route('cek.ticket') }}"
-                  class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
-                  Cek Tiket
-              </a>
 
               <a
                   href="{{ route('kontak') }}"
@@ -300,7 +295,6 @@
         <h4 class="mb-4 text-sm font-bold">Kontak &amp; Lokasi</h4>
         <ul class="space-y-2 text-xs text-slate-300">
           <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
-          <li>📞 0771-4440844 (WhatsApp CS)</li>
           <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
           <li>🌐 tefa.smkn4tpi.sch.id</li>
         </ul>

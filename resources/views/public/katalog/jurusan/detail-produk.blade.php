@@ -149,11 +149,6 @@
                     Layanan
                 </a>
 
-                {{-- CEK TIKET --}}
-                <a href="{{ route('cek.ticket') }}"
-                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                    Cek Tiket
-                </a>
 
                 {{-- KONTAK --}}
                 <a href="{{ route('kontak') }}"
