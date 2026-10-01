@@ -1,12 +1,10 @@
-  <!DOCTYPE html>
-  <html lang="id">
-  <head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Portofolio ANIMASI - TeFA SMKN 4 Tanjungpinang</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <title>Layanan & Produk ANIMASI - TeFA SMKN 4 Tanjungpinang</title>
     <style>
       * {
         box-sizing: border-box;
@@ -363,29 +361,27 @@
       }
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
-      <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
+    {{-- HEADER / NAVBAR UTAMA --}}
+    <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
         {{-- LOGO --}}
         <a href="{{ url('/') }}" class="flex items-center gap-3">
             <img
                 src="{{ asset('gambar/tefa/logo.png') }}"
-                alt=""
+                alt="Logo TeFA"
                 class="h-10 w-auto max-w-[120px] object-contain"
             >
-
             <div>
                 <div class="text-[15px] font-bold leading-tight text-slate-900">
                     TeFA SMKN 4
                 </div>
-
                 <div class="text-xs text-blue-500">
                     Tanjungpinang
                 </div>
             </div>
         </a>
-
 
         {{-- BAGIAN KANAN NAVBAR --}}
         <div class="flex items-center gap-4">
@@ -402,13 +398,13 @@
 
                 {{-- LAYANAN --}}
                 <a href="{{ route('katalog') }}"
-                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                     Layanan
                 </a>
 
                 {{-- PORTOFOLIO --}}
                 <a href="{{ route('portofolio') }}"
-                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
                     Portofolio
                 </a>
 
@@ -418,7 +414,6 @@
                     Kontak
                 </a>
             </nav>
-
 
             {{-- ICON PROFIL / USER --}}
             <div class="relative group">
@@ -460,7 +455,7 @@
                                     <button type="submit"
                                         class="w-full rounded-lg px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50">
                                         Logout
-                                    </button> 
+                                    </button>
                                 </form>
                             </div>
 
@@ -496,108 +491,111 @@
         </button>
     </header>
 
+    {{-- HERO SECTION --}}
     <section class="hero">
-      <a href="{{ route('katalog') }}" class="back-link">← Kembali ke Katalog</a>
-      <div class="hero-title-container">
-        <div class="hero-icon">✨</div>
+    <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Utama Portofolio</a>
+    <div class="hero-title-container">
+        <!-- Ikonnya bisa disesuaikan, di sini saya pakai clapperboard/film 🎬 -->
+        <div class="hero-icon">✨</div> 
         <div>
-          <h1>Layanan & Produk ANIMASI</h1>
-          <p>Animasi</p>
+            <h1>Hasil Karya & Portofolio ANIMASI</h1>
+            <p>Animasi</p>
         </div>
-      </div>
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Cari layanan ANIMASI..." onkeyup="filterServices()">
-      </div>
+    </div>
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Cari karya ANIMASI..." onkeyup="filterServices()">
+        </div>
     </section>
 
+    <!-- MAIN CONTENT LAYOUT -->
     <div class="content-layout">
-      <aside class="sidebar">
-        <div class="sidebar-title">Jurusan Lain</div>
-        <ul class="sidebar-menu">
-          <li><a href="{{ route('katalog.rpl') }}">RPL</a></li>
-          <li><a href="{{ route('katalog.dkv') }}">DKV</a></li>
-          <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
-          <li><a href="{{ route('katalog.tkj') }}">TKJ</a></li>
-          <li><a href="{{ route('katalog.gim') }}">GIM</a></li>
-          <li class="active"><a href="{{ route('katalog.animasi') }}">ANIMASI</a></li>
-        </ul>
-      </aside>
+        <!-- SIDEBAR NAV JURUSAN -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Jurusan Lain</div>
+            <ul class="sidebar-menu">
+                <li><a href="{{ route('portofolio.rpl') }}">RPL</a></li>
+                <li><a href="{{ route('portofolio.dkv') }}">DKV</a></li>
+                <li><a href="{{ route('portofolio.pspt') }}">PSPT</a></li>
+                <li><a href="{{ route('portofolio.tkj') }}">TKJ</a></li>
+                <li><a href="{{ route('portofolio.gim') }}">GIM</a></li>
+                <li class="active"><a href="{{ route('portofolio.animasi') }}">ANIMASI</a></li>
+            </ul>
+        </aside>
 
-      <main class="services-grid" id="servicesGrid">
+        <main class="services-grid" id="servicesGrid">
 
-        @forelse($tefas as $tefa)
+            @forelse($tefas as $tefa)
 
-            <div class="service-card">
+                <div class="service-card">
 
-                {{-- FOTO DARI DATABASE --}}
-                @if($tefa->gambar)
-                    <img
-                        src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                        alt="{{ $tefa->nama_produk }}"
-                        class="service-img">
-                @else
-                    <div
-                        class="service-img"
-                        style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                        ✨
-                    </div>
-                @endif
+                    {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
+                    @if($tefa->gambar)
+                        <img
+                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
+                            alt="{{ $tefa->nama_produk }}"
+                            class="service-img">
+                    @else
+                        <div
+                            class="service-img"
+                            style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
+                            🎬
+                        </div>
+                    @endif
 
-                <div class="service-body">
+                    <div class="service-body">
 
-                    {{-- NAMA PRODUK --}}
-                    <h3>
-                        {{ $tefa->nama_produk }}
-                    </h3>
+                        {{-- JUDUL KARYA --}}
+                        <h3>
+                            {{ $tefa->nama_produk }}
+                        </h3>
 
-                    {{-- DESKRIPSI --}}
-                    <p>
-                        {{ $tefa->deskripsi }}
-                    </p>
+                        {{-- DESKRIPSI KARYA --}}
+                        <p>
+                            {{ $tefa->deskripsi }}
+                        </p>
 
-                    <div class="service-footer">
+                        <div class="service-footer">
 
-                        <div>
-                            <div class="price-label">
-                                Mulai dari
+                            <div>
+                                <div class="price-label">
+                                    Karya / Kategori
+                                </div>
+
+                                {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
+                                <div class="price-value" style="font-size: 14px;">
+                                    Portofolio Animasi
+                                </div>
                             </div>
 
-                            {{-- HARGA DARI DATABASE --}}
-                            <div class="price-value">
-                                Rp {{ number_format($tefa->harga, 0, ',', '.') }}
-                            </div>
+                            <a
+                            href="{{ route('detail.produk', $tefa->id_produk) }}"
+                            class="btn-detail">
+                            Lihat Karya
+                            </a>
+
                         </div>
 
-                        <a
-                          href="{{ route('detail.produk', $tefa->id_produk) }}"
-                          class="btn-detail">
-                          Detail Jasa
-                        </a>
-
                     </div>
-
                 </div>
-            </div>
 
-        @empty
+            @empty
 
-            <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                <div style="font-size:50px;">✨</div>
+                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                    <div style="font-size:50px;">🎬</div>
 
-                <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                    Belum Ada Layanan ANIMASI
-                </h3>
+                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                        Belum Ada Karya ANIMASI
+                    </h3>
 
-                <p style="margin-top:8px; color:#64748b;">
-                    Layanan ANIMASI belum tersedia saat ini.
-                </p>
-            </div>
+                    <p style="margin-top:8px; color:#64748b;">
+                        Portofolio karya ANIMASI belum tersedia saat ini.
+                    </p>
+                </div>
 
-        @endforelse
+            @endforelse
 
-      </main>
-    </div>
+        </main>
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">
@@ -624,13 +622,54 @@
           </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
-      function toggleMenu() {
-          const nav = document.getElementById('navMenu');
+        function openDetailModal(title, desc, klien, tahun, linkProyek, img) {
+            document.getElementById('detailTitle').innerText = title;
+            document.getElementById('detailDesc').innerText = desc;
+            document.getElementById('detailKlien').innerText = klien || '-';
+            document.getElementById('detailTahun').innerText = tahun || '-';
 
-          nav.classList.toggle('hidden');
-          nav.classList.toggle('flex');
-      }
+            const imgElement = document.getElementById('detailImg');
+            if (img && img.trim() !== '') {
+                imgElement.src = img;
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
+
+            const linkContainer = document.getElementById('linkContainer');
+            const btnLink = document.getElementById('btnLinkProyek');
+
+            if (linkProyek && linkProyek.trim() !== '') {
+                btnLink.href = linkProyek;
+                linkContainer.style.display = 'block';
+            } else {
+                linkContainer.style.display = 'none';
+            }
+
+            document.getElementById('detailModal').classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function filterServices() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+                const desc = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
     </script>
-  </body>
-  </html>
+</body>
+</html>

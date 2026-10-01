@@ -9,10 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/detail/{id_produk}', [TefaController::class, 'detail'])
-    ->name('detail.produk');
-
-
 Route::get('/login', function (Illuminate\Http\Request $request) {
 
     if ($request->has('redirect')) {
@@ -53,6 +49,8 @@ Route::get('/katalog/dkv', [TefaController::class, 'dkv'])
 Route::get('/katalog/pspt', [TefaController::class, 'pspt'])
     ->name('katalog.pspt');
 
+Route::get('/detail/{id_produk}', [TefaController::class, 'detail'])
+    ->name('detail.produk');
 
 // ==============================
 // CEK TIKET
@@ -70,6 +68,22 @@ Route::get('/kontak', function () {
     return view('public.katalog.kontak');
 })->name('kontak');
 
+// ==============================
+// PORTOFOLIO
+// ==============================
+
+// Route Utama Portofolio
+Route::get('/portofolio', [TefaController::class, 'portofolio'])->name('portofolio');
+
+// Route Portofolio Per Jurusan
+Route::prefix('portofolio')->group(function () {
+    Route::get('/tkj', [TefaController::class, 'portofolioTkj'])->name('portofolio.tkj');
+    Route::get('/gim', [TefaController::class, 'portofolioGim'])->name('portofolio.gim');
+    Route::get('/animasi', [TefaController::class, 'portofolioAnimasi'])->name('portofolio.animasi');
+    Route::get('/rpl', [TefaController::class, 'portofolioRpl'])->name('portofolio.rpl');
+    Route::get('/dkv', [TefaController::class, 'portofolioDkv'])->name('portofolio.dkv');
+    Route::get('/pspt', [TefaController::class, 'portofolioPspt'])->name('portofolio.pspt');
+});
 
 // ==============================
 // AUTH

@@ -149,10 +149,10 @@
                     Layanan
                 </a>
 
-                {{-- CEK TIKET --}}
-                <a href="{{ route('cek.ticket') }}"
+                {{-- PORTOFOLIO --}}
+                <a href="{{ route('portofolio') }}"
                     class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                    Cek Tiket
+                    Portofolio
                 </a>
 
                 {{-- KONTAK --}}

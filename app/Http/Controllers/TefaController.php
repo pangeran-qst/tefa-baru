@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tefa;
 use App\Models\Pesanan;
+use App\Models\Portofolio;
 use Illuminate\Http\Request;
 
 class TefaController extends Controller
@@ -118,6 +119,77 @@ class TefaController extends Controller
         }
 
         return view('public.katalog.cek-ticket', compact('pesanan'));
+    }
+
+    // Halaman Katalog Utama Portofolio (Semua Jurusan)
+    public function portofolio()
+    {
+        $portofolios = Portofolio::where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.portofolio', compact('portofolios'));
+    }
+
+    // Portofolio Per Jurusan
+    public function portofolioTkj()
+    {
+        $portofolios = Portofolio::where('jurusan', 'TKJ')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.tkj', compact('portofolios'));
+    }
+
+    public function portofolioGim()
+    {
+        $portofolios = Portofolio::where('jurusan', 'GIM')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.gim', compact('portofolios'));
+    }
+
+    public function portofolioAnimasi()
+    {
+        $portofolios = Portofolio::where('jurusan', 'ANIMASI')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.animasi', compact('portofolios'));
+    }
+
+    public function portofolioRpl()
+    {
+        $portofolios = Portofolio::where('jurusan', 'RPL')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.rpl', compact('portofolios'));
+    }
+
+    public function portofolioDkv()
+    {
+        $portofolios = Portofolio::where('jurusan', 'DKV')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.dkv', compact('portofolios'));
+    }
+
+    public function portofolioPspt()
+    {
+        $portofolios = Portofolio::where('jurusan', 'PSPT')
+            ->where('status_aktif', true)
+            ->latest('id_portofolio')
+            ->get();
+
+        return view('public.katalog.jurusanp.pspt', compact('portofolios'));
     }
 
 }
