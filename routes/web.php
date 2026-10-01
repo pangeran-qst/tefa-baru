@@ -113,10 +113,7 @@ Route::middleware('auth')->group(function () {
         return view('admin.jurusan.pengguna.index');
     })->name('admin.jurusan.pengguna');
 
-<<<<<<< HEAD
-=======
  
->>>>>>> main
 
 
     // ==========================
