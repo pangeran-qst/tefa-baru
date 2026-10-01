@@ -653,33 +653,6 @@
 
             </a>
 
-
-
-            
-            <a href="<?php echo e(route('admin.jurusan.katalog')); ?>" class="<?php echo e(request()->routeIs('admin.jurusan.katalog*') ? 'active' : ''); ?>">
-
-                <i class="bi bi-folder-fill"></i>
-
-                <div class="menu-text">
-
-                    <span>
-                        CMS Katalog
-                    </span>
-
-                    <small>
-                        Produk & Jurusan
-                    </small>
-
-                </div>
-
-            </a>
-
-
-            
-
-
-            
-
         </div>
 
 

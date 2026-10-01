@@ -167,27 +167,27 @@ class AdminTefaController extends Controller
 
 
 
-    public function prosesPesanan(Request $request, $id_pesanan)
+    public function prosesPesanan(Request $request, $id)
     {
         $request->validate([
-            'status'     => 'required|in:diproses,selesai,ditolak',
-            'jurusan_id' => 'required|exists:jurusan,id', // Validasi jurusan wajib dipilih
-            'catatan'    => 'nullable|string',
+            'status'  => 'nullable|string',
+            'catatan' => 'nullable|string',
         ]);
 
-        $pesanan = Pesanan::findOrFail($id_pesanan);
-        
-        // Update status dan lempar ke ID jurusan yang dipilih
-        $pesanan->status     = $request->status;
-        $pesanan->jurusan_id = $request->jurusan_id; 
+        $pesanan = Pesanan::findOrFail($id);
 
+        // Ambil status dari form, jika tidak ada/kosong otomatis set 'diproses'
+        $pesanan->status = $request->status ?? 'diproses'; 
+        
         if ($request->filled('catatan')) {
-            $pesanan->catatan = $request->catatan;
+            $pesanan->catatan_pesanan = $request->catatan;
         }
 
         $pesanan->save();
 
-        return redirect()->back()->with('success', 'Pesanan berhasil diteruskan ke Admin Jurusan!');
+        return redirect()
+            ->route('admin.tefa.pesanan.detail', $pesanan->id_pesanan)
+            ->with('success', 'Pesanan berhasil diteruskan ke Admin Jurusan!');
     }
 
 

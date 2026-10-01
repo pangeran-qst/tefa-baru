@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminTefaController;
+use App\Http\Controllers\AdminJurusanController;
 use App\Http\Controllers\TefaController;
 use Illuminate\Support\Facades\Route;
 
@@ -98,17 +99,16 @@ Route::middleware('auth')->group(function () {
         return view('admin.jurusan.dashboard');
     })->name('admin.jurusan.dashboard');
 
-    Route::get('/admin/jurusan/pesanan', function () {
-        return view('admin.jurusan.pesanan.index');
-    })->name('admin.jurusan.pesanan');
+    Route::get('/admin/jurusan/pesanan', [AdminJurusanController::class, 'index'])->name('admin.jurusan.pesanan');
+
+    Route::post('/admin/jurusan/pesanan/{id}/update-status', [AdminJurusanController::class, 'updateStatus'])->name('admin.jurusan.pesanan.updateStatus');
+    
+    Route::post('/admin/jurusan/pesanan/{id}/assign', [AdminJurusanController::class, 'assignWorker'])->name('admin.jurusan.pesanan.assign');
 
     Route::get('/admin/jurusan/pengguna', function () {
         return view('admin.jurusan.pengguna.index');
     })->name('admin.jurusan.pengguna');
 
-    Route::get('/admin/jurusan/katalog', function () {
-        return view('admin.jurusan.katalog.index');
-    })->name('admin.jurusan.katalog');
 
 
     // ==========================
