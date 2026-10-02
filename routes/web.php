@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminTefaController;
 use App\Http\Controllers\AdminJurusanController;
 use App\Http\Controllers\TefaController;
+use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -132,6 +133,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/admin/jurusan/pesanan/{id}/update-status', [AdminJurusanController::class, 'updateStatus'])->name('admin.jurusan.pesanan.updateStatus');
     
+    //admin jrusan menugaskan workernya
     Route::post('/admin/jurusan/pesanan/{id}/assign', [AdminJurusanController::class, 'assignWorker'])->name('admin.jurusan.pesanan.assign');
 
     Route::get('/admin/jurusan/pengguna', function () {
@@ -149,10 +151,9 @@ Route::middleware('auth')->group(function () {
         return view('worker.dashboard');
     })->name('worker.dashboard');
 
-    Route::get('/worker/tugasku', function () {
-        return view('worker.tugasku.index');
-    })->name('worker.tugasku');
-
+    Route::get('/worker/tugasku', [WorkerController::class, 'tugasku'])
+    ->name('worker.tugasku');
+    
     Route::get('/worker/portofolio', function () {
         return view('worker.portofolio.index');
     })->name('worker.portofolio');

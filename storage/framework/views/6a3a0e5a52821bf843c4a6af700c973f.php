@@ -22,10 +22,10 @@
     <!-- Filter Tabs Navigation -->
     <?php
     $jumlahPesananBaru = $pesanans->where('status', 'pending')->count();
-    $jumlahMenungguRespons = $pesanans->where('status', 'waiting_response')->count();
-    $jumlahDalamPengerjaan = $pesanans->where('status', 'in_progress')->count();
-    $jumlahSelesai = $pesanans->where('status', 'completed')->count();
-    $jumlahDibatalkan = $pesanans->where('status', 'cancelled')->count();
+    $jumlahMenungguRespons = $pesanans->where('status', 'diproses')->count();
+    $jumlahDalamPengerjaan = $pesanans->where('status', 'pengerjaan')->count();
+    $jumlahSelesai = $pesanans->where('status', 'selesao')->count();
+    $jumlahDibatalkan = $pesanans->where('status', 'ditolak')->count();
     ?>
 
     <div class="flex flex-wrap gap-3 mb-6">
@@ -94,7 +94,6 @@
 
           </span>
       </button>
-
   </div>
 
     <!-- TAB 1: PESANAN BARU -->
@@ -240,7 +239,7 @@
 
                 <tbody>
 
-                    <?php $__empty_1 = true; $__currentLoopData = $pesanans->where('status', 'waiting_response'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pesanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <?php $__empty_1 = true; $__currentLoopData = $pesanans->where('status', 'diproses'); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pesanan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
 
                         <tr class="hover:bg-slate-50 transition">
 
@@ -688,34 +687,33 @@
   <!-- SCRIPT SWITCH TAB -->
   <script>
     function switchTab(tabId) {
-      // Sembunyikan semua tab content
+      // 1. Sembunyikan semua tab content
       document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      
-      // Reset style semua tombol tab
+
+      // 2. Reset style semua tombol ke versi INAKTIF (Gaya awal dari Blade kamu)
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.className = "tab-btn px-4 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50";
+        btn.className = "tab-btn px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50 transition";
         const badge = btn.querySelector('span');
-        if (badge) badge.className = "bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full";
+        if (badge) {
+          badge.className = "ml-1 text-slate-400";
+        }
       });
 
-      // Tampilkan tab terpilih
-      document.getElementById('tab-' + tabId).classList.remove('hidden');
+      // 3. Tampilkan tab content terpilih
+      const targetContent = document.getElementById('tab-' + tabId);
+      if (targetContent) {
+        targetContent.classList.remove('hidden');
+      }
 
-      // Set style tombol tab yang aktif
+      // 4. Set style tombol terpilih jadi AKTIF (Gaya oranye dari Blade kamu)
       const activeBtn = document.getElementById('btn-' + tabId);
-      const activeBadge = activeBtn.querySelector('span');
-      
-      ///ngubah warna tab pada manajemen pesanan (pesanan baru, menunggu respon dll)
-      const colorMap = {
-        'baru': 'bg-blue-600 text-white shadow-sm',
-        'menunggu': 'bg-blue-600 text-white shadow-sm',
-        'pengerjaan': 'bg-blue-600 text-white shadow-sm',
-        'selesai': 'bg-blue-600 text-white shadow-sm',
-        'ditolak': 'bg-blue-600 text-white shadow-sm'
-      };
-
-      activeBtn.className = `tab-btn px-4 py-2.5 rounded-xl text-xs font-semibold transition-all flex items-center gap-2 ${colorMap[tabId]}`;
-      if (activeBadge) activeBadge.className = "bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full";
+      if (activeBtn) {
+        activeBtn.className = "tab-btn px-6 py-3 rounded-xl bg-orange-500 text-white font-semibold text-xs shadow-sm transition";
+        const activeBadge = activeBtn.querySelector('span');
+        if (activeBadge) {
+          activeBadge.className = "ml-1 opacity-90";
+        }
+      }
     }
   </script>
   

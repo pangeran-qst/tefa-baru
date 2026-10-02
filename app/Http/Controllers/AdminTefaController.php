@@ -116,7 +116,7 @@ class AdminTefaController extends Controller
 
         $statusValid = [
             'pending',
-            'waiting_response',
+            'diproses',
             'in_progress',
             'completed',
             'cancelled',
@@ -125,7 +125,6 @@ class AdminTefaController extends Controller
         $query = Pesanan::with('tefa')
             ->latest('tanggal_pesan');
 
-        // Filter kalau tab tertentu dipilih
         if ($status && in_array($status, $statusValid)) {
             $query->where('status', $status);
         }
@@ -135,13 +134,25 @@ class AdminTefaController extends Controller
         // Jumlah masing-masing status
         $jumlahPending = Pesanan::where('status', 'pending')->count();
 
-        $jumlahWaitingResponse = Pesanan::where('status', 'waiting_response')->count();
+        $jumlahWaitingResponse = Pesanan::where(
+            'status',
+            'diproses'
+        )->count();
 
-        $jumlahInProgress = Pesanan::where('status', 'in_progress')->count();
+        $jumlahInProgress = Pesanan::where(
+            'status',
+            'in_progress'
+        )->count();
 
-        $jumlahCompleted = Pesanan::where('status', 'completed')->count();
+        $jumlahCompleted = Pesanan::where(
+            'status',
+            'completed'
+        )->count();
 
-        $jumlahCancelled = Pesanan::where('status', 'cancelled')->count();
+        $jumlahCancelled = Pesanan::where(
+            'status',
+            'cancelled'
+        )->count();
 
         return view('admin.tefa.pesanan.index', compact(
             'pesanans',
@@ -170,15 +181,13 @@ class AdminTefaController extends Controller
     public function prosesPesanan(Request $request, $id)
     {
         $request->validate([
-            'status'  => 'nullable|string',
             'catatan' => 'nullable|string',
         ]);
 
         $pesanan = Pesanan::findOrFail($id);
 
-        // Ambil status dari form, jika tidak ada/kosong otomatis set 'diproses'
-        $pesanan->status = $request->status ?? 'diproses'; 
-        
+        $pesanan->status = 'diproses';
+
         if ($request->filled('catatan')) {
             $pesanan->catatan_pesanan = $request->catatan;
         }

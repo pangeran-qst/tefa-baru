@@ -220,123 +220,200 @@
 
   </main>
 
-  <!-- JAVASCRIPT UNTUK SWITCH TAB & MODAL -->
+  <!-- JAVASCRIPT UNTUK SWITCH TAB -->
   <script>
     function switchTab(tabId) {
-      // Sembunyikan semua konten
-      const contents = document.querySelectorAll('.tab-content');
-      contents.forEach(content => content.classList.add('hidden'));
+        // Sembunyikan semua konten tab
+        const contents = document.querySelectorAll('.tab-content');
 
-      // Tampilkan konten yang dipilih
-      const activeContent = document.getElementById(`content-${tabId}`);
-      if (activeContent) {
-        activeContent.classList.remove('hidden');
-      }
+        contents.forEach(content => {
+            content.classList.add('hidden');
+        });
 
-      // Reset gaya tombol semua tab
-      const buttons = document.querySelectorAll('.tab-btn');
-      buttons.forEach(btn => {
-        btn.className = 'tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition';
-        const badge = btn.querySelector('span:last-child');
-        if(badge) {
-          badge.className = 'bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full';
+        // Tampilkan konten tab yang dipilih
+        const activeContent = document.getElementById(`content-${tabId}`);
+
+        if (activeContent) {
+            activeContent.classList.remove('hidden');
         }
-      });
 
-      // Set gaya tombol tab aktif
-      const activeBtn = document.getElementById(`tab-${tabId}`);
-      if (activeBtn) {
-        activeBtn.className = 'tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition';
-        const badge = activeBtn.querySelector('span:last-child');
-        if(badge) {
-          badge.className = 'bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full';
+        // Reset semua tombol tab
+        const buttons = document.querySelectorAll('.tab-btn');
+
+        buttons.forEach(btn => {
+            btn.className =
+                'tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-white text-slate-600 hover:bg-slate-50 border border-slate-200 transition';
+
+            const badge = btn.querySelector('span:last-child');
+
+            if (badge) {
+                badge.className =
+                    'bg-slate-100 text-slate-600 text-[10px] px-2 py-0.5 rounded-full';
+            }
+        });
+
+        // Aktifkan tombol tab yang dipilih
+        const activeBtn = document.getElementById(`tab-${tabId}`);
+
+        if (activeBtn) {
+            activeBtn.className =
+                'tab-btn flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-semibold bg-indigo-600 text-white shadow-md shadow-indigo-600/20 transition';
+
+            const badge = activeBtn.querySelector('span:last-child');
+
+            if (badge) {
+                badge.className =
+                    'bg-indigo-800/60 text-white text-[10px] px-2 py-0.5 rounded-full';
+            }
         }
-      }
     }
 
-    // FUNGSI MODAL DIPISAH (GLOBAL SCOPE)
+
+    // ==========================================
+    // MODAL TERIMA & TUGASKAN WORKER
+    // ==========================================
+
     function openAssignModal(idPesanan, namaProduk) {
-      const modalEl = document.getElementById('assignWorkerModal');
-      const form = document.getElementById('assignWorkerForm');
-      const txtNama = document.getElementById('modalNamaProduk');
+        const modalElement = document.getElementById('assignWorkerModal');
+        const form = document.getElementById('assignWorkerForm');
+        const txtNama = document.getElementById('modalNamaProduk');
 
-      if (txtNama) txtNama.innerText = namaProduk;
-      if (form) form.action = '/admin/jurusan/pesanan/' + idPesanan + '/assign';
+        // Isi nama layanan ke modal
+        if (txtNama) {
+            txtNama.innerText = namaProduk;
+        }
 
-      // Jika menggunakan Bootstrap 5 JS Instance:
-      if (typeof bootstrap !== 'undefined') {
-          const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
-          bsModal.show();
-      } else {
-          // Fallback jika tanpa instance BS JS
-          modalEl.classList.add('show');
-          modalEl.style.display = 'block';
-      }
+        // Set action form sesuai ID pesanan
+        if (form) {
+            form.action = '/admin/jurusan/pesanan/' + idPesanan + '/assign';
+        }
+
+        // Buka modal Bootstrap
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
     }
 
-  function closeAssignModal() {
-      const modalEl = document.getElementById('assignWorkerModal');
-      
-      if (typeof bootstrap !== 'undefined') {
-          const bsModal = bootstrap.Modal.getInstance(modalEl);
-          if (bsModal) bsModal.hide();
-      } else {
-          modalEl.classList.remove('show');
-          modalEl.style.display = 'none';
-      }
+
+    function closeAssignModal() {
+        const modalElement = document.getElementById('assignWorkerModal');
+
+        if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+
+            if (modal) {
+                modal.hide();
+            }
+        }
     }
-  </script>
+</script>
 
-  
 
-<!-- MODAL ASSIGN WORKER (Gaya Bootstrap Acuan) -->
+
+
+<!-- MODAL ASSIGN WORKER -->
 <div class="modal fade" id="assignWorkerModal" tabindex="-1" aria-labelledby="assignWorkerModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
+
             <div class="modal-header">
-                <h5 class="modal-title font-weight-bold" id="assignWorkerModalLabel">Tugaskan Pesanan ke Worker</h5>
-                <button type="button" class="btn-close" onclick="closeAssignModal()" aria-label="Close"></button>
+                <h5 class="modal-title font-weight-bold" id="assignWorkerModalLabel">
+                    Tugaskan Pesanan ke Worker
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        onclick="closeAssignModal()"
+                        aria-label="Close">
+                </button>
             </div>
-            
+
             <form id="assignWorkerForm" action="" method="POST">
                 <?php echo csrf_field(); ?>
+
                 <div class="modal-body">
-                    
-                    <!-- Info Layanan Ringkas -->
+
                     <p class="text-muted mb-3" style="font-size: 0.875rem;">
-                        Layanan: <strong id="modalNamaProduk" class="text-dark"></strong>
+                        Layanan:
+                        <strong id="modalNamaProduk" class="text-dark"></strong>
                     </p>
 
-                    <!-- 1. Select Worker / Siswa -->
                     <div class="mb-3">
-                        <label for="id_user_worker" class="form-label font-weight-bold">Worker / Siswa Jurusan</label>
-                        <select name="id_user_worker" id="id_user_worker" class="form-select" required>
-                            <option value="" disabled selected>-- Pilih Siswa / Worker --</option>
+                        <label for="id_user_worker" class="form-label font-weight-bold">
+                            Worker / Siswa Jurusan
+                        </label>
+
+                        <select name="id_user_worker"
+                                id="id_user_worker"
+                                class="form-select"
+                                required>
+
+                            <option value="" disabled selected>
+                                -- Pilih Siswa / Worker --
+                            </option>
+
                             <?php $__currentLoopData = $workers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $worker): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($worker->id); ?>">
-                                    <?php echo e($worker->name ?? $worker->username); ?> (<?php echo e($worker->email); ?>)
+                                <option value="<?php echo e($worker->id_user); ?>">
+                                    <?php echo e($worker->name ?? $worker->username); ?>
+
+                                    (<?php echo e($worker->email); ?>)
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
                         </select>
-                        <small class="text-muted">Siswa yang dipilih akan menerima tugas pengerjaan pesanan ini.</small>
+
+                        <small class="text-muted">
+                            Siswa yang dipilih akan menerima tugas pengerjaan pesanan ini.
+                        </small>
                     </div>
 
-                    <!-- 2. Catatan / Instruksi Pengerjaan untuk Worker (Opsional) -->
                     <div class="mb-3">
-                        <label for="catatan_worker" class="form-label font-weight-bold">Catatan / Instruksi Tambahan</label>
-                        <textarea name="catatan_worker" id="catatan_worker" class="form-control" rows="3" placeholder="Masukkan instruksi khusus untuk Worker / Siswa..."></textarea>
+                        <label for="catatan_worker" class="form-label font-weight-bold">
+                            Catatan / Instruksi Pengerjaan
+                        </label>
+
+                        <textarea name="catatan_worker"
+                                  id="catatan_worker"
+                                  class="form-control"
+                                  rows="3"
+                                  placeholder="Masukkan instruksi khusus untuk Worker / Siswa..."></textarea>
                     </div>
 
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="closeAssignModal()">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan & Tugaskan</button>
+                    <button type="button"
+                            class="btn btn-secondary"
+                            onclick="closeAssignModal()">
+                        Batal
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Simpan & Tugaskan
+                    </button>
                 </div>
+
             </form>
+
         </div>
     </div>
 </div>
 
-  
+
+<style>
+    .modal {
+        z-index: 99999 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 99998 !important;
+    }
+</style>
+
+
+
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('admin.jurusan.layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/laravel-belajar-tefa baru lagi(2) gigithub/resources/views/admin/jurusan/pesanan/index.blade.php ENDPATH**/ ?>

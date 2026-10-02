@@ -48,9 +48,9 @@
               </a>
 
               
-              <a href="<?php echo e(route('cek.ticket')); ?>"
+              <a href="<?php echo e(route('portofolio')); ?>"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
-                  Cek Tiket
+                  Portofolio
               </a>
 
               
@@ -446,34 +446,23 @@
         <h2 class="mb-3 text-xl md:text-2xl font-bold">Ada Pertanyaan atau Ingin Memesan?</h2>
         <div class="grid gap-1.5 text-sm text-blue-100">
           <div>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</div>
-          <div>📞 0771-4440844 (WhatsApp CS)</div>
           <div>⏰ Senin–Jumat, 07.00–18.00 WIB</div>
           <div>🌐 tefa.smkn4tpi.sch.id</div>
         </div>
       </div>
 
       <div class="flex flex-wrap justify-center gap-3">
-        <a class="rounded-lg bg-green-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5" href="https://wa.me/6281365004444" target="_blank">
-          💬 WhatsApp CS
-        </a>
-        <a class="rounded-lg border border-white/35 bg-white/10 px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5" href="mailto:tefa@smkn4tpi.sch.id">
-          Kirim Pesan
+      
+         <a
+            href="mailto:tefa@smkn4tpi.sch.id"
+            class="rounded-lg bg-white/10 border border-white/30 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-white/20 hover:-translate-y-0.5">
+            ✉️ Kirim Email CS
         </a>
       </div>
     </section>
 
     <section class="px-[5%] md:px-[8%] py-[60px]" id="resi">
-      <div class="mx-auto mb-8 max-w-[700px] text-center">
-        <h2 class="mb-2 text-2xl md:text-3xl font-bold text-slate-900">Cek Status Pesanan</h2>
-        <p class="text-sm md:text-base text-slate-500">Masukkan nomor tiket untuk mengecek status pesanan Anda.</p>
-      </div>
-
-      <div class="mx-auto flex max-w-[500px] gap-2.5">
-        <input id="tiketInput" type="text" placeholder="Contoh: TKT-2026-001" class="flex-1 rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
-        <button onclick="cekResi()" class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5">
-          Cek Tiket
-        </button>
-      </div>
+      
 
       <div id="hasilTiket" class="mx-auto mt-4 max-w-[500px] text-center text-sm"></div>
     </section>
@@ -492,7 +481,6 @@
         <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
         <ul class="space-y-2 text-xs md:text-sm text-slate-300">
           <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
-          <li>📞 0771-4440844 (WhatsApp CS)</li>
           <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
           <li>🌐 tefa.smkn4tpi.sch.id</li>
         </ul>
