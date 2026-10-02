@@ -137,7 +137,7 @@
             aria-label="Buka Menu Navigasi">
             ☰
         </button>
-  </header>
+    </header>
 
     <main class="flex-1 px-5 md:px-[8%] py-[40px] md:py-[60px]">
       <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-8 md:gap-[40px] rounded-2xl bg-gradient-to-r from-blue-900 to-blue-600 p-6 md:p-12 text-white shadow-xl shadow-blue-500/10">
@@ -182,18 +182,7 @@
                     </div>
                 </div>
 
-                {{-- CUSTOMER SERVICE --}}
-                <div class="flex items-start gap-3.5">
-                    <span class="text-xl leading-none">📱</span>
-                    <div>
-                        <strong class="block text-sm md:text-base text-white font-semibold">
-                            Customer Service
-                        </strong>
-                        <p class="text-xs md:text-sm text-slate-200">
-                            +62 813-6500-4444
-                        </p>
-                    </div>
-                </div>
+               
 
                 {{-- JAM LAYANAN --}}
                 <div class="flex items-start gap-3.5">
@@ -212,13 +201,6 @@
 
             {{-- TOMBOL KANAN --}}
             <div class="flex flex-col gap-3.5 w-full md:w-[250px]">
-
-                <a
-                    href="https://wa.me/6281365004444"
-                    target="_blank"
-                    class="rounded-lg bg-green-600 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-green-700 hover:-translate-y-0.5 shadow-md">
-                    💬 Chat via WhatsApp
-                </a>
 
                 <a
                     href="mailto:tefa@smkn4tpi.sch.id"
@@ -254,7 +236,6 @@
         <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
         <ul class="space-y-2 text-xs md:text-sm text-slate-300">
           <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
-          <li>📞 +62 813-6500-4444 (WhatsApp CS)</li>
           <li>⏰ Senin–Jumat, 08.00–16.00 WIB</li>
           <li>🌐 tefa.smkn4tpi.sch.id</li>
         </ul>
