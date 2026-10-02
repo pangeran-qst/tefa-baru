@@ -351,6 +351,12 @@
       height: 80px;
     }
 
+    .sidebar-divider {
+        height: 1px;
+        background-color: #e2e8f0; /* Warna abu-abu halus */
+        margin: 12px 0;           /* Jarak atas & bawah garis */
+        list-style: none;
+      }
 
     /* Responsif Mobile */
     @media (max-width: 768px) {
@@ -515,6 +521,8 @@
     <aside class="sidebar">
       <div class="sidebar-title">Jurusan Lain</div>
       <ul class="sidebar-menu">
+        <li><a href="{{ route('katalog.semua') }}">SEMUA</a></li>
+        <li class="sidebar-divider"></li>
         <li><a href="{{ route('katalog.rpl') }}">RPL</a></li>
         <li><a href="{{ route('katalog.dkv') }}">DKV</a></li>
         <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
@@ -599,6 +607,12 @@
     </main>
   </div>
 
+  @if($tefas->hasPages())
+        <div style="margin-top: 30px; display: flex; justify-content: center;">
+            {{ $tefas->links() }}
+        </div>
+    @endif
+
   <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
         <div class="mb-10 flex flex-wrap justify-between gap-8">
         <div>
@@ -630,6 +644,22 @@
         nav.classList.toggle('hidden');
         nav.classList.toggle('flex');
     }
+
+    function filterServices() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+                const desc = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
   </script>
 </body>
 </html>

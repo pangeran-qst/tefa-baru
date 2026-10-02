@@ -3,370 +3,371 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio GIM - TeFA SMKN 4 Tanjungpinang</title>
+    <title>Portofolio - TeFA SMKN 4 Tanjungpinang</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      background-color: #f8fafc;
-      color: #334155;
-    }
+      body {
+        background-color: #f8fafc;
+        color: #334155;
+      }
 
 
-    /* Hero Section GIM (Warna Orange Khas GIM) */
-    .hero {
-      background-color: rgb(3, 207, 218);
-      color: white;
-      padding: 32px 8% 48px 8%;
-    }
+      /* Hero Section ANIMASI */
+      .hero {
+        background-color: rgb(58, 58, 237);
+        color: white;
+        padding: 32px 8% 48px 8%;
+      }
 
-    .back-link {
-      color: rgb(255, 255, 255);
-      text-decoration: none;
-      font-size: 14px;
-      display: inline-block;
-      margin-bottom: 24px;
-    }
+      .back-link {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        display: inline-block;
+        margin-bottom: 24px;
+      }
 
-    .hero-title-container {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
+      .hero-title-container {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
 
-    .hero-icon {
-      width: 56px;
-      height: 56px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-    }
+      .hero-icon {
+        width: 56px;
+        height: 56px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+      }
 
-    .hero h1 {
-      font-size: 28px;
-      font-weight: bold;
-    }
+      .hero h1 {
+        font-size: 28px;
+        font-weight: bold;
+      }
 
-    .hero p {
-      color: #ffffff;
-      font-size: 14px;
-    }
+      .hero p {
+        color: #ffffff;
+        font-size: 14px;
+      }
 
-    .search-box {
-      max-width: 400px;
-      position: relative;
-    }
+      .search-box {
+        max-width: 400px;
+        position: relative;
+      }
 
-    .search-box input {
-      width: 100%;
-      padding: 10px 16px 10px 38px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background-color: rgba(255, 255, 255, 0.15);
-      color: white;
-      outline: none;
-      font-size: 14px;
-    }
+      .search-box input {
+        width: 100%;
+        padding: 10px 16px 10px 38px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        outline: none;
+        font-size: 14px;
+      }
 
-    .search-box input::placeholder {
-      color: #ffffff;
-    }
+      .search-box input::placeholder {
+        color: #ffffff;
+      }
 
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #ffffff;
-    }
+      .search-icon {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #ffffff;
+      }
 
-    /* Content Layout */
-    .content-layout {
-      display: flex;
-      gap: 28px;
-      max-width: 1200px;
-      margin: 32px auto;
-      padding: 0 20px;
-    }
+      /* Content Layout */
+      .content-layout {
+        display: flex;
+        gap: 28px;
+        max-width: 1200px;
+        margin: 32px auto;
+        padding: 0 20px;
+      }
 
-    /* Sidebar Navigation */
-    .sidebar {
-      width: 240px;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      height: fit-content;
-    }
+      /* Sidebar Navigation */
+      .sidebar {
+        width: 240px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        height: fit-content;
+      }
 
-    .sidebar-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-    }
+      .sidebar-title {
+        font-size: 12px;
+        font-weight: 700;
+        color: #64748b;
+        letter-spacing: 0.5px;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+      }
 
-    .sidebar-menu {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
+      .sidebar-menu {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
 
-    .sidebar-menu li a {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #475569;
-      font-size: 14px;
-      font-weight: 600;
-    }
+      .sidebar-menu li a {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: #475569;
+        font-size: 14px;
+        font-weight: 600;
+      }
 
-    .sidebar-menu li.active a {
-      background-color: rgb(58, 58, 237);
-      color: white;
-    }
+      .sidebar-menu li.active a {
+        background-color: rgb(58, 58, 237);
+        color: white;
+      }
 
-    /* Services Grid */
-    .services-grid {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 24px;
-    }
+      /* Services Grid */
+      .services-grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+      }
 
-    .service-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-    }
+      .service-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+        display: flex;
+        flex-direction: column;
+      }
 
-    .service-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
+      .service-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
 
-    .service-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
+      .service-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
 
-    .service-body h3 {
-      font-size: 18px;
-      color: #0f172a;
-      margin-bottom: 8px;
-    }
+      .service-body h3 {
+        font-size: 18px;
+        color: #0f172a;
+        margin-bottom: 8px;
+      }
 
-    .service-body p {
-      font-size: 13px;
-      color: #64748b;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      flex-grow: 1;
-    }
+      .service-body p {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        flex-grow: 1;
+      }
 
-    .service-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      .service-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    .price-label {
-      font-size: 12px;
-      color: rgb(0, 0, 0);
-    }
+      .price-label {
+        font-size: 12px;
+        color: rgb(0, 0, 0);
+      }
 
-    .price-value {
-      font-size: 16px;
-      font-weight: bold;
-      color: rgb(0, 0, 0);
-    }
+      .price-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+      }
 
-    .btn-detail {
-      background-color: rgb(58, 58, 237);
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+      .btn-detail {
+        background-color: rgb(58, 58, 237);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+      }
 
-    /* Modal Styling */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(15, 23, 42, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+      /* Modal Styling */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
 
-    .modal-overlay.active {
-      display: flex;
-    }
+      .modal-overlay.active {
+        display: flex;
+      }
 
-    .modal-card {
-      background: white;
-      border-radius: 16px;
-      width: 90%;
-      max-width: 480px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    }
+      .modal-card {
+        background: white;
+        border-radius: 16px;
+        width: 90%;
+        max-width: 480px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+      }
 
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: white;
-      border: none;
-      font-size: 18px;
-      cursor: pointer;
-      color: #64748b;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      z-index: 2;
-    }
+      .modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        background: white;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #64748b;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        z-index: 2;
+      }
 
-    .modal-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+      .modal-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
 
-    .modal-body {
-      padding: 20px 24px 24px 24px;
-    }
+      .modal-body {
+        padding: 20px 24px 24px 24px;
+      }
 
-    .modal-body h3 {
-      font-size: 20px;
-      color: #0f172a;
-      margin-bottom: 8px;
-    }
+      .modal-body h3 {
+        font-size: 20px;
+        color: #0f172a;
+        margin-bottom: 8px;
+      }
 
-    .modal-desc {
-      font-size: 13px;
-      color: #64748b;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
+      .modal-desc {
+        font-size: 13px;
+        color: #64748b;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
 
-    .spec-box {
-      background-color: rgb(245, 243, 255);
-      border-radius: 10px;
-      padding: 16px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      font-size: 13px;
-    }
+      .spec-box {
+        background-color: rgb(245, 243, 255);
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        font-size: 13px;
+      }
 
-    .spec-row {
-      display: flex;
-    }
+      .spec-row {
+        display: flex;
+      }
 
-    .spec-label {
-      width: 100px;
-      color: rgb(0, 0, 0);
-      font-weight: 600;
-    }
+      .spec-label {
+        width: 100px;
+        color: rgb(0, 0, 0);
+        font-weight: 600;
+      }
 
-    .spec-value {
-      flex: 1;
-      color: #334155;
-    }
+      .spec-value {
+        flex: 1;
+        color: #334155;
+      }
 
-    .btn-block {
-      width: 100%;
-      background-color: rgb(58, 58, 237);
-      color: white;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+      .btn-block {
+        width: 100%;
+        background-color: rgb(58, 58, 237);
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
 
-    .form-group {
-      margin-bottom: 16px;
-    }
+      .form-group {
+        margin-bottom: 16px;
+      }
 
-    .form-group label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 6px;
-    }
+      .form-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 6px;
+      }
 
-    .form-group input, .form-group textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      outline: none;
-      font-size: 14px;
-      background-color: #f8fafc;
-    }
+      .form-group input, .form-group textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+        background-color: #f8fafc;
+      }
 
-    .form-group textarea {
-      resize: vertical;
-      height: 80px;
-    }
+      .form-group textarea {
+        resize: vertical;
+        height: 80px;
+      }
 
-    .sidebar-divider {
+      .sidebar-divider {
         height: 1px;
         background-color: #e2e8f0; /* Warna abu-abu halus */
         margin: 12px 0;           /* Jarak atas & bawah garis */
         list-style: none;
       }
 
-    /* Responsif Mobile */
-    @media (max-width: 768px) {
-    .content-layout {
-        flex-direction: column;
-    }
 
-    .sidebar {
-        width: 100%;
-    }
-    }
-  </style>
+      /* Responsif Mobile */
+      @media (max-width: 768px) {
+      .content-layout {
+          flex-direction: column;
+      }
+
+      .sidebar {
+          width: 100%;
+      }
+      }
+    </style>
 </head>
 <body>
 
@@ -379,12 +380,10 @@
                 alt="Logo TeFA"
                 class="h-10 w-auto max-w-[120px] object-contain"
             >
-
             <div>
                 <div class="text-[15px] font-bold leading-tight text-slate-900">
                     TeFA SMKN 4
                 </div>
-
                 <div class="text-xs text-blue-500">
                     Tanjungpinang
                 </div>
@@ -501,66 +500,65 @@
 
     {{-- HERO SECTION --}}
     <section class="hero">
-        <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
-        <div class="hero-title-container">
-            <div class="hero-icon">🎮</div>
-            <div>
-                <h1>Portofolio GIM</h1>
-                <p>Pengembangan Game</p>
-            </div>
+    <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
+    <div class="hero-title-container">
+        <div class="hero-icon">✨</div> 
+        <div>
+            <h1>Semua Layanan TeFA</h1>
+            <p>Jelajahi seluruh Portofolio Teaching Factory (TeFA).</p>
         </div>
+    </div>
         <div class="search-box">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Cari karya GIM..." onkeyup="filterServices()">
+            <input type="text" id="searchInput" placeholder="Cari karya ANIMASI..." onkeyup="filterServices()">
         </div>
     </section>
 
-    {{-- MAIN CONTENT LAYOUT --}}
+    <!-- MAIN CONTENT LAYOUT -->
     <div class="content-layout">
-        {{-- SIDEBAR JURUSAN --}}
+        <!-- SIDEBAR NAV JURUSAN -->
         <aside class="sidebar">
             <div class="sidebar-title">Kategori</div>
             <ul class="sidebar-menu">
-                <li><a href="{{ route('portofolio.semua') }}">SEMUA</a></li>
+                <li class="active"><a href="{{ route('portofolio.semua') }}">SEMUA</a></li>
                 <li class="sidebar-divider"></li>
                 <li><a href="{{ route('portofolio.rpl') }}">RPL</a></li>
                 <li><a href="{{ route('portofolio.dkv') }}">DKV</a></li>
                 <li><a href="{{ route('portofolio.pspt') }}">PSPT</a></li>
                 <li><a href="{{ route('portofolio.tkj') }}">TKJ</a></li>
-                <li class="active"><a href="{{ route('portofolio.gim') }}">GIM</a></li>
+                <li><a href="{{ route('portofolio.gim') }}">GIM</a></li>
                 <li><a href="{{ route('portofolio.animasi') }}">ANIMASI</a></li>
             </ul>
         </aside>
 
-        {{-- GRID KARYA PORTOFOLIO GIM --}}
         <main class="services-grid" id="servicesGrid">
 
             @forelse($tefas as $tefa)
 
                 <div class="service-card">
 
-                    {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
+                    {{-- THUMBNAIL PRODUK --}}
                     @if($tefa->gambar)
-                        <img
-                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                            alt="{{ $tefa->nama_produk }}"
+                        <img 
+                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}" 
+                            alt="{{ $tefa->nama_produk }}" 
                             class="service-img">
                     @else
-                        <div
-                            class="service-img"
-                            style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                            🎮
+                        <div 
+                            class="service-img" 
+                            style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
+                            📦
                         </div>
                     @endif
 
                     <div class="service-body">
 
-                        {{-- JUDUL KARYA --}}
+                        {{-- NAMA PRODUK --}}
                         <h3>
                             {{ $tefa->nama_produk }}
                         </h3>
 
-                        {{-- DESKRIPSI KARYA --}}
+                        {{-- DESKRIPSI SINGKAT PRODUK --}}
                         <p>
                             {{ $tefa->deskripsi }}
                         </p>
@@ -569,18 +567,19 @@
 
                             <div>
                                 <div class="price-label">
-                                    Karya / Kategori
+                                    Kategori Produk
                                 </div>
 
-                                {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
+                                {{-- NAMA JURUSAN / KATEGORI PRODUK --}}
                                 <div class="price-value" style="font-size: 14px;">
-                                    Portofolio GIM
+                                    {{ $tefa->jurusan ?? 'Produk TeFA' }}
                                 </div>
                             </div>
 
-                          <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
-                              Lihat Karya
-                          </a>
+                            {{-- TOMBOL DETAIL PRODUK --}}
+                            <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                                Lihat Produk
+                            </a>
 
                         </div>
 
@@ -589,21 +588,23 @@
 
             @empty
 
+                {{-- STATE KOSONG --}}
                 <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                    <div style="font-size:50px;">🎮</div>
+                    <div style="font-size:50px;">📦</div>
 
                     <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                        Belum Ada Karya GIM
+                        Belum Ada Produk Ditampilkan
                     </h3>
 
                     <p style="margin-top:8px; color:#64748b;">
-                        Portofolio karya GIM belum tersedia saat ini.
+                        Daftar produk portofolio belum tersedia saat ini.
                     </p>
                 </div>
 
             @endforelse
 
         </main>
+        
     </div>
 
     @if($tefas->hasPages())
@@ -637,7 +638,7 @@
           </div>
     </footer>
 
-    {{-- JAVASCRIPT --}}
+    <!-- JAVASCRIPT -->
     <script>
         function toggleMenu() {
             const nav = document.getElementById('navMenu');

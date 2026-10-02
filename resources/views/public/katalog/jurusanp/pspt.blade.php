@@ -349,6 +349,12 @@
       height: 80px;
     }
 
+    .sidebar-divider {
+        height: 1px;
+        background-color: #e2e8f0; /* Warna abu-abu halus */
+        margin: 12px 0;           /* Jarak atas & bawah garis */
+        list-style: none;
+      }
 
     /* Responsif Mobile */
     @media (max-width: 768px) {
@@ -495,11 +501,11 @@
 
     {{-- HERO SECTION --}}
     <section class="hero">
-        <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Utama Portofolio</a>
+        <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
         <div class="hero-title-container">
             <div class="hero-icon">🎬</div>
             <div>
-                <h1>Hasil Karya & Portofolio PSPT</h1>
+                <h1>Portofolio PSPT</h1>
                 <p>Produksi Siaran Program Televisi</p>
             </div>
         </div>
@@ -513,8 +519,10 @@
     <div class="content-layout">
         {{-- SIDEBAR JURUSAN --}}
         <aside class="sidebar">
-            <div class="sidebar-title">Jurusan Lain</div>
+            <div class="sidebar-title">Kategori</div>
             <ul class="sidebar-menu">
+                <li><a href="{{ route('portofolio.semua') }}">SEMUA</a></li>
+                <li class="sidebar-divider"></li>
                 <li><a href="{{ route('portofolio.rpl') }}">RPL</a></li>
                 <li><a href="{{ route('portofolio.dkv') }}">DKV</a></li>
                 <li class="active"><a href="{{ route('portofolio.pspt') }}">PSPT</a></li>
@@ -527,80 +535,82 @@
         {{-- GRID KARYA PORTOFOLIO PSPT --}}
         <main class="services-grid" id="servicesGrid">
 
-            @forelse($portofolios ?? [] as $item)
+            @forelse($tefas as $tefa)
+
                 <div class="service-card">
-                    @if(!empty($item->gambar))
-                        <img src="{{ asset('gambar/portofolio/' . $item->gambar) }}" alt="{{ $item->judul_karya }}" class="service-img">
+
+                    {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
+                    @if($tefa->gambar)
+                        <img
+                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
+                            alt="{{ $tefa->nama_produk }}"
+                            class="service-img">
                     @else
-                        <div class="service-img" style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
+                        <div
+                            class="service-img"
+                            style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
                             🎬
                         </div>
                     @endif
 
                     <div class="service-body">
-                        <h3>{{ $item->judul_karya }}</h3>
-                        <p>{{ Str::limit($item->deskripsi, 110) }}</p>
+
+                        {{-- JUDUL KARYA --}}
+                        <h3>
+                            {{ $tefa->nama_produk }}
+                        </h3>
+
+                        {{-- DESKRIPSI KARYA --}}
+                        <p>
+                            {{ $tefa->deskripsi }}
+                        </p>
 
                         <div class="service-footer">
+
                             <div>
-                                <div class="price-label">Tahun Proyek</div>
-                                <div class="price-value" style="font-size: 14px; color: #475569;">
-                                    {{ $item->tahun ?? 'Terbaru' }}
+                                <div class="price-label">
+                                    Karya / Kategori
+                                </div>
+
+                                {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
+                                <div class="price-value" style="font-size: 14px;">
+                                    Portofolio PSPT
                                 </div>
                             </div>
 
-                            <button type="button" class="btn-detail" onclick="openDetailModal(
-                                '{{ addslashes($item->judul_karya) }}',
-                                '{{ addslashes($item->deskripsi) }}',
-                                '{{ addslashes($item->klien ?? '-') }}',
-                                '{{ addslashes($item->tahun ?? '-') }}',
-                                '{{ $item->link_proyek ?? '' }}',
-                                '{{ !empty($item->gambar) ? asset('gambar/portofolio/' . $item->gambar) : '' }}'
-                            )">
-                                Lihat Karya ➔
-                            </button>
+                          <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                              Lihat Karya
+                          </a>
+
                         </div>
+
                     </div>
                 </div>
+
             @empty
-                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:16px; border:1px solid #e2e8f0;">
+
+                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
                     <div style="font-size:50px;">🎬</div>
-                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">Belum Ada Karya PSPT</h3>
-                    <p style="margin-top:8px; color:#64748b;">Portofolio karya jurusan PSPT belum diunggah.</p>
+
+                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                        Belum Ada Karya PSPT
+                    </h3>
+
+                    <p style="margin-top:8px; color:#64748b;">
+                        Portofolio karya PSPT belum tersedia saat ini.
+                    </p>
                 </div>
+
             @endforelse
 
         </main>
     </div>
 
-    {{-- MODAL DETAIL KARYA --}}
-    <div class="modal-overlay" id="detailModal">
-        <div class="modal-card">
-            <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
-            <img id="detailImg" src="" alt="Detail Karya" class="modal-img">
-            <div class="modal-body">
-                <h3 id="detailTitle">Judul Karya</h3>
-                <p id="detailDesc" class="modal-desc">Deskripsi karya portofolio.</p>
-
-                <div class="spec-box">
-                    <div class="spec-row">
-                        <span class="spec-label">Klien / Stasiun TV</span>
-                        <span id="detailKlien" class="spec-value">-</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-label">Tahun Pembuatan</span>
-                        <span id="detailTahun" class="spec-value">-</span>
-                    </div>
-                </div>
-
-                <div id="linkContainer" style="display:none;">
-                    <a id="btnLinkProyek" href="" target="_blank" rel="noopener noreferrer" class="btn-block">
-                        Tonton Video / Karya ↗
-                    </a>
-                </div>
-            </div>
+    @if($tefas->hasPages())
+        <div style="margin-top: 30px; display: flex; justify-content: center;">
+            {{ $tefas->links() }}
         </div>
-    </div>
+    @endif
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">
@@ -633,37 +643,6 @@
             const nav = document.getElementById('navMenu');
             nav.classList.toggle('hidden');
             nav.classList.toggle('flex');
-        }
-
-        function openDetailModal(title, desc, klien, tahun, linkProyek, img) {
-            document.getElementById('detailTitle').innerText = title;
-            document.getElementById('detailDesc').innerText = desc;
-            document.getElementById('detailKlien').innerText = klien || '-';
-            document.getElementById('detailTahun').innerText = tahun || '-';
-
-            const imgElement = document.getElementById('detailImg');
-            if (img && img.trim() !== '') {
-                imgElement.src = img;
-                imgElement.style.display = 'block';
-            } else {
-                imgElement.style.display = 'none';
-            }
-
-            const linkContainer = document.getElementById('linkContainer');
-            const btnLink = document.getElementById('btnLinkProyek');
-
-            if (linkProyek && linkProyek.trim() !== '') {
-                btnLink.href = linkProyek;
-                linkContainer.style.display = 'block';
-            } else {
-                linkContainer.style.display = 'none';
-            }
-
-            document.getElementById('detailModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
         }
 
         function filterServices() {

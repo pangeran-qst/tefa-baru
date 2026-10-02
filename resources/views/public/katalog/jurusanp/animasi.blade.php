@@ -349,6 +349,12 @@
         height: 80px;
       }
 
+      .sidebar-divider {
+        height: 1px;
+        background-color: #e2e8f0; /* Warna abu-abu halus */
+        margin: 12px 0;           /* Jarak atas & bawah garis */
+        list-style: none;
+      }
 
       /* Responsif Mobile */
       @media (max-width: 768px) {
@@ -493,12 +499,12 @@
 
     {{-- HERO SECTION --}}
     <section class="hero">
-    <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Utama Portofolio</a>
+    <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
     <div class="hero-title-container">
         <!-- Ikonnya bisa disesuaikan, di sini saya pakai clapperboard/film 🎬 -->
         <div class="hero-icon">✨</div> 
         <div>
-            <h1>Hasil Karya & Portofolio ANIMASI</h1>
+            <h1>Portofolio ANIMASI</h1>
             <p>Animasi</p>
         </div>
     </div>
@@ -512,8 +518,10 @@
     <div class="content-layout">
         <!-- SIDEBAR NAV JURUSAN -->
         <aside class="sidebar">
-            <div class="sidebar-title">Jurusan Lain</div>
+            <div class="sidebar-title">Kategori</div>
             <ul class="sidebar-menu">
+                <li><a href="{{ route('portofolio.semua') }}">SEMUA</a></li>
+                <li class="sidebar-divider"></li>
                 <li><a href="{{ route('portofolio.rpl') }}">RPL</a></li>
                 <li><a href="{{ route('portofolio.dkv') }}">DKV</a></li>
                 <li><a href="{{ route('portofolio.pspt') }}">PSPT</a></li>
@@ -539,7 +547,7 @@
                         <div
                             class="service-img"
                             style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                            🎬
+                            ✨
                         </div>
                     @endif
 
@@ -568,11 +576,9 @@
                                 </div>
                             </div>
 
-                            <a
-                            href="{{ route('detail.produk', $tefa->id_produk) }}"
-                            class="btn-detail">
-                            Lihat Karya
-                            </a>
+                          <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                              Lihat Karya
+                          </a>
 
                         </div>
 
@@ -582,7 +588,7 @@
             @empty
 
                 <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                    <div style="font-size:50px;">🎬</div>
+                    <div style="font-size:50px;">✨</div>
 
                     <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
                         Belum Ada Karya ANIMASI
@@ -596,6 +602,13 @@
             @endforelse
 
         </main>
+    </div>
+
+    @if($tefas->hasPages())
+        <div style="margin-top: 30px; display: flex; justify-content: center;">
+            {{ $tefas->links() }}
+        </div>
+    @endif
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">
@@ -624,35 +637,10 @@
 
     <!-- JAVASCRIPT -->
     <script>
-        function openDetailModal(title, desc, klien, tahun, linkProyek, img) {
-            document.getElementById('detailTitle').innerText = title;
-            document.getElementById('detailDesc').innerText = desc;
-            document.getElementById('detailKlien').innerText = klien || '-';
-            document.getElementById('detailTahun').innerText = tahun || '-';
-
-            const imgElement = document.getElementById('detailImg');
-            if (img && img.trim() !== '') {
-                imgElement.src = img;
-                imgElement.style.display = 'block';
-            } else {
-                imgElement.style.display = 'none';
-            }
-
-            const linkContainer = document.getElementById('linkContainer');
-            const btnLink = document.getElementById('btnLinkProyek');
-
-            if (linkProyek && linkProyek.trim() !== '') {
-                btnLink.href = linkProyek;
-                linkContainer.style.display = 'block';
-            } else {
-                linkContainer.style.display = 'none';
-            }
-
-            document.getElementById('detailModal').classList.add('active');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.remove('active');
+        function toggleMenu() {
+            const nav = document.getElementById('navMenu');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
         }
 
         function filterServices() {
