@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalog Layanan & Jurusan - TeFA SMKN 4 Tanjungpinang</title>
+  <title>Portofolio - TeFA SMKN 4 Tanjungpinang</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-700 font-sans antialiased leading-relaxed min-h-screen flex flex-col justify-between">
@@ -45,13 +45,13 @@
 
                 {{-- LAYANAN --}}
                 <a href="{{ route('katalog') }}"
-                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                     Layanan
                 </a>
 
                 {{-- PORTOFOLIO --}}
                 <a href="{{ route('portofolio') }}"
-                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
                     Portofolio
                 </a>
 
@@ -140,8 +140,8 @@
     </header>
 
     <section class="bg-blue-800 px-5 py-14 text-center text-white">
-      <h1 class="mb-3 text-3xl font-bold">Katalog Layanan & Jurusan</h1>
-      <p class="mb-6 text-sm md:text-base text-blue-200">Temukan layanan profesional dari 6 jurusan keahlian Teaching Factory SMKN 4 Tanjungpinang.</p>
+      <h1 class="mb-3 text-3xl font-bold">Portofolio Layanan & Jurusan</h1>
+      <p class="mb-6 text-sm md:text-base text-blue-200">Temukan Portofolio Profesional dari 6 jurusan keahlian Teaching Factory SMKN 4 Tanjungpinang.</p>
     </section>
 
     <main class="mx-auto my-10 max-w-[1200px] px-5">
@@ -170,8 +170,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.tkj') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan TKJ</span>
+                <a href="{{ route('portofolio.tkj') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio TKJ</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -202,8 +202,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.gim') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan GIM</span>
+                <a href="{{ route('portofolio.gim') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio GIM</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -234,8 +234,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.animasi') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan ANIMASI</span>
+                <a href="{{ route('portofolio.animasi') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio ANIMASI</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -266,8 +266,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.rpl') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan RPL</span>
+                <a href="{{ route('portofolio.rpl') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio RPL</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -298,8 +298,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.dkv') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan DKV</span>
+                <a href="{{ route('portofolio.dkv') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio DKV</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>
@@ -330,8 +330,8 @@
                 </div>
 
                 <!-- Tombol CTA Full-Width -->
-                <a href="{{ route('katalog.pspt') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
-                    <span>Lihat Layanan PSPT</span>
+                <a href="{{ route('portofolio.pspt') }}" class="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-xs font-bold text-white shadow-sm transition-all duration-200 hover:bg-blue-700 hover:shadow-md active:scale-[0.99]">
+                    <span>Lihat Portofolio PSPT</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                     </svg>

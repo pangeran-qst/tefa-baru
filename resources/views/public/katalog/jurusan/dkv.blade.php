@@ -351,6 +351,12 @@
       height: 80px;
     }
 
+    .sidebar-divider {
+        height: 1px;
+        background-color: #e2e8f0; /* Warna abu-abu halus */
+        margin: 12px 0;           /* Jarak atas & bawah garis */
+        list-style: none;
+      }
 
     /* Responsif Mobile */
     @media (max-width: 768px) {
@@ -406,7 +412,12 @@
                   Layanan
               </a>
 
-            
+              {{-- PORTOFOLIO --}}
+              <a href="{{ route('portofolio') }}"
+                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                  Portofolio
+              </a>
+
               {{-- KONTAK --}}
               <a href="{{ route('kontak') }}"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
@@ -510,6 +521,8 @@
     <aside class="sidebar">
       <div class="sidebar-title">Jurusan Lain</div>
       <ul class="sidebar-menu">
+        <li><a href="{{ route('katalog.semua') }}">SEMUA</a></li>
+        <li class="sidebar-divider"></li>
         <li><a href="{{ route('katalog.rpl') }}">RPL</a></li>
         <li class="active"><a href="{{ route('katalog.dkv') }}">DKV</a></li>
         <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
@@ -594,63 +607,11 @@
     </main>
   </div>
 
-  <div class="modal-overlay" id="detailModal">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('detailModal')">✕</button>
-      <img id="detailImg" src="" alt="Detail Image" class="modal-img">
-      <div class="modal-body">
-        <h3 id="detailTitle">Desain Grafis</h3>
-        <p id="detailDesc" class="modal-desc">Layanan desain grafis profesional sesuai kebutuhan.</p>
-        
-        <div class="spec-box">
-          <div class="spec-row">
-            <span class="spec-label">Spesifikasi</span>
-            <span id="detailSpec" class="spec-value">Desain sesuai kebutuhan dan revisi.</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Durasi</span>
-            <span id="detailDuration" class="spec-value">Sesuai tingkat kesulitan.</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Mulai dari</span>
-            <span id="detailPrice" class="spec-value" style="font-weight: bold; color: #000000;"></span>
-          </div>
+  @if($tefas->hasPages())
+        <div style="margin-top: 30px; display: flex; justify-content: center;">
+            {{ $tefas->links() }}
         </div>
-
-        <button class="btn-block" onclick="switchToFormModal()">Beli</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="formModal">
-    <div class="modal-card">
-      <button class="modal-close" onclick="closeModal('formModal')">✕</button>
-      <div class="modal-body" style="padding-top: 24px;">
-        <h3 style="font-size: 18px; color: #000000;">Form Pemesanan</h3>
-        <p id="formServiceName" style="font-size: 13px; color: #000000; font-weight: 600; margin-bottom: 20px;">Desain Grafis</p>
-        
-        <form onsubmit="submitForm(event)">
-          <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" placeholder="Nama Anda" required>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" placeholder="nama@email.com" required>
-          </div>
-          <div class="form-group">
-            <label for="whatsapp">Nomor WhatsApp</label>
-            <input type="tel" id="whatsapp" placeholder="08xx-xxxx-xxxx" required>
-          </div>
-          <div class="form-group">
-            <label for="catatan">Catatan / Kebutuhan Proyek</label>
-            <textarea id="catatan" placeholder="Ceritakan kebutuhan proyek Anda..."></textarea>
-          </div>
-          <button type="submit" class="btn-block">Kirim Pesanan</button>
-        </form>
-      </div>
-    </div>
-  </div>
+    @endif
 
   <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
         <div class="mb-10 flex flex-wrap justify-between gap-8">
@@ -677,16 +638,6 @@
   </footer>
 
   <script>
-    let currentService = {
-      id_produk: '',
-      title: '',
-      desc: '',
-      spec: '',
-      duration: '',
-      price: '',
-      img: ''
-    };
-
     function toggleMenu() {
         const nav = document.getElementById('navMenu');
 
@@ -694,86 +645,21 @@
         nav.classList.toggle('flex');
     }
 
-    function openDetailModal(id_produk, title, desc, spec, duration, price, img) {
-      currentService = { id_produk, title, desc, spec, duration, price, img };
-
-      document.getElementById('detailTitle').innerText = title;
-      document.getElementById('detailDesc').innerText = desc;
-      document.getElementById('detailSpec').innerText = spec;
-      document.getElementById('detailDuration').innerText = duration;
-      document.getElementById('detailPrice').innerText = price;
-      document.getElementById('detailImg').src = img;
-
-      document.getElementById('detailModal').classList.add('active');
-    }
-
-    function closeModal(modalId) {
-      document.getElementById(modalId).classList.remove('active');
-    }
-
-    function switchToFormModal() {
-      closeModal('detailModal');
-      document.getElementById('formServiceName').innerText = currentService.title;
-      document.getElementById('formModal').classList.add('active');
-    }
-
     function filterServices() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('#servicesGrid .service-card');
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
 
-      cards.forEach(card => {
-        const title = card.querySelector('h3').innerText.toLowerCase();
-        const desc = card.querySelector('p').innerText.toLowerCase();
-        
-        if (title.includes(input) || desc.includes(input)) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
+            cards.forEach(card => {
+                const title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+                const desc = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
-      });
-    }
-
-    async function submitForm(e) {
-      e.preventDefault();
-
-      const nama = document.getElementById('nama').value;
-      const email = document.getElementById('email').value;
-      const wa = document.getElementById('whatsapp').value;
-      const catatan = document.getElementById('catatan').value;
-
-      try {
-          const response = await fetch("{{ route('pesanan.store') }}", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-                  "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                  "Accept": "application/json"
-              },
-              body: JSON.stringify({
-                  id_produk: currentService.id_produk,
-                  nama_pemesan: nama,
-                  email_pemesan: email,
-                  no_hp_pemesan: wa,
-                  catatan_pesanan: catatan
-              })
-          });
-
-          const data = await response.json();
-
-          if (!response.ok) {
-              alert(data.message || 'Pesanan gagal disimpan.');
-              return;
-          }
-
-          alert('Pesanan berhasil dikirim!');
-
-          closeModal('formModal');
-
-      } catch (error) {
-          console.error(error);
-          alert('Terjadi kesalahan saat mengirim pesanan.');
-      }
-    }
   </script>
 </body>
 </html>

@@ -1,12 +1,10 @@
-  <!DOCTYPE html>
-  <html lang="id">
-  <head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Portofolio - TeFA SMKN 4 Tanjungpinang</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
-    <title>Layanan & Produk ANIMASI - TeFA SMKN 4 Tanjungpinang</title>
     <style>
       * {
         box-sizing: border-box;
@@ -358,6 +356,7 @@
         list-style: none;
       }
 
+
       /* Responsif Mobile */
       @media (max-width: 768px) {
       .content-layout {
@@ -369,29 +368,27 @@
       }
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
-      <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
+    {{-- HEADER / NAVBAR UTAMA --}}
+    <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
         {{-- LOGO --}}
         <a href="{{ url('/') }}" class="flex items-center gap-3">
             <img
                 src="{{ asset('gambar/tefa/logo.png') }}"
-                alt=""
+                alt="Logo TeFA"
                 class="h-10 w-auto max-w-[120px] object-contain"
             >
-
             <div>
                 <div class="text-[15px] font-bold leading-tight text-slate-900">
                     TeFA SMKN 4
                 </div>
-
                 <div class="text-xs text-blue-500">
                     Tanjungpinang
                 </div>
             </div>
         </a>
-
 
         {{-- BAGIAN KANAN NAVBAR --}}
         <div class="flex items-center gap-4">
@@ -408,13 +405,13 @@
 
                 {{-- LAYANAN --}}
                 <a href="{{ route('katalog') }}"
-                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
+                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                     Layanan
                 </a>
 
                 {{-- PORTOFOLIO --}}
                 <a href="{{ route('portofolio') }}"
-                    class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                    class="rounded-md bg-blue-700 px-4 py-2 text-sm font-medium text-white">
                     Portofolio
                 </a>
 
@@ -424,7 +421,6 @@
                     Kontak
                 </a>
             </nav>
-
 
             {{-- ICON PROFIL / USER --}}
             <div class="relative group">
@@ -466,7 +462,7 @@
                                     <button type="submit"
                                         class="w-full rounded-lg px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50">
                                         Logout
-                                    </button> 
+                                    </button>
                                 </form>
                             </div>
 
@@ -502,109 +498,113 @@
         </button>
     </header>
 
+    {{-- HERO SECTION --}}
     <section class="hero">
-      <a href="{{ route('katalog') }}" class="back-link">← Kembali ke Katalog</a>
-      <div class="hero-title-container">
-        <div class="hero-icon">✨</div>
+    <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
+    <div class="hero-title-container">
+        <div class="hero-icon">✨</div> 
         <div>
-          <h1>Layanan & Produk ANIMASI</h1>
-          <p>Animasi</p>
+            <h1>Semua Layanan TeFA</h1>
+            <p>Jelajahi seluruh Portofolio Teaching Factory (TeFA).</p>
         </div>
-      </div>
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="Cari layanan ANIMASI..." onkeyup="filterServices()">
-      </div>
+    </div>
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Cari karya ANIMASI..." onkeyup="filterServices()">
+        </div>
     </section>
 
+    <!-- MAIN CONTENT LAYOUT -->
     <div class="content-layout">
-      <aside class="sidebar">
-        <div class="sidebar-title">Jurusan Lain</div>
-        <ul class="sidebar-menu">
-          <li><a href="{{ route('katalog.semua') }}">SEMUA</a></li>
-          <li class="sidebar-divider"></li>
-          <li><a href="{{ route('katalog.rpl') }}">RPL</a></li>
-          <li><a href="{{ route('katalog.dkv') }}">DKV</a></li>
-          <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
-          <li><a href="{{ route('katalog.tkj') }}">TKJ</a></li>
-          <li><a href="{{ route('katalog.gim') }}">GIM</a></li>
-          <li class="active"><a href="{{ route('katalog.animasi') }}">ANIMASI</a></li>
-        </ul>
-      </aside>
+        <!-- SIDEBAR NAV JURUSAN -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Kategori</div>
+            <ul class="sidebar-menu">
+                <li class="active"><a href="{{ route('portofolio.semua') }}">SEMUA</a></li>
+                <li class="sidebar-divider"></li>
+                <li><a href="{{ route('portofolio.rpl') }}">RPL</a></li>
+                <li><a href="{{ route('portofolio.dkv') }}">DKV</a></li>
+                <li><a href="{{ route('portofolio.pspt') }}">PSPT</a></li>
+                <li><a href="{{ route('portofolio.tkj') }}">TKJ</a></li>
+                <li><a href="{{ route('portofolio.gim') }}">GIM</a></li>
+                <li><a href="{{ route('portofolio.animasi') }}">ANIMASI</a></li>
+            </ul>
+        </aside>
 
-      <main class="services-grid" id="servicesGrid">
+        <main class="services-grid" id="servicesGrid">
 
-        @forelse($tefas as $tefa)
+            @forelse($tefas as $tefa)
 
-            <div class="service-card">
+                <div class="service-card">
 
-                {{-- FOTO DARI DATABASE --}}
-                @if($tefa->gambar)
-                    <img
-                        src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                        alt="{{ $tefa->nama_produk }}"
-                        class="service-img">
-                @else
-                    <div
-                        class="service-img"
-                        style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                        ✨
-                    </div>
-                @endif
+                    {{-- THUMBNAIL PRODUK --}}
+                    @if($tefa->gambar)
+                        <img 
+                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}" 
+                            alt="{{ $tefa->nama_produk }}" 
+                            class="service-img">
+                    @else
+                        <div 
+                            class="service-img" 
+                            style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
+                            📦
+                        </div>
+                    @endif
 
-                <div class="service-body">
+                    <div class="service-body">
 
-                    {{-- NAMA PRODUK --}}
-                    <h3>
-                        {{ $tefa->nama_produk }}
-                    </h3>
+                        {{-- NAMA PRODUK --}}
+                        <h3>
+                            {{ $tefa->nama_produk }}
+                        </h3>
 
-                    {{-- DESKRIPSI --}}
-                    <p>
-                        {{ $tefa->deskripsi }}
-                    </p>
+                        {{-- DESKRIPSI SINGKAT PRODUK --}}
+                        <p>
+                            {{ $tefa->deskripsi }}
+                        </p>
 
-                    <div class="service-footer">
+                        <div class="service-footer">
 
-                        <div>
-                            <div class="price-label">
-                                Mulai dari
+                            <div>
+                                <div class="price-label">
+                                    Kategori Produk
+                                </div>
+
+                                {{-- NAMA JURUSAN / KATEGORI PRODUK --}}
+                                <div class="price-value" style="font-size: 14px;">
+                                    {{ $tefa->jurusan ?? 'Produk TeFA' }}
+                                </div>
                             </div>
 
-                            {{-- HARGA DARI DATABASE --}}
-                            <div class="price-value">
-                                Rp {{ number_format($tefa->harga, 0, ',', '.') }}
-                            </div>
+                            {{-- TOMBOL DETAIL PRODUK --}}
+                            <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                                Lihat Produk
+                            </a>
+
                         </div>
 
-                        <a
-                          href="{{ route('detail.produk', $tefa->id_produk) }}"
-                          class="btn-detail">
-                          Detail Jasa
-                        </a>
-
                     </div>
-
                 </div>
-            </div>
 
-        @empty
+            @empty
 
-            <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                <div style="font-size:50px;">✨</div>
+                {{-- STATE KOSONG --}}
+                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                    <div style="font-size:50px;">📦</div>
 
-                <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                    Belum Ada Layanan ANIMASI
-                </h3>
+                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                        Belum Ada Produk Ditampilkan
+                    </h3>
 
-                <p style="margin-top:8px; color:#64748b;">
-                    Layanan ANIMASI belum tersedia saat ini.
-                </p>
-            </div>
+                    <p style="margin-top:8px; color:#64748b;">
+                        Daftar produk portofolio belum tersedia saat ini.
+                    </p>
+                </div>
 
-        @endforelse
+            @endforelse
 
-      </main>
+        </main>
+        
     </div>
 
     @if($tefas->hasPages())
@@ -626,6 +626,7 @@
               <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
               <ul class="space-y-2 text-xs md:text-sm text-slate-300">
               <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
+              <li>📞 0771-4440844 (WhatsApp CS)</li>
               <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
               <li>🌐 tefa.smkn4tpi.sch.id</li>
               </ul>
@@ -637,15 +638,15 @@
           </div>
     </footer>
 
+    <!-- JAVASCRIPT -->
     <script>
-      function toggleMenu() {
-          const nav = document.getElementById('navMenu');
+        function toggleMenu() {
+            const nav = document.getElementById('navMenu');
+            nav.classList.toggle('hidden');
+            nav.classList.toggle('flex');
+        }
 
-          nav.classList.toggle('hidden');
-          nav.classList.toggle('flex');
-      }
-
-      function filterServices() {
+        function filterServices() {
             const input = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('#servicesGrid .service-card');
 
@@ -661,5 +662,5 @@
             });
         }
     </script>
-  </body>
-  </html>
+</body>
+</html>
