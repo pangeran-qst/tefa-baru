@@ -418,6 +418,7 @@
                 </p>
 
                 <form onsubmit="submitForm(event)">
+                    @csrf
 
                     <div class="form-group">
                         <label for="nama">Nama Lengkap</label>
@@ -429,7 +430,6 @@
                             required>
                     </div>
 
-
                     <div class="form-group">
                         <label for="email">Email</label>
 
@@ -439,7 +439,6 @@
                             placeholder="nama@email.com"
                             required>
                     </div>
-
 
                     <div class="form-group">
                         <label for="whatsapp">Nomor WhatsApp</label>
@@ -451,7 +450,6 @@
                             required>
                     </div>
 
-
                     <div class="form-group">
                         <label for="catatan">
                             Catatan / Kebutuhan Proyek
@@ -461,7 +459,6 @@
                             id="catatan"
                             placeholder="Ceritakan kebutuhan proyek Anda..."></textarea>
                     </div>
-
 
                     <button
                         type="submit"

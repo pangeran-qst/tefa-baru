@@ -85,4 +85,14 @@ class Pesanan extends Model
             'id_pesanan'
         )->orderByDesc('tanggal_tracking');
     }
+
+    public function progress()
+    {
+        return $this->hasMany(
+            ProgressPesanan::class,
+            'id_pesanan',
+            'id_pesanan'
+        )->latest('tanggal_progress');
+    }
+
 }

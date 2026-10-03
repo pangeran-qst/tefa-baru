@@ -154,6 +154,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/worker/tugasku', [WorkerController::class, 'tugasku'])
     ->name('worker.tugasku');
     
+    Route::post('/worker/pesanan/{id}/terima', [WorkerController::class, 'terima'])
+    ->name('worker.pesanan.terima');
+
+    Route::post('/worker/pesanan/{id}/tolak', [WorkerController::class, 'tolak'])
+        ->name('worker.pesanan.tolak');
+
+    Route::post('/worker/pesanan/{id}/progress', [WorkerController::class, 'updateProgress'])
+        ->name('worker.pesanan.progress');
+
     Route::get('/worker/portofolio', function () {
         return view('worker.portofolio.index');
     })->name('worker.portofolio');
