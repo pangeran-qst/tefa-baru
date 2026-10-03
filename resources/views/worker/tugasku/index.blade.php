@@ -48,187 +48,269 @@
 
     <!-- TAB CONTENT 1: NEW PROJECT -->
     <div id="tab-new-project" class="tab-content space-y-4">
-      <!-- Item 1 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Web Dev</span>
-            <span class="text-xs text-slate-400">Deadline: 2026-09-10</span>
-          </div>
-          <h3 class="text-sm font-bold text-slate-800">Landing Page Produk UMKM</h3>
-          <p class="text-xs text-slate-500 mt-1">Buat landing page responsif dengan CTA dan galeri produk.</p>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <button class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
-            ✓ Terima
-          </button>
-          <button class="px-5 py-2 bg-white hover:bg-rose-50 text-rose-500 border border-slate-200 rounded-xl text-xs font-bold transition">
-            X Tolak
-          </button>
-        </div>
-      </div>
 
-      <!-- Item 2 -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">UI/UX Design</span>
-            <span class="text-xs text-slate-400">Deadline: 2026-09-05</span>
+      @forelse($newProject as $item)
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+
+              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">
+                {{ $item->tefa->layanan ?? 'TEFA' }}
+              </span>
+
+              <span class="text-xs text-slate-400">
+                Pesanan #{{ $item->id_pesanan }}
+              </span>
+
+            </div>
+
+            <h3 class="text-sm font-bold text-slate-800">
+              {{ $item->tefa->nama_produk ?? 'Layanan TEFA' }}
+            </h3>
+
+            <p class="text-xs text-slate-500 mt-1">
+              Klien:
+              <span class="font-medium text-slate-700">
+                {{ $item->nama_pemesan }}
+              </span>
+            </p>
+
+            @if($item->catatan_pesanan)
+              <p class="text-xs text-slate-400 mt-1">
+                Catatan: {{ $item->catatan_pesanan }}
+              </p>
+            @endif
+
           </div>
-          <h3 class="text-sm font-bold text-slate-800">Desain Logo & Brand Identity</h3>
-          <p class="text-xs text-slate-500 mt-1">Desain logo profesional beserta panduan warna dan tipografi.</p>
+
+          <div class="flex items-center gap-2 shrink-0">
+
+            <!-- TOLAK -->
+            <form action="{{ route('worker.pesanan.tolak', $item->id_pesanan) }}"
+                  method="POST"
+                  onsubmit="return confirm('Yakin ingin menolak project ini?')">
+                @csrf
+
+                <button type="submit"
+                        class="px-4 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition">
+                    ✕ Tolak
+                </button>
+            </form>
+
+            <!-- TERIMA -->
+            <form action="{{ route('worker.pesanan.terima', $item->id_pesanan) }}"
+                  method="POST">
+                @csrf
+
+                <button type="submit"
+                        class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm transition">
+                    ✓ Terima Project
+                </button>
+            </form>
+
         </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <button class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition">
-            ✓ Terima
-          </button>
-          <button class="px-5 py-2 bg-white hover:bg-rose-50 text-rose-500 border border-slate-200 rounded-xl text-xs font-bold transition">
-            X Tolak
-          </button>
+
         </div>
-      </div>
+
+      @empty
+
+        <div class="bg-white rounded-2xl p-10 border border-slate-200/80 shadow-sm text-center">
+
+          <div class="text-3xl mb-3">📭</div>
+
+          <h3 class="text-sm font-bold text-slate-700">
+            Belum ada project baru
+          </h3>
+
+          <p class="text-xs text-slate-400 mt-1">
+            Project yang ditugaskan oleh Admin Jurusan akan muncul di sini.
+          </p>
+
+        </div>
+
+      @endforelse
+
     </div>
 
     <!-- TAB CONTENT 2: PROJECT SAYA -->
     <div id="tab-project-saya" class="tab-content hidden space-y-6">
-      
-      <!-- Project 1: Aplikasi Kasir Mobile -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Mobile App</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600 flex items-center gap-1">
-                ⏰ 16 hari lagi
-              </span>
+
+      @forelse($projectSaya as $item)
+
+        <!-- Project -->
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">
+                  {{ $item->tefa->jurusan ?? 'TEFA' }}
+                </span>
+
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600 flex items-center gap-1">
+                  ⏰ Dalam pengerjaan
+                </span>
+
+              </div>
+
+              <h3 class="text-base font-bold text-slate-800">
+                {{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}
+              </h3>
+
+              <p class="text-xs text-slate-500 font-medium mt-0.5">
+                Pesanan #{{ $item->id_pesanan }}
+                · Klien:
+                <span class="text-slate-700 font-semibold">
+                  {{ $item->nama_pemesan }}
+                </span>
+              </p>
             </div>
-            <h3 class="text-base font-bold text-slate-800">Aplikasi Kasir Mobile</h3>
-          </div>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed">
-              🚀 Ajukan QC
+
+            <div class="flex items-center gap-2">
+
+              <button class="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed">
+                🚀 Ajukan QC
+              </button>
+
+              <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
+                💬 Quick-WA Kajur
+              </button>
+
+              <button
+                type="button"
+                onclick="openProgressModal(
+                    '{{ $item->id_pesanan }}',
+                    '{{ $item->tefa->nama_produk ?? 'Layanan' }}'
+                )"
+                class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-indigo-600/20 transition">
+                📊 Update Progress
             </button>
-            <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
-              💬 Quick-WA Kajur
-            </button>
-          </div>
-        </div>
 
-        <!-- Progress Bar -->
-        <div class="mb-6">
-          <div class="flex justify-between items-center text-xs text-slate-500 font-medium mb-1.5">
-            <span>Progress Pengerjaan</span>
-            <span class="font-bold text-indigo-600">50%</span>
-          </div>
-          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-            <div class="bg-indigo-600 h-full rounded-full" style="width: 50%"></div>
-          </div>
-        </div>
-
-        <!-- Milestone Checklist -->
-        <div class="mb-6">
-          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">MILESTONE CHECKLIST</h4>
-          <div class="space-y-2.5">
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-400 line-through-custom">Setup project & environment</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-400 line-through-custom">Desain UI screen utama</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-400 line-through-custom">Implementasi fitur tambah produk</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Integrasi database lokal</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Testing & bug fixing</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Build APK final</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Link Hasil Pengerjaan -->
-        <div>
-          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">LINK HASIL PENGERJAAN</h4>
-          <input type="text" placeholder="https://drive.google.com/... / https://github.com/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-indigo-500 transition">
-        </div>
-      </div>
-
-      <!-- Project 2: Dashboard Analytics Web -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-          <div>
-            <div class="flex items-center gap-2 mb-2">
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-100 text-indigo-600">Web Dev</span>
-              <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-600 flex items-center gap-1">
-                ⏰ 21 hari lagi
-              </span>
             </div>
-            <h3 class="text-base font-bold text-slate-800">Dashboard Analytics Web</h3>
           </div>
-          <div class="flex items-center gap-2">
-            <button class="px-4 py-2 bg-slate-100 text-slate-400 rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-not-allowed">
-              🚀 Ajukan QC
-            </button>
-            <button class="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20 transition">
-              💬 Quick-WA Kajur
-            </button>
+
+
+          <!-- Progress Bar -->
+          <div class="mb-6">
+            <div class="flex justify-between items-center text-xs text-slate-500 font-medium mb-1.5">
+              <span>Progress Pengerjaan</span>
+              <span class="font-bold text-indigo-600">50%</span>
+            </div>
+
+            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+              <div class="bg-indigo-600 h-full rounded-full" style="width: 50%"></div>
+            </div>
           </div>
+
+
+          <!-- Milestone Checklist -->
+          <div class="mb-6">
+            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+              MILESTONE CHECKLIST
+            </h4>
+
+            <div class="space-y-2.5">
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-400 line-through-custom">
+                  Setup project & environment
+                </span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-400 line-through-custom">
+                  Desain UI screen utama
+                </span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-400 line-through-custom">
+                  Implementasi fitur utama
+                </span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-700 font-medium">
+                  Integrasi database
+                </span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-700 font-medium">
+                  Testing & bug fixing
+                </span>
+              </label>
+
+              <label class="flex items-center gap-2.5 cursor-pointer">
+                <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
+                <span class="text-xs text-slate-700 font-medium">
+                  Finalisasi project
+                </span>
+              </label>
+
+            </div>
+          </div>
+
+
+          <!-- Catatan Pesanan -->
+          @if($item->catatan_pesanan)
+            <div class="mb-6">
+
+              <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                CATATAN PESANAN
+              </h4>
+
+              <div class="bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5">
+                <p class="text-xs text-slate-600">
+                  {{ $item->catatan_pesanan }}
+                </p>
+              </div>
+
+            </div>
+          @endif
+
+
+          <!-- Link Hasil Pengerjaan -->
+          <div>
+            <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+              LINK HASIL PENGERJAAN
+            </h4>
+
+            <input
+              type="text"
+              placeholder="https://drive.google.com/... / https://github.com/..."
+              class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:border-indigo-500 transition">
+          </div>
+
         </div>
 
-        <!-- Progress Bar -->
-        <div class="mb-6">
-          <div class="flex justify-between items-center text-xs text-slate-500 font-medium mb-1.5">
-            <span>Progress Pengerjaan</span>
-            <span class="font-bold text-indigo-600">40%</span>
+      @empty
+
+        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 shadow-sm text-center">
+
+          <div class="text-3xl mb-3">
+            🛠️
           </div>
-          <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
-            <div class="bg-indigo-600 h-full rounded-full" style="width: 40%"></div>
-          </div>
+
+          <h3 class="text-sm font-bold text-slate-700">
+            Belum ada project yang sedang dikerjakan
+          </h3>
+
+          <p class="text-xs text-slate-400 mt-1">
+            Project yang sudah kamu terima akan muncul di sini.
+          </p>
+
         </div>
 
-        <!-- Milestone Checklist -->
-        <div class="mb-6">
-          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">MILESTONE CHECKLIST</h4>
-          <div class="space-y-2.5">
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-400 line-through-custom">Wireframe & prototype</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" checked class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-400 line-through-custom">Setup React + chart library</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Komponen chart utama</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Integrasi API data</span>
-            </label>
-            <label class="flex items-center gap-2.5 cursor-pointer">
-              <input type="checkbox" class="w-4 h-4 rounded text-indigo-600 focus:ring-indigo-500 border-slate-300">
-              <span class="text-xs text-slate-700 font-medium">Responsif & polish UI</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- Link Hasil Pengerjaan -->
-        <div>
-          <h4 class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">LINK HASIL PENGERJAAN</h4>
-          <input type="text" value="https://drive.google.com/... / https://github.com/..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs text-slate-600 focus:outline-none focus:border-indigo-500 transition">
-        </div>
-      </div>
+      @endforelse
 
     </div>
 
@@ -290,6 +372,133 @@
 
   </main>
 
+
+
+  <!-- MODAL UPDATE PROGRESS -->
+  <div id="progressModal"
+      class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+
+      <div class="bg-white rounded-2xl w-full max-w-md mx-4 p-6 shadow-xl">
+
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-5">
+              <div>
+                  <h3 class="text-base font-bold text-slate-800">
+                      Update Progress
+                  </h3>
+
+                  <p id="progressNamaProduk"
+                    class="text-xs text-slate-400 mt-1">
+                      Project
+                  </p>
+              </div>
+
+              <button
+                  type="button"
+                  onclick="closeProgressModal()"
+                  class="text-slate-400 hover:text-slate-600 text-xl">
+                  ×
+              </button>
+          </div>
+
+          <!-- Form -->
+          <form id="progressForm" method="POST">
+
+              @csrf
+
+              <!-- Progress -->
+              <div class="mb-4">
+
+                  <label class="block text-xs font-semibold text-slate-600 mb-2">
+                      Persentase Progress
+                  </label>
+
+                  <div class="flex items-center gap-3">
+
+                      <input
+                          type="range"
+                          name="progress"
+                          id="progressRange"
+                          min="0"
+                          max="100"
+                          value="0"
+                          class="w-full accent-indigo-600"
+                          oninput="document.getElementById('progressValue').innerText = this.value + '%'">
+
+                      <span
+                          id="progressValue"
+                          class="text-sm font-bold text-indigo-600 w-12">
+                          0%
+                      </span>
+
+                  </div>
+
+              </div>
+
+              <!-- Tahap -->
+              <div class="mb-4">
+
+                  <label class="block text-xs font-semibold text-slate-600 mb-2">
+                      Tahap Pengerjaan
+                  </label>
+
+                  <select
+                      name="tahap"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500">
+
+                      <option value="Persiapan">Persiapan</option>
+                      <option value="Pengerjaan">Pengerjaan</option>
+                      <option value="Implementasi">Implementasi</option>
+                      <option value="Testing">Testing</option>
+                      <option value="Revisi">Revisi</option>
+                      <option value="Finalisasi">Finalisasi</option>
+
+                  </select>
+
+              </div>
+
+              <!-- Catatan -->
+              <div class="mb-5">
+
+                  <label class="block text-xs font-semibold text-slate-600 mb-2">
+                      Catatan Progress
+                  </label>
+
+                  <textarea
+                      name="catatan"
+                      rows="3"
+                      placeholder="Contoh: Fitur login dan dashboard sudah selesai..."
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-xs focus:outline-none focus:border-indigo-500"></textarea>
+
+              </div>
+
+              <!-- Button -->
+              <div class="flex justify-end gap-2">
+
+                  <button
+                      type="button"
+                      onclick="closeProgressModal()"
+                      class="px-4 py-2 bg-slate-100 text-slate-500 rounded-xl text-xs font-semibold">
+                      Batal
+                  </button>
+
+                  <button
+                      type="submit"
+                      class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold">
+                      Simpan Progress
+                  </button>
+
+              </div>
+
+          </form>
+
+      </div>
+
+  </div>
+
+
+
+
   <!-- SCRIPT INTERAKTIF KHUSUS TABS -->
   <script>
     function switchTab(tabName) {
@@ -312,6 +521,32 @@
       activeBtn.classList.remove('text-slate-500', 'hover:bg-slate-100');
       activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-600/20');
     }
+
+
+    function openProgressModal(idPesanan, namaProduk) {
+
+      const modal = document.getElementById('progressModal');
+      const form = document.getElementById('progressForm');
+      const nama = document.getElementById('progressNamaProduk');
+
+      nama.innerText = namaProduk;
+
+      form.action = '/worker/pesanan/' + idPesanan + '/progress';
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+
+    function closeProgressModal() {
+
+        const modal = document.getElementById('progressModal');
+
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+
+
   </script>
   
 

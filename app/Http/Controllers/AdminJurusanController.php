@@ -83,23 +83,17 @@ class AdminJurusanController extends Controller
 
 
         // ==========================================
-        // 7. AMBIL WORKER / SISWA
-        // Sesuai jurusan admin yang login
+        // 7. AMBIL DATA WORKER / SISWA
+        // Sesuai jurusan admin yang login 
         // ==========================================
 
-        $workerQuery = User::whereIn('role', [
-            'worker',
-            'siswa',
-            'User Worker'
-        ]);
+        $workerQuery = User::where('role', 'worker');
 
         if ($jurusanUser) {
             $workerQuery->where('jurusan', $jurusanUser);
         }
 
-        $workers = $workerQuery
-            ->orderBy('nama')
-            ->get();
+        $workers = $workerQuery->get();
 
 
         // ==========================================
@@ -159,7 +153,7 @@ class AdminJurusanController extends Controller
 
 
         // Setelah ditugaskan → status pengerjaan
-        $pesanan->status = 'pengerjaan';
+        $pesanan->status = 'ditugaskan';
 
 
         // ==========================================

@@ -117,9 +117,11 @@ class AdminTefaController extends Controller
         $statusValid = [
             'pending',
             'diproses',
-            'in_progress',
-            'completed',
-            'cancelled',
+            'ditugaskan',
+            'pengerjaan',
+            'review',
+            'selesai',
+            'ditolak',
         ];
 
         $query = Pesanan::with('tefa')
@@ -141,17 +143,17 @@ class AdminTefaController extends Controller
 
         $jumlahInProgress = Pesanan::where(
             'status',
-            'in_progress'
+            'pengerjaan'
         )->count();
 
         $jumlahCompleted = Pesanan::where(
             'status',
-            'completed'
+            'selesai'
         )->count();
 
         $jumlahCancelled = Pesanan::where(
             'status',
-            'cancelled'
+            'ditolak'
         )->count();
 
         return view('admin.tefa.pesanan.index', compact(

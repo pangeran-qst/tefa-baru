@@ -143,7 +143,7 @@
             </div>
             <h3 class="text-base font-bold text-slate-800"><?php echo e($item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan'); ?></h3>
             <p class="text-xs text-slate-500 font-medium mt-0.5">
-              Worker: <span class="text-indigo-600 font-bold"><?php echo e($item->worker->name ?? $item->worker->username ?? 'Belum ditugaskan'); ?></span>
+              Worker: <span class="text-indigo-600 font-bold"><?php echo e($item->worker->nama ?? 'Belum ditugaskan'); ?></span>
               · Klien: <span class="text-slate-700 font-semibold"><?php echo e($item->nama_pemesan); ?></span>
             </p>
           </div>
@@ -175,7 +175,7 @@
               <span class="text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-md">Peninjauan / QC</span>
             </div>
             <h3 class="text-base font-bold text-slate-800"><?php echo e($item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan'); ?></h3>
-            <p class="text-xs text-slate-500 font-medium mt-0.5">Dikerjakan oleh: <?php echo e($item->worker->name ?? 'Worker'); ?></p>
+            <p class="text-xs text-slate-500 font-medium mt-0.5">Dikerjakan oleh: <?php echo e($item->worker->nama ?? 'Worker'); ?></p>
           </div>
           <div class="flex items-center gap-2">
             <form action="<?php echo e(route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id)); ?>" method="POST">
@@ -355,9 +355,8 @@
 
                             <?php $__currentLoopData = $workers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $worker): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <option value="<?php echo e($worker->id_user); ?>">
-                                    <?php echo e($worker->name ?? $worker->username); ?>
+                                    <?php echo e($worker->nama); ?>
 
-                                    (<?php echo e($worker->email); ?>)
                                 </option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

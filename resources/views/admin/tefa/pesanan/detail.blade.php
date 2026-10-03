@@ -709,56 +709,94 @@
 
 </div>
 
-    <!-- Modal Proses & Lempar Pesanan -->
+    <!-- Modal Proses Pesanan -->
     <div class="modal fade" id="modalProsesPesanan" tabindex="-1" aria-labelledby="modalProsesPesananLabel" aria-hidden="true">
+
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+
                 <div class="modal-header">
-                    <h5 class="modal-title font-weight-bold" id="modalProsesPesananLabel">Proses & Lempar Pesanan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title font-weight-bold" id="modalProsesPesananLabel">
+                        Proses Pesanan
+                    </h5>
+
+                    <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
                 </div>
-                
-                <form action="{{ route('admin.tefa.pesanan.proses', $pesanan->id_pesanan ?? $pesanan->id) }}" method="POST">
+
+                <form action="{{ route('admin.tefa.pesanan.proses', $pesanan->id_pesanan) }}"
+                    method="POST">
+
                     @csrf
+
                     <div class="modal-body">
-                        
-                        <!-- 1. Select Status Pesanan -->
+
                         <div class="mb-3">
-                            <label for="status" class="form-label font-weight-bold">Status Pesanan</label>
-                            <select name="status" id="status" class="form-select" required>
-                                <option value="diproses" {{ ($pesanan->status ?? '') == 'diproses' ? 'selected' : '' }}>Diproses (Teruskan ke Jurusan)</option>
-                                <option value="selesai" {{ ($pesanan->status ?? '') == 'selesai' ? 'selected' : '' }}>Selesai</option>
-                                <option value="ditolak" {{ ($pesanan->status ?? '') == 'ditolak' ? 'selected' : '' }}>Ditolak</option>
-                            </select>
+                            <label class="form-label font-weight-bold">
+                                Status Pesanan
+                            </label>
+
+                            <div class="form-control bg-light">
+                                <span class="badge bg-warning text-dark">
+                                    Diproses
+                                </span>
+                            </div>
+
+                            <small class="text-muted">
+                                Pesanan akan diteruskan ke Admin Jurusan untuk diproses lebih lanjut.
+                            </small>
                         </div>
 
-                        <!-- 2. Select Lempar ke Admin Jurusan -->
                         <div class="mb-3">
-                            <label for="jurusan_id" class="form-label font-weight-bold">Lempar ke Admin Jurusan</label>
-                            <select name="jurusan_id" id="jurusan_id" class="form-select" required>
-                                {{-- Bikin default selected + disabled biar wajib milih --}}
-                                <option value="" disabled {{ empty($pesanan->jurusan_id) ? 'selected' : '' }}>-- Pilih Jurusan Tujuan --</option>
-                                @foreach($listJurusan as $jurusan)
-                                    <option value="{{ $jurusan->id ?? $jurusan->id_jurusan }}" {{ ($pesanan->jurusan_id ?? '') == ($jurusan->id ?? $jurusan->id_jurusan) ? 'selected' : '' }}>
-                                        {{ $jurusan->nama_jurusan }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <small class="text-muted">Pesanan akan masuk dan dapat dikelola di dashboard Admin Jurusan ini.</small>
+                            <label class="form-label font-weight-bold">
+                                Jurusan
+                            </label>
+
+                            <div class="form-control bg-light">
+                                {{ $pesanan->tefa->jurusan ?? '-' }}
+                            </div>
+
+                            <small class="text-muted">
+                                Jurusan ditentukan berdasarkan produk/layanan yang dipesan.
+                            </small>
                         </div>
 
-                        <!-- 3. Catatan / Keterangan -->
                         <div class="mb-3">
-                            <label for="catatan" class="form-label font-weight-bold">Catatan / Instruksi Pengerjaan</label>
-                            <textarea name="catatan" id="catatan" class="form-control" rows="3" placeholder="Masukkan instruksi khusus untuk Admin Jurusan / Worker..."></textarea>
+                            <label for="catatan" class="form-label font-weight-bold">
+                                Catatan / Instruksi
+                            </label>
+
+                            <textarea
+                                name="catatan"
+                                id="catatan"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Masukkan catatan atau instruksi untuk Admin Jurusan..."></textarea>
                         </div>
 
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan & Teruskan</button>
+
+                        <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Batal
+                        </button>
+
+                        <button type="submit"
+                            class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i>
+                            Teruskan ke Jurusan
+                        </button>
+
                     </div>
+
                 </form>
+
             </div>
         </div>
     </div>
@@ -766,24 +804,7 @@
 
     <script>
 
-    function openProsesModal() {
-
-        const modal = document.getElementById('prosesPesananModal');
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-
-    }
-
-
-    function closeProsesModal() {
-
-        const modal = document.getElementById('prosesPesananModal');
-
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-
-    }
+    
 
     </script>
 
