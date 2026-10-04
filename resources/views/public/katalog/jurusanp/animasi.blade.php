@@ -531,7 +531,9 @@
             </ul>
         </aside>
 
-        <main class="services-grid" id="servicesGrid">
+        <div class="main-content" style="flex: 1; display: flex; flex-direction: column;">
+
+          <main class="services-grid" id="servicesGrid">
 
             @forelse($tefas as $tefa)
 
@@ -601,14 +603,19 @@
 
             @endforelse
 
-        </main>
+          </main>
+
+            @if($tefas->hasPages())
+                <div style="margin-top: 30px; display: flex; justify-content: center;">
+                    {{ $tefas->links() }}
+                </div>
+            @endif
+
+        </div>
+
     </div>
 
-    @if($tefas->hasPages())
-        <div style="margin-top: 30px; display: flex; justify-content: center;">
-            {{ $tefas->links() }}
-        </div>
-    @endif
+        
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">

@@ -99,7 +99,13 @@ Route::prefix('portofolio')->group(function () {
     Route::get('/pspt', [TefaController::class, 'portofolioPspt'])->name('portofolio.pspt');
 
     // Route Detail Karya (URL-nya nanti: domain.com/portofolio/karya/{id})
+    Route::prefix('portofolio')->group(function () {
+    // Daftar Karya berdasarkan Produk TeFA
+    Route::get('/produk/{id}', [TefaController::class, 'portofolioProduk'])->name('portofolio.produk');
+    
+    // Detail Single Karya
     Route::get('/karya/{id}', [TefaController::class, 'detailKarya'])->name('portofolio.karya');
+    });
 });
 
 // ==============================

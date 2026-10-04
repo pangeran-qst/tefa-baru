@@ -484,85 +484,85 @@
 
     <script>
         
-        function openPurchaseModal() {
-        document.getElementById('formModal').classList.add('active');
-    }
+            function openPurchaseModal() {
+            document.getElementById('formModal').classList.add('active');
+        }
 
-    function closePurchaseModal() {
-        document.getElementById('formModal').classList.remove('active');
-    }
-
-
-    async function submitForm(e) {
-        e.preventDefault();
-
-        const nama = document.getElementById('nama').value;
-        const email = document.getElementById('email').value;
-        const wa = document.getElementById('whatsapp').value;
-        const catatan = document.getElementById('catatan').value;
-
-        try {
-
-            const response = await fetch("{{ route('pesanan.store') }}", {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Accept": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    // ID PRODUK DIAMBIL LANGSUNG DARI DATABASE
-                    id_produk: {{ $tefa->id_produk }},
-
-                    nama_pemesan: nama,
-
-                    email_pemesan: email,
-
-                    no_hp_pemesan: wa,
-
-                    catatan_pesanan: catatan
-                })
-            });
+        function closePurchaseModal() {
+            document.getElementById('formModal').classList.remove('active');
+        }
 
 
-            const data = await response.json();
+        async function submitForm(e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const wa = document.getElementById('whatsapp').value;
+            const catatan = document.getElementById('catatan').value;
+
+            try {
+
+                const response = await fetch("{{ route('pesanan.store') }}", {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                        "Accept": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        // ID PRODUK DIAMBIL LANGSUNG DARI DATABASE
+                        id_produk: {{ $tefa->id_produk }},
+
+                        nama_pemesan: nama,
+
+                        email_pemesan: email,
+
+                        no_hp_pemesan: wa,
+
+                        catatan_pesanan: catatan
+                    })
+                });
 
 
-            if (!response.ok) {
+                const data = await response.json();
+
+
+                if (!response.ok) {
+
+                    alert(
+                        data.message ||
+                        'Pesanan gagal disimpan.'
+                    );
+
+                    return;
+                }
+
+
+                alert('Pesanan berhasil dikirim!');
+
+                closePurchaseModal();
+
+
+                // Kosongkan form
+                document.getElementById('nama').value = '';
+                document.getElementById('email').value = '';
+                document.getElementById('whatsapp').value = '';
+                document.getElementById('catatan').value = '';
+
+
+            } catch (error) {
+
+                console.error(error);
 
                 alert(
-                    data.message ||
-                    'Pesanan gagal disimpan.'
+                    'Terjadi kesalahan saat mengirim pesanan.'
                 );
-
-                return;
             }
-
-
-            alert('Pesanan berhasil dikirim!');
-
-            closePurchaseModal();
-
-
-            // Kosongkan form
-            document.getElementById('nama').value = '';
-            document.getElementById('email').value = '';
-            document.getElementById('whatsapp').value = '';
-            document.getElementById('catatan').value = '';
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            alert(
-                'Terjadi kesalahan saat mengirim pesanan.'
-            );
         }
-    }
 
     </script>
 

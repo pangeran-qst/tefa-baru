@@ -532,85 +532,92 @@
             </ul>
         </aside>
 
-        {{-- GRID KARYA PORTOFOLIO RPL --}}
-        <main class="services-grid" id="servicesGrid">
+        <div class="main-content" style="flex: 1; display: flex; flex-direction: column;">
 
-            @forelse($tefas as $tefa)
+          {{-- GRID KARYA PORTOFOLIO RPL --}}
+          <main class="services-grid" id="servicesGrid">
 
-                <div class="service-card">
+              @forelse($tefas as $tefa)
 
-                    {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
-                    @if($tefa->gambar)
-                        <img
-                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                            alt="{{ $tefa->nama_produk }}"
-                            class="service-img">
-                    @else
-                        <div
-                            class="service-img"
-                            style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                            💻
-                        </div>
-                    @endif
+                  <div class="service-card">
 
-                    <div class="service-body">
+                      {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
+                      @if($tefa->gambar)
+                          <img
+                              src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
+                              alt="{{ $tefa->nama_produk }}"
+                              class="service-img">
+                      @else
+                          <div
+                              class="service-img"
+                              style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
+                              💻
+                          </div>
+                      @endif
 
-                        {{-- JUDUL KARYA --}}
-                        <h3>
-                            {{ $tefa->nama_produk }}
-                        </h3>
+                      <div class="service-body">
 
-                        {{-- DESKRIPSI KARYA --}}
-                        <p>
-                            {{ $tefa->deskripsi }}
-                        </p>
+                          {{-- JUDUL KARYA --}}
+                          <h3>
+                              {{ $tefa->nama_produk }}
+                          </h3>
 
-                        <div class="service-footer">
+                          {{-- DESKRIPSI KARYA --}}
+                          <p>
+                              {{ $tefa->deskripsi }}
+                          </p>
 
-                            <div>
-                                <div class="price-label">
-                                    Karya / Kategori
-                                </div>
+                          <div class="service-footer">
 
-                                {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
-                                <div class="price-value" style="font-size: 14px;">
-                                    Portofolio RPL
-                                </div>
-                            </div>
+                              <div>
+                                  <div class="price-label">
+                                      Karya / Kategori
+                                  </div>
 
-                          <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
-                              Lihat Karya
-                          </a>
+                                  {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
+                                  <div class="price-value" style="font-size: 14px;">
+                                      Portofolio RPL
+                                  </div>
+                              </div>
 
-                        </div>
+                            <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                                Lihat Karya
+                            </a>
 
-                    </div>
-                </div>
+                          </div>
 
-            @empty
+                      </div>
+                  </div>
 
-                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                    <div style="font-size:50px;">💻</div>
+              @empty
 
-                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                        Belum Ada Karya RPL
-                    </h3>
+                  <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                      <div style="font-size:50px;">💻</div>
 
-                    <p style="margin-top:8px; color:#64748b;">
-                        Portofolio karya RPL belum tersedia saat ini.
-                    </p>
-                </div>
+                      <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                          Belum Ada Karya RPL
+                      </h3>
 
-            @endforelse
+                      <p style="margin-top:8px; color:#64748b;">
+                          Portofolio karya RPL belum tersedia saat ini.
+                      </p>
+                  </div>
 
-        </main>
+              @endforelse
+
+          </main>
+          
+          @if($tefas->hasPages())
+              <div style="margin-top: 30px; display: flex; justify-content: center;">
+                  {{ $tefas->links() }}
+              </div>
+          @endif
+
+        </div>
+
     </div>
 
-    @if($tefas->hasPages())
-        <div style="margin-top: 30px; display: flex; justify-content: center;">
-            {{ $tefas->links() }}
-        </div>
-    @endif
+        
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">

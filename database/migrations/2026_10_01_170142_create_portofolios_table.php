@@ -12,23 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('portofolios', function (Blueprint $table) {
-            // Primary key sesuai yang dipakai di controller
-            $table->id('id_portofolio'); 
+            $table->id('id_portofolio');
             
-            // Kolom Jurusan ('RPL', 'TKJ', 'DKV', 'PSPT', 'GIM', 'ANIMASI')
+            // Foreign Key relasi ke tabel tefas
+            $table->unsignedBigInteger('id_produk');
+            $table->foreign('id_produk')->references('id_produk')->on('tefas')->onDelete('cascade');
+
             $table->string('jurusan'); 
-            
-            // Detail Portofolio
             $table->string('judul_karya');
             $table->text('deskripsi');
             $table->string('klien')->nullable();
             $table->string('tahun', 4)->nullable();
-            $table->string('gambar')->nullable();
-            $table->string('link_proyek')->nullable();
+            $table->string('gambar')->nullable(); // Thumbnail Utama
+            $table->string('link_proyek')->nullable(); // Link Live App / Demo Video / Drive
             
-            // Status untuk memfilter karya aktif (dipakai di controller)
+            // Opsional untuk screenshot tambahan (Galeri)
+            $table->json('galeri_screenshot')->nullable(); 
+
             $table->boolean('status_aktif')->default(true);
-            
             $table->timestamps();
         });
     }
