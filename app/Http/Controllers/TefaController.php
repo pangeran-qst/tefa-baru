@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tefa;
 use App\Models\Pesanan;
 use App\Models\Portofolio;
@@ -88,7 +89,7 @@ class TefaController extends Controller
         $tefa = Tefa::findOrFail($request->id_produk);
 
         Pesanan::create([
-            'id_user' => null,
+           'id_user' => Auth::id(),
             'id_produk' => $tefa->id_produk,
             'id_user_worker' => null,
             'tanggal_pesan' => now(),
@@ -105,6 +106,33 @@ class TefaController extends Controller
             'message' => 'Pesanan berhasil disimpan.',
         ]);
     }
+
+    public function pesananSaya()
+{
+    $userId = Auth::id();
+
+    $pesanans = Pesanan::with('tefa')
+        ->where('id_user', $userId)
+        ->latest('tanggal_pesan')
+        ->get();
+
+    $totalPesanan = $pesanans->count();
+
+    $sedangDiproses = $pesanans
+        ->where('status', 'in_progress')
+        ->count();
+
+    $pesananSelesai = $pesanans
+        ->where('status', 'completed')
+        ->count();
+
+    return view('client.pesanan.index', compact(
+        'pesanans',
+        'totalPesanan',
+        'sedangDiproses',
+        'pesananSelesai'
+    ));
+}
 
 
     public function cekTicket(Request $request)

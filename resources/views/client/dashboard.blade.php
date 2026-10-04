@@ -280,33 +280,6 @@
                     </a>
 
 
-                    {{-- KONTAK --}}
-                    <a href="{{ route('kontak') }}"
-                       class="group relative overflow-hidden bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 hover:shadow-lg hover:-translate-y-1 hover:border-blue-200 transition duration-300">
-
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-50 rounded-bl-full opacity-60 group-hover:scale-125 transition duration-500"></div>
-
-                        <div class="relative">
-                            <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center mb-5 group-hover:bg-blue-700 group-hover:text-white transition duration-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/>
-                                </svg>
-                            </div>
-
-                            <h3 class="font-bold text-lg text-slate-900 group-hover:text-blue-700 transition">
-                                Hubungi Kami
-                            </h3>
-
-                            <p class="text-sm text-slate-500 mt-2 leading-relaxed min-h-[48px]">
-                                Butuh informasi atau bantuan terkait layanan TeFA?
-                            </p>
-
-                            <div class="mt-5 flex items-center gap-2 text-sm font-bold text-blue-700">
-                                Hubungi TeFA
-                                <span class="group-hover:translate-x-1 transition">→</span>
-                            </div>
-                        </div>
-                    </a>
 
                 </div>
             </div>
