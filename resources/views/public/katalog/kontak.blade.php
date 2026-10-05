@@ -192,7 +192,7 @@
                             Jam Layanan
                         </strong>
                         <p class="text-xs md:text-sm text-slate-200">
-                            Senin – Jumat (08.00 – 16.00 WIB)
+                            Senin – Jumat (07.00 – 18.00 WIB)
                         </p>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
         <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
         <ul class="space-y-2 text-xs md:text-sm text-slate-300">
           <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
-          <li>⏰ Senin–Jumat, 08.00–16.00 WIB</li>
+          <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
           <li>🌐 tefa.smkn4tpi.sch.id</li>
         </ul>
       </div>

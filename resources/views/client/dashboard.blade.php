@@ -145,12 +145,6 @@
 
         {{-- GREETING --}}
         <section class="mb-9">
-            <div class="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1.5 mb-4">
-                <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                <p class="text-xs font-semibold text-blue-700">
-                    Profil Pembeli
-                </p>
-            </div>
 
             <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
                 Halo, {{ Auth::user()->nama }}
@@ -377,7 +371,7 @@
         <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
         <ul class="space-y-2 text-xs md:text-sm text-slate-300">
           <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
-          <li>⏰ Senin–Jumat, 08.00–16.00 WIB</li>
+          <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
           <li>🌐 tefa.smkn4tpi.sch.id</li>
         </ul>
       </div>

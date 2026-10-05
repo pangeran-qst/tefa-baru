@@ -529,9 +529,8 @@
                 <li><a href="{{ route('katalog.rpl') }}">RPL</a></li>
                 <li><a href="{{ route('katalog.dkv') }}">DKV</a></li>
                 <li><a href="{{ route('katalog.pspt') }}">PSPT</a></li>
-                <li class="active"><a href="{{ route('katalog.gim') }}">GIM</a></li>
                 <li><a href="{{ route('katalog.tkj') }}">TKJ</a></li>
-                <li><a href="{{ route('katalog.gim') }}">GIM</a></li>
+                <li class="active"><a href="{{ route('katalog.gim') }}">GIM</a></li>
                 <li><a href="{{ route('katalog.animasi') }}">ANIMASI</a></li>
             </ul>
         </aside>

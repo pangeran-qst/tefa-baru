@@ -155,7 +155,6 @@
 
         <div class="flex flex-wrap justify-center md:justify-start gap-3">
           <a href="#layanan" class="rounded-lg bg-white px-6 py-2.5 text-sm font-semibold text-blue-700 transition hover:-translate-y-0.5">Lihat Layanan →</a>
-          <a href="#resi" class="rounded-lg border border-white/35 bg-white/10 px-6 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5">Cek Tiket →</a>
         </div>
       </div>
 
@@ -434,15 +433,6 @@
         </div>
         
       </div>
-
-    </div>
-    </section>
-
-
-    <section class="px-[5%] md:px-[8%] py-[60px]" id="resi">
-      
-
-      <div id="hasilTiket" class="mx-auto mt-4 max-w-[500px] text-center text-sm"></div>
     </section>
   </main>
 
