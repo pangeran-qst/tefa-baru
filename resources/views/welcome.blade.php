@@ -438,25 +438,6 @@
     </div>
     </section>
 
-    <section class="mx-[5%] md:mx-[8%] flex flex-col md:flex-row items-center justify-between gap-6 rounded-2xl bg-gradient-to-r from-blue-900 to-blue-600 p-8 md:p-10 text-center md:text-left text-white" id="kontak">
-      <div>
-        <h2 class="mb-3 text-xl md:text-2xl font-bold">Ada Pertanyaan atau Ingin Memesan?</h2>
-        <div class="grid gap-1.5 text-sm text-blue-100">
-          <div>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</div>
-          <div>⏰ Senin–Jumat, 07.00–18.00 WIB</div>
-          <div>🌐 tefa.smkn4tpi.sch.id</div>
-        </div>
-      </div>
-
-      <div class="flex flex-wrap justify-center gap-3">
-      
-         <a
-            href="mailto:tefa@smkn4tpi.sch.id"
-            class="rounded-lg bg-white/10 border border-white/30 px-6 py-3.5 text-center text-sm font-semibold text-white transition hover:bg-white/20 hover:-translate-y-0.5">
-            ✉️ Kirim Email CS
-        </a>
-      </div>
-    </section>
 
     <section class="px-[5%] md:px-[8%] py-[60px]" id="resi">
       

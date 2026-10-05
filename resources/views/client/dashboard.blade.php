@@ -10,60 +10,135 @@
 <body class="bg-slate-50 text-slate-800">
 
     {{-- HEADER --}}
-    <header class="sticky top-0 z-[1000] bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
-        <div class="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-3.5 flex items-center justify-between">
+  <header class="sticky top-0 z-[1000] flex items-center justify-between bg-white px-[5%] md:px-[8%] py-4 shadow-sm">
+      {{-- LOGO --}}
+      <a href="{{ url('/') }}" class="flex items-center gap-3">
+          <img
+              src="{{ asset('gambar/tefa/logo.png') }}"
+              alt=""
+              class="h-10 w-auto max-w-[120px] object-contain"
+          >
 
-            {{-- LOGO --}}
-            <a href="{{ url('/') }}" class="flex items-center gap-3 shrink-0">
-                <img
-                    src="{{ asset('gambar/tefa/logo.png') }}"
-                    alt="Logo TeFA"
-                    class="h-11 w-auto object-contain">
+          <div>
+              <div class="text-[15px] font-bold leading-tight text-slate-900">
+                  TeFA SMKN 4
+              </div>
 
-                <div>
-                    <div class="text-base font-bold leading-tight text-slate-900">
-                        TeFA SMKN 4
-                    </div>
-                    <div class="text-xs text-blue-600 mt-0.5">
-                        Tanjungpinang
-                    </div>
-                </div>
-            </a>
+              <div class="text-xs text-blue-500">
+                  Tanjungpinang
+              </div>
+          </div>
+      </a>
 
-            {{-- NAVIGASI --}}
-            <div class="flex items-center gap-3 md:gap-5">
-                <nav
-                    id="navMenu"
-                    class="hidden absolute top-full left-0 right-0 flex-col gap-2 bg-white px-5 py-4 shadow-lg border-t border-slate-100 md:static md:flex md:flex-row md:items-center md:gap-3 md:p-0 md:shadow-none md:border-0">
 
-                    <a href="{{ url('/') }}"
-                       class="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700">
-                        Beranda
-                    </a>
+      {{-- BAGIAN KANAN NAVBAR --}}
+      <div class="flex items-center gap-4">
 
-                    <a href="{{ route('katalog') }}"
-                       class="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700">
-                        Layanan
-                    </a>
+          {{-- NAVIGASI UTAMA --}}
+          <nav id="navMenu"
+              class="hidden absolute top-[72px] left-0 right-0 flex-col gap-2 bg-white px-[5%] py-4 shadow-lg md:static md:flex md:flex-row md:items-center md:gap-6 md:p-0 md:shadow-none">
 
-                    <a href="{{ route('kontak') }}"
-                       class="rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700">
-                        Kontak
-                    </a>
-                </nav>
+              {{-- BERANDA --}}
+              <a href="{{ url('/') }}"
+                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                  Beranda
+              </a>
 
-                {{-- PROFILE BUTTON --}}
-                <a href="{{ route('client.dashboard') }}"
-                   class="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-700/20 hover:bg-blue-800 transition">
-                    <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-xs font-bold">
-                        {{ strtoupper(substr(Auth::user()->nama, 0, 1)) }}
-                    </span>
-                    <span class="hidden sm:inline">Profil</span>
-                </a>
-            </div>
-        </div>
-    </header>
+              {{-- LAYANAN --}}
+              <a href="{{ route('katalog') }}"
+                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                  Layanan
+              </a>
 
+              {{-- PORTOFOLIO --}}
+              <a href="{{ route('portofolio') }}"
+                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                  Portofolio
+              </a>
+
+              {{-- KONTAK --}}
+              <a href="{{ route('kontak') }}"
+                  class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
+                  Kontak
+              </a>
+          </nav>
+
+
+          {{-- ICON PROFIL / USER --}}
+          <div class="relative group">
+
+              @if(Auth::check() && Auth::user()->role === 'client')
+                  
+                  {{-- 1. TAMPILAN JIKA USER CLIENT SUDAH LOGIN --}}
+                  <button type="button"
+                      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue-700 text-white font-bold shadow-md transition hover:bg-blue-800"
+                      aria-label="Profil">
+                      {{-- Inisial Huruf Nama Client --}}
+                      {{ strtoupper(substr(Auth::user()->nama, 0, 1)) }}
+                  </button>
+
+                  {{-- DROPDOWN PROFIL CLIENT --}}
+                  <div class="absolute right-0 top-full z-50 hidden pt-2 group-hover:block">
+                      <div class="w-48 rounded-xl border border-slate-200 bg-white p-2 shadow-lg">
+
+                          {{-- INFORMASI USER --}}
+                          <div class="border-b border-slate-100 px-4 py-2">
+                              <p class="text-sm font-semibold text-slate-900 truncate">
+                                  {{ Auth::user()->nama }}
+                              </p>
+                              <p class="mt-0.5 text-xs text-slate-500 truncate">
+                                  {{ Auth::user()->email }}
+                              </p>
+                          </div>
+
+                          {{-- MENU PROFIL --}}
+                          <a href="{{ route('client.dashboard') }}"
+                              class="block rounded-lg px-4 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-blue-50 hover:text-blue-700">
+                              Profil Saya
+                          </a>
+
+                          {{-- LOGOUT --}}
+                          <div class="mt-1 border-t border-slate-100 pt-1">
+                              <form action="{{ route('logout') }}" method="POST">
+                                  @csrf
+                                  <button type="submit"
+                                      class="w-full rounded-lg px-4 py-2.5 text-left text-sm font-medium text-red-600 transition hover:bg-red-50">
+                                      Logout
+                                  </button>
+                              </form>
+                          </div>
+
+                      </div>
+                  </div>
+
+              @else
+
+                  {{-- 2. TAMPILAN JIKA GUEST / BELUM LOGIN --}}
+                  <a href="{{ route('login', ['redirect' => url()->current()]) }}"
+                      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 shadow-sm transition hover:bg-blue-700 hover:text-white"
+                      title="Login"
+                      aria-label="Login">
+
+                      {{-- Icon Guest / User Normal --}}
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                          stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M15.75 6.75a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.25a7.5 7.5 0 0 1 15 0" />
+                      </svg>
+                  </a>
+
+              @endif
+
+          </div>
+
+      </div>
+
+      {{-- TOMBOL MENU MOBILE --}}
+      <button class="block md:hidden rounded-md bg-blue-700 px-3 py-2 text-lg text-white" onclick="toggleMenu()"
+          aria-label="Buka Menu Navigasi">
+          ☰
+      </button>
+  </header>
 
     {{-- MAIN --}}
     <main class="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
