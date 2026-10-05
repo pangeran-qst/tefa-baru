@@ -39,6 +39,20 @@ class WorkerController extends Controller
     }
 
 
+    public function portofolio()
+    {
+        $workerId = Auth::id();
+
+        $portofolio = Pesanan::with(['tefa', 'user'])
+            ->where('id_user_worker', $workerId)
+            ->where('status', 'selesai')
+            ->latest('tanggal_pesan')
+            ->get();
+
+        return view('worker.portofolio.index', compact('portofolio'));
+    }
+
+
     public function terima($id)
     {
         $workerId = Auth::id();
@@ -103,5 +117,23 @@ class WorkerController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Progress project berhasil diperbarui.');
+    }
+
+
+    public function selesai($id)
+    {
+        $workerId = Auth::id();
+
+        $pesanan = Pesanan::where('id_pesanan', $id)
+            ->where('id_user_worker', $workerId)
+            ->where('status', 'pengerjaan')
+            ->firstOrFail();
+
+        $pesanan->status = 'review';
+        $pesanan->save();
+
+        return redirect()
+            ->back()
+            ->with('success', 'Project berhasil diajukan untuk QC.');
     }
 }
