@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Tefa;
 use App\Models\Jurusan;
 use App\Models\Pesanan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminTefaController extends Controller
@@ -320,5 +322,111 @@ class AdminTefaController extends Controller
         return redirect()
             ->route('admin.tefa.produk')
             ->with('success', 'Produk berhasil dihapus.');
+    }
+
+    // HALAMAN MANAJEMEN PENGGUNA
+    public function pengguna(Request $request)
+    {
+        $role = $request->query('role');
+
+        $query = User::whereIn('role', [
+            'admin_tefa',
+            'admin_jurusan',
+            'worker',
+        ]);
+
+        if ($role && in_array($role, [
+            'admin_tefa',
+            'admin_jurusan',
+            'worker',
+        ])) {
+            $query->where('role', $role);
+        }
+
+        $users = $query
+            ->orderBy('nama')
+            ->get();
+
+        return view('admin.tefa.pengguna.index', compact(
+            'users',
+            'role'
+        ));
+    }
+
+    // SIMPAN AKUN PENGGUNA
+    public function storePengguna(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:5',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:255',
+            'role' => 'required|in:admin_jurusan,worker',
+            'jurusan' => 'required|string|max:100',
+            'kelas' => 'required|string|max:100',
+        ]);
+
+        $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'role' => $request->role,
+            'jurusan' => $request->jurusan,
+            'kelas' => $request->kelas,
+        ]);
+
+        return redirect()
+            ->route('admin.tefa.pengguna')
+            ->with('success', 'Akun berhasil ditambahkan.');
+    }
+
+    public function editPengguna($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('admin.tefa.pengguna.edit', compact('user'));
+    }
+
+    public function updatePengguna(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id_user . ',id_user',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string|max:255',
+            'role' => 'required|in:admin_jurusan,worker',
+            'jurusan' => 'required|string|max:100',
+            'kelas' => 'required|string|max:100',
+        ]);
+
+        $user->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+            'role' => $request->role,
+            'jurusan' => $request->jurusan,
+            'kelas' => $request->kelas,
+        ]);
+
+        return redirect()
+            ->route('admin.tefa.pengguna')
+            ->with('success', 'Data pengguna berhasil diperbarui.');
+    }
+
+    public function destroyPengguna($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->delete();
+
+        return redirect()
+            ->route('admin.tefa.pengguna')
+            ->with('success', 'Akun pengguna berhasil dihapus.');
     }
 }

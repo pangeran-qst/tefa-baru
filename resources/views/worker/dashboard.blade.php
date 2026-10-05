@@ -27,13 +27,28 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
       <div>
         <h1 class="text-2xl font-bold text-slate-800">Dashboard</h1>
-        <p class="text-xs text-slate-500 mt-0.5">Selamat datang kembali, Ahmad Jaya 👋</p>
+        <p class="text-xs text-slate-500 mt-0.5">
+          Selamat datang kembali, {{ Auth::user()->nama }} 👋
+        </p>
       </div>
       <div class="flex items-center gap-3 self-start sm:self-auto">
-        <span class="text-xs text-slate-400 font-medium">Minggu, 30 Agustus 2026</span>
-        <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow">
-          AJ
-        </div>
+          <span class="text-xs text-slate-400 font-medium">
+              {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
+          </span>
+
+          @php
+              $nama = Auth::user()->nama ?? 'Worker';
+
+              $inisial = collect(explode(' ', trim($nama)))
+                  ->filter()
+                  ->map(fn($word) => strtoupper(substr($word, 0, 1)))
+                  ->take(2)
+                  ->implode('');
+          @endphp
+
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center shadow">
+              {{ $inisial }}
+          </div>
       </div>
     </div>
 

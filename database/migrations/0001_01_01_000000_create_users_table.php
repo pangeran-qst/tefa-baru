@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pesanan;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -45,5 +46,14 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
+    }
+
+    public function pesananSebagaiWorker()
+    {
+        return $this->hasMany(
+            Pesanan::class,
+            'id_user_worker',
+            'id_user'
+        );
     }
 };

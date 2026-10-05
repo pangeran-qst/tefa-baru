@@ -133,35 +133,105 @@
 
     <!-- CONTENT 2: DALAM PENGERJAAN -->
     <div id="content-dalam-pengerjaan" class="tab-content hidden space-y-4">
+
       @forelse($dalamPengerjaan as $item)
-        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-md">Proses Pengerjaan</span>
+
+        @php
+            $progressTerakhir = $item->progress->first();
+            $nilaiProgress = $progressTerakhir?->progress ?? 0;
+        @endphp
+
+        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm">
+
+          <!-- HEADER PROJECT -->
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+
+            <div class="flex-1">
+
+              <div class="flex items-center gap-2 mb-1">
+
+                <span class="text-xs font-semibold text-slate-400">
+                  #TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}
+                </span>
+
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+
+                <span class="text-xs font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-md">
+                  Proses Pengerjaan
+                </span>
+
+              </div>
+
+              <h3 class="text-base font-bold text-slate-800">
+                {{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}
+              </h3>
+
+              <p class="text-xs text-slate-500 font-medium mt-0.5">
+                Worker:
+                <span class="text-indigo-600 font-bold">
+                  {{ $item->worker->nama ?? $item->worker->name ?? 'Belum ditugaskan' }}
+                </span>
+
+                · Klien:
+                <span class="text-slate-700 font-semibold">
+                  {{ $item->nama_pemesan }}
+                </span>
+              </p>
+
             </div>
-            <h3 class="text-base font-bold text-slate-800">{{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan' }}</h3>
-            <p class="text-xs text-slate-500 font-medium mt-0.5">
-              Worker: <span class="text-indigo-600 font-bold">{{ $item->worker->nama ?? 'Belum ditugaskan' }}</span>
-              · Klien: <span class="text-slate-700 font-semibold">{{ $item->nama_pemesan }}</span>
-            </p>
+
+            <!-- STATUS PROGRESS -->
+            <div class="w-full md:w-64">
+
+              <div class="flex items-center justify-between mb-1.5">
+
+                <span class="text-xs font-semibold text-slate-500">
+                  Progress Pengerjaan
+                </span>
+
+                <span class="text-xs font-bold text-indigo-600">
+                  {{ $nilaiProgress }}%
+                </span>
+
+              </div>
+
+              <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+
+                <div
+                  class="bg-indigo-600 h-full rounded-full transition-all duration-500"
+                  style="width: {{ $nilaiProgress }}%">
+                </div>
+
+              </div>
+
+              @if($progressTerakhir)
+                <p class="text-[10px] text-slate-400 mt-1.5">
+                  Tahap: {{ $progressTerakhir->tahap }}
+                </p>
+              @else
+                <p class="text-[10px] text-slate-400 mt-1.5">
+                  Belum ada update progress
+                </p>
+              @endif
+
+            </div>
+
           </div>
-          <div class="flex items-center gap-2">
-            <form action="{{ route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id) }}" method="POST">
-              @csrf
-              <input type="hidden" name="status" value="review">
-              <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-xs font-semibold transition">
-                Kirim ke QC / Review →
-              </button>
-            </form>
-          </div>
+
         </div>
+
       @empty
+
         <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
-          <p class="text-xs text-slate-400">Belum ada pesanan yang sedang dikerjakan.</p>
+
+          <p class="text-xs text-slate-400">
+            Belum ada pesanan yang sedang dikerjakan.
+          </p>
+
         </div>
+
       @endforelse
+
     </div>
 
     <!-- CONTENT 3: PENINJAUAN & QC -->
