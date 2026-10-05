@@ -82,6 +82,14 @@
       >
         Login
       </button>
+
+      <div class="text-center text-xs text-blue-200 pt-2">
+    Belum punya akun?
+    <a href="{{ route('daftar') }}" class="font-bold text-white hover:underline">
+        Daftar di sini
+    </a>
+      </div>
+
     </form>
 
   </div>

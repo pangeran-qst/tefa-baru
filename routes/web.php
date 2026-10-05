@@ -29,6 +29,13 @@ Route::get('/login', function (Illuminate\Http\Request $request) {
 Route::post('/login-proses', [AuthController::class, 'login'])
     ->name('login.proses');
 
+Route::get('/daftar', function () {
+    return view('daftar');
+    })->name('daftar');
+
+Route::post('/daftar-proses', [AuthController::class, 'register'])
+    ->name('daftar.proses');
+
 
 // ==============================
 // KATALOG PRODUK TEFA
