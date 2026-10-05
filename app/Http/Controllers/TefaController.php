@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Models\Tefa;
 use App\Models\Pesanan;
 use App\Models\Portofolio;
@@ -88,7 +89,7 @@ class TefaController extends Controller
         $tefa = Tefa::findOrFail($request->id_produk);
 
         Pesanan::create([
-            'id_user' => null,
+           'id_user' => Auth::id(),
             'id_produk' => $tefa->id_produk,
             'id_user_worker' => null,
             'tanggal_pesan' => now(),
@@ -105,6 +106,33 @@ class TefaController extends Controller
             'message' => 'Pesanan berhasil disimpan.',
         ]);
     }
+
+    public function pesananSaya()
+{
+    $userId = Auth::id();
+
+    $pesanans = Pesanan::with('tefa')
+        ->where('id_user', $userId)
+        ->latest('tanggal_pesan')
+        ->get();
+
+    $totalPesanan = $pesanans->count();
+
+    $sedangDiproses = $pesanans
+        ->where('status', 'in_progress')
+        ->count();
+
+    $pesananSelesai = $pesanans
+        ->where('status', 'completed')
+        ->count();
+
+    return view('client.pesanan.index', compact(
+        'pesanans',
+        'totalPesanan',
+        'sedangDiproses',
+        'pesananSelesai'
+    ));
+}
 
 
     public function cekTicket(Request $request)
@@ -182,16 +210,31 @@ class TefaController extends Controller
         return view('public.katalog.jurusanp.pspt', compact('tefas'));
     }
 
-    public function detailKarya($id)
-    {
-        $tefa = Tefa::findOrFail($id);
+    public function portofolioProduk($id_produk)
+{
+    // 1. Ambil produk TeFA berdasarkan 'id_produk' dan pastikan berstatus aktif
+    $produk = Tefa::where('id_produk', $id_produk)
+        ->where('status_aktif', true)
+        ->firstOrFail();
 
-        // Ambil karya portofolio berdasarkan jurusan produk tersebut
-        $portofolios = Portofolio::where('jurusan', $tefa->jurusan)
-            ->where('status_aktif', 1)
-            ->get();
+    // 2. Ambil semua karya portofolio yang terikat dengan 'id_produk' tersebut
+    $karyas = Portofolio::where('id_produk', $id_produk)
+        ->where('status_aktif', true)
+        ->latest()
+        ->paginate(12);
 
-        return view('public.katalog.jurusanp.detail-karya', compact('tefa', 'portofolios'));
-    }
+    return view('public.katalog.jurusanp.karya', compact('produk', 'karyas'));
+}
+
+public function detailKarya($id_portofolio)
+{
+    // Mengambil data portofolio berdasarkan 'id_portofolio' beserta relasi produk TeFA-nya
+    $karya = Portofolio::with('tefa')
+        ->where('id_portofolio', $id_portofolio)
+        ->where('status_aktif', true)
+        ->firstOrFail();
+
+    return view('public.katalog.jurusanp.detail_karya', compact('karya'));
+}
 
 }

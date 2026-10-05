@@ -14,10 +14,6 @@ Route::get('/', function () {
 Route::get('/detail/{id_produk}', [TefaController::class, 'detail'])
     ->name('detail.produk');
 
-Route::get('/klien/dashboard}',  function () {
-    return view('client.pesanan.index');
-})->name('client.pesanan');
-
 
 Route::get('/login', function (Illuminate\Http\Request $request) {
 
@@ -97,9 +93,13 @@ Route::prefix('portofolio')->group(function () {
     Route::get('/rpl', [TefaController::class, 'portofolioRpl'])->name('portofolio.rpl');
     Route::get('/dkv', [TefaController::class, 'portofolioDkv'])->name('portofolio.dkv');
     Route::get('/pspt', [TefaController::class, 'portofolioPspt'])->name('portofolio.pspt');
-
-    // Route Detail Karya (URL-nya nanti: domain.com/portofolio/karya/{id})
+    
+    // Daftar Karya berdasarkan Produk TeFA
+    Route::get('/produk/{id}', [TefaController::class, 'portofolioProduk'])->name('portofolio.produk');
+    
+    // Detail Single Karya
     Route::get('/karya/{id}', [TefaController::class, 'detailKarya'])->name('portofolio.karya');
+    
 });
 
 // ==============================
@@ -111,6 +111,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])
         ->name('logout');
 
+        // PESANAN SAYA CLIENT
+    Route::get('/klien/pesanan', [TefaController::class, 'pesananSaya'])
+    ->name('client.pesanan'); 
 
     // ==========================
     // DASHBOARD CLIENT
