@@ -182,24 +182,31 @@ class TefaController extends Controller
         return view('public.katalog.jurusanp.pspt', compact('tefas'));
     }
 
-    public function portofolioProduk($id)
-    {
-        $produk = Tefa::findOrFail($id);
-        
-        $karyas = Portofolio::where('id_produk', $id)
-                    ->where('status_aktif', true)
-                    ->latest()
-                    ->paginate(12);
+    public function portofolioProduk($id_produk)
+{
+    // 1. Ambil produk TeFA berdasarkan 'id_produk' dan pastikan berstatus aktif
+    $produk = Tefa::where('id_produk', $id_produk)
+        ->where('status_aktif', true)
+        ->firstOrFail();
 
-        return view('public.katalog.karya', compact('produk', 'karyas'));
-    }
+    // 2. Ambil semua karya portofolio yang terikat dengan 'id_produk' tersebut
+    $karyas = Portofolio::where('id_produk', $id_produk)
+        ->where('status_aktif', true)
+        ->latest()
+        ->paginate(12);
 
-    public function detailKarya($id)
-    {
-        // Mengambil data portofolio beserta relasi produk TeFA-nya
-        $karya = Portofolio::with('tefa')->findOrFail($id);
+    return view('public.katalog.jurusanp.karya', compact('produk', 'karyas'));
+}
 
-        return view('public.katalog.detail_karya', compact('karya'));
-    }
+public function detailKarya($id_portofolio)
+{
+    // Mengambil data portofolio berdasarkan 'id_portofolio' beserta relasi produk TeFA-nya
+    $karya = Portofolio::with('tefa')
+        ->where('id_portofolio', $id_portofolio)
+        ->where('status_aktif', true)
+        ->firstOrFail();
+
+    return view('public.katalog.jurusanp.detail_karya', compact('karya'));
+}
 
 }

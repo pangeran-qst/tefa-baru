@@ -585,7 +585,7 @@
                                 </div>
 
                                 {{-- TOMBOL DETAIL PRODUK --}}
-                                <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                                <a href="{{ route('detail.produk', $tefa->id_produk) }}" class="btn-detail">
                                     Lihat Produk
                                 </a>
 
@@ -605,7 +605,7 @@
                         </h3>
 
                         <p style="margin-top:8px; color:#64748b;">
-                            Daftar produk portofolio belum tersedia saat ini.
+                            Daftar produk belum tersedia saat ini.
                         </p>
                     </div>
 

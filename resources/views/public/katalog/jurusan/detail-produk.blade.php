@@ -473,13 +473,28 @@
     </div>
 
     {{-- FOOTER --}}
-    <footer class="bg-blue-900 px-5 py-8 text-center text-white">
-
-        <p class="text-sm text-blue-200">
-            © 2026 TeFA SMKN 4 Tanjungpinang.
-            Semua hak dilindungi.
-        </p>
-
+    <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
+          <div class="mb-10 flex flex-wrap justify-between gap-8">
+          <div>
+              <h3 class="mb-2 text-base md:text-lg font-bold">TeFA SMKN 4 Tanjungpinang</h3>
+              <p class="text-xs text-blue-300">Teaching Factory</p>
+              <p class="mt-3 max-w-[300px] text-xs text-slate-300">
+              Produk dan jasa profesional karya siswa SMKN 4 Tanjungpinang yang terlatih dan bersertifikat.
+              </p>
+          </div>
+          <div>
+              <h4 class="mb-4 text-sm font-semibold">Kontak & Lokasi</h4>
+              <ul class="space-y-2 text-xs md:text-sm text-slate-300">
+              <li>📍 Jl. Nusantara No.14, Batu IX, Kec. Tanjungpinang Tim., Kota Tanjung Pinang, Kepulauan Riau 29157</li>
+              <li>⏰ Senin–Jumat, 07.00–18.00 WIB</li>
+              <li>🌐 tefa.smkn4tpi.sch.id</li>
+              </ul>
+          </div>
+          </div>
+          <div class="flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-blue-300">
+          <span>© 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.</span>
+          <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
+          </div>
     </footer>
 
     <script>

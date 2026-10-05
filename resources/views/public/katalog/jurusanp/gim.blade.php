@@ -580,7 +580,7 @@
                                   </div>
                               </div>
 
-                            <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
+                            <a href="{{ route('portofolio.produk', $tefa->id_produk) }}" class="btn-detail">
                                 Lihat Karya
                             </a>
 
