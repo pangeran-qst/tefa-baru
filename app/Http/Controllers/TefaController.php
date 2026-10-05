@@ -19,50 +19,51 @@ class TefaController extends Controller
 
     public function semua()
     {
-        // Ambil SEMUA karya tefa tanpa filter jurusan
-        $tefas = Tefa::latest() ->where('status_aktif', true)->paginate(12); 
+        $tefas = Tefa::where('status_aktif', true)
+            ->orderBy('id_produk', 'asc')
+            ->paginate(12); 
 
         return view('public.katalog.jurusan.semua', compact('tefas'));
     }
 
     public function tkj()
     {
-        $tefas = Tefa::where('jurusan', 'TKJ') ->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'TKJ') ->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.tkj', compact('tefas'));
     }
 
     public function gim()
     {
-        $tefas = Tefa::where('jurusan', 'GIM') ->where('status_aktif', true) ->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'GIM') ->where('status_aktif', true) ->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.gim', compact('tefas'));
     }
 
     public function animasi()
     {
-        $tefas = Tefa::where('jurusan', 'ANIMASI') ->where('status_aktif', true) ->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'ANIMASI') ->where('status_aktif', true) ->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.animasi', compact('tefas'));
     }
 
     public function rpl()
     {
-        $tefas = Tefa::where('jurusan', 'RPL') ->where('status_aktif', true) ->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'RPL') ->where('status_aktif', true) ->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.rpl', compact('tefas'));
     }
 
     public function dkv()
     {
-        $tefas = Tefa::where('jurusan', 'DKV') ->where('status_aktif', true) ->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'DKV') ->where('status_aktif', true) ->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.dkv', compact('tefas'));
     }
 
     public function pspt()
     {
-        $tefas = Tefa::where('jurusan', 'PSPT') ->where('status_aktif', true) ->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'PSPT') ->where('status_aktif', true) ->orderBy('id_produk', 'asc')->paginate(12);
 
         return view('public.katalog.jurusan.pspt', compact('tefas'));
     }
@@ -168,7 +169,7 @@ class TefaController extends Controller
     public function portofolioSemua()
     {
         // Ambil SEMUA karya tefa tanpa filter jurusan
-        $tefas = Tefa::latest() ->where('status_aktif', true)->paginate(12); 
+        $tefas = Tefa::where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12); 
 
         return view('public.katalog.jurusanp.semua', compact('tefas'));
     }
@@ -176,37 +177,37 @@ class TefaController extends Controller
     // Portofolio Per Jurusan
     public function portofolioTkj()
     {
-        $tefas = Tefa::where('jurusan', 'TKJ') ->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'TKJ') ->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.tkj', compact('tefas'));
     }
 
     public function portofolioGim()
     {
-        $tefas = Tefa::where('jurusan', 'GIM')->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'GIM')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.gim', compact('tefas'));
     }
 
     public function portofolioAnimasi()
     {
-        $tefas = Tefa::where('jurusan', 'ANIMASI')->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'ANIMASI')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.animasi', compact('tefas'));
     }
 
     public function portofolioRpl()
     {
-        $tefas = Tefa::where('jurusan', 'RPL')->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'RPL')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.rpl', compact('tefas'));
     }
 
     public function portofolioDkv()
     {
-        $tefas = Tefa::where('jurusan', 'DKV')->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'DKV')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.dkv', compact('tefas'));
     }
 
     public function portofolioPspt()
     {
-        $tefas = Tefa::where('jurusan', 'PSPT')->where('status_aktif', true)->latest()->paginate(12);
+        $tefas = Tefa::where('jurusan', 'PSPT')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
         return view('public.katalog.jurusanp.pspt', compact('tefas'));
     }
 
@@ -220,7 +221,7 @@ class TefaController extends Controller
         // 2. Ambil semua karya portofolio yang terikat dengan 'id_produk' tersebut
         $karyas = Portofolio::where('id_produk', $id_produk)
             ->where('status_aktif', true)
-            ->latest()
+            ->orderBy('id_produk', 'asc')
             ->paginate(12);
 
         return view('public.katalog.jurusanp.karya', compact('produk', 'karyas'));

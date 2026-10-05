@@ -536,7 +536,7 @@
         </aside>
 
         <!-- MAIN CONTENT AREA (Bungkus Area Kanan) -->
-        <div class="main-content" style="flex: 1; display: flex; flex-direction: column;"></div>
+        <div class="main-content" style="flex: 1; display: flex; flex-direction: column;">
 
             <main class="services-grid" id="servicesGrid">
 

@@ -405,7 +405,7 @@
                         Kota Tanjung Pinang, Kepulauan Riau 29157
                     </li>
                     <li>
-                        ⏰ Senin–Jumat, 08.00–16.00 WIB
+                        ⏰ Senin–Jumat, 07.00–18.00 WIB
                     </li>
                     <li>
                         🌐 tefa.smkn4tpi.sch.id
