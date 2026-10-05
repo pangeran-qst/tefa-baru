@@ -20,19 +20,22 @@ class Portofolio extends Model
         'klien',
         'tahun',
         'gambar',
-        'gambar_tambahan',
         'link_proyek',
+        'galeri_screenshot',
         'status_aktif',
     ];
 
     protected $casts = [
-        'gambar_tambahan' => 'array',
+        'galeri_screenshot' => 'array',
         'status_aktif' => 'boolean',
     ];
 
-    // Relasi ke Model Tefa
     public function tefa()
     {
-        return $this->belongsTo(Tefa::class, 'id_produk', 'id_produk');
+        return $this->belongsTo(
+            Tefa::class,
+            'id_produk',
+            'id_produk'
+        );
     }
 }

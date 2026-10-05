@@ -129,79 +129,173 @@
     <main class="px-5 md:px-[8%] py-10 md:py-16">
         <div class="max-w-6xl mx-auto">
 
+            {{-- JUDUL + TOMBOL KEMBALI --}}
             <div class="mb-8 flex items-center justify-between gap-4">
                 <div>
                     <h1 class="mt-2 text-3xl md:text-4xl font-bold text-slate-900">
-                        {{ $portofolio->judul_proyek ?? $portofolio->nama_proyek }}
+                        {{ $karya->judul_karya }}
                     </h1>
+
+                    <p class="mt-2 text-sm text-slate-500">
+                        Portofolio Karya TeFA
+                    </p>
                 </div>
 
-                {{-- LINK KEMBALI OPSIONAL (Sesuai Kategori / Jurusan atau Default Portofolio) --}}
-                @php
-                    $routeKategori = match (strtoupper($portofolio->kategori ?? $portofolio->jurusan ?? '')) {
-                        'ANIMASI' => 'portofolio.animasi',
-                        'RPL'     => 'portofolio.rpl',
-                        'TKJ'     => 'portofolio.tkj',
-                        'DKV'     => 'portofolio.dkv',
-                        'GIM'     => 'portofolio.gim',
-                        'PSPT'    => 'portofolio.pspt',
-                        default   => 'portofolio',
-                    };
-                @endphp
-
-                <a href="{{ Route::has($routeKategori) ? route($routeKategori) : route('portofolio') }}"
+                <a href="{{ url('/portofolio/produk/' . $karya->id_produk) }}"
                     class="shrink-0 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800">
                     ← Kembali ke Portofolio
                 </a>
             </div>
 
+
+            {{-- CARD DETAIL --}}
             <div class="overflow-hidden rounded-2xl bg-white shadow-xl">
-                {{-- GAMBAR OPSIONAL --}}
+
+                {{-- GAMBAR UTAMA --}}
                 <div class="w-full bg-slate-100">
-                    @if(!empty($portofolio->gambar))
+                    @if(!empty($karya->gambar))
+
                         <img
-                            src="{{ asset('gambar/portofolio/' . $portofolio->gambar) }}"
-                            alt="{{ $portofolio->judul_proyek ?? $portofolio->nama_proyek }}"
+                            src="{{ asset('gambar/portofolio/' . $karya->gambar) }}"
+                            alt="{{ $karya->judul_karya }}"
                             class="block h-[400px] md:h-[500px] w-full object-cover">
+
                     @else
+
                         <div class="flex h-[400px] md:h-[500px] w-full items-center justify-center bg-indigo-50">
                             <span class="text-6xl">🎨</span>
                         </div>
+
                     @endif
                 </div>
 
+
+                {{-- INFORMASI KARYA --}}
                 <div class="p-6 md:p-10 text-left">
+
+                    {{-- JUDUL --}}
                     <h2 class="mb-4 text-2xl font-bold text-slate-900">
-                        {{ $portofolio->judul_proyek ?? $portofolio->nama_proyek }}
+                        {{ $karya->judul_karya }}
                     </h2>
 
+
+                    {{-- DESKRIPSI --}}
                     <p class="mb-8 leading-relaxed text-slate-600">
-                        {{ $portofolio->deskripsi }}
+                        {{ $karya->deskripsi }}
                     </p>
 
+
+                    {{-- INFORMASI PORTOFOLIO --}}
                     <div class="rounded-xl bg-indigo-50 p-6">
+
                         <div class="grid grid-cols-[120px_1fr] gap-x-4 gap-y-5">
-                            <strong class="text-slate-900">Kategori</strong>
-                            <span class="text-slate-600">{{ $portofolio->kategori ?? $portofolio->jurusan ?? '-' }}</span>
 
-                            <strong class="text-slate-900">Klien / DUDI</strong>
-                            <span class="text-slate-600">{{ $portofolio->klien ?? 'TeFA SMKN 4' }}</span>
+                            {{-- JURUSAN --}}
+                            <strong class="text-slate-900">
+                                Jurusan
+                            </strong>
 
-                            <strong class="text-slate-900">Tahun Proyek</strong>
-                            <span class="text-slate-600">{{ $portofolio->tahun ?? date('Y') }}</span>
+                            <span class="text-slate-600">
+                                {{ $karya->jurusan ?? '-' }}
+                            </span>
+
+
+                            {{-- PRODUK TERKAIT --}}
+                            <strong class="text-slate-900">
+                                Produk
+                            </strong>
+
+                            <span class="text-slate-600">
+                                {{ $karya->tefa->nama_produk ?? '-' }}
+                            </span>
+
+
+                            {{-- KLIEN --}}
+                            @if(!empty($karya->klien))
+
+                                <strong class="text-slate-900">
+                                    Klien / DUDI
+                                </strong>
+
+                                <span class="text-slate-600">
+                                    {{ $karya->klien }}
+                                </span>
+
+                            @endif
+
+
+                            {{-- TAHUN --}}
+                            <strong class="text-slate-900">
+                                Tahun
+                            </strong>
+
+                            <span class="text-slate-600">
+                                {{ $karya->tahun ?? '-' }}
+                            </span>
+
                         </div>
                     </div>
 
-                    {{-- LINK DEMO / PROYEK OPSIONAL --}}
-                    @if(!empty($portofolio->link_proyek))
-                        <a href="{{ $portofolio->link_proyek }}"
+
+                    {{-- GALERI SCREENSHOT --}}
+                    @if(!empty($karya->galeri_screenshot))
+
+                        <div class="mt-10">
+
+                            <h3 class="mb-5 text-xl font-bold text-slate-900">
+                                Galeri Karya
+                            </h3>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+
+                                @foreach($karya->galeri_screenshot as $gambar)
+
+                                    <div class="overflow-hidden rounded-xl bg-slate-100 shadow-sm">
+
+                                        <img
+                                            src="{{ asset('gambar/portofolio/' . $gambar) }}"
+                                            alt="Galeri {{ $karya->judul_karya }}"
+                                            class="h-52 w-full object-cover transition duration-300 hover:scale-105">
+
+                                    </div>
+
+                                @endforeach
+
+                            </div>
+
+                        </div>
+
+                    @endif
+
+
+                    {{-- LINK PROYEK --}}
+                    @if(!empty($karya->link_proyek))
+
+                        <a
+                            href="{{ $karya->link_proyek }}"
                             target="_blank"
                             rel="noopener noreferrer"
                             class="mt-8 block w-full rounded-xl bg-blue-700 py-4 text-center font-semibold text-white transition hover:bg-blue-800">
+
                             Lihat Proyek / Demo Live ↗
+
                         </a>
+
                     @endif
+
+                    {{-- TOMBOL AKSI --}}
+                    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+
+                        {{-- TOMBOL TERTARIK --}}
+                        <a href="{{ route('detail.produk', $karya->id_produk) }}"
+                            class="mt-4 block w-full rounded-xl bg-green-600 py-4 text-center font-semibold text-white transition hover:bg-green-700">
+                            Tertarik? → Lihat Detail Produk & Pesan
+                        </a>
+
+                    </div>
+
                 </div>
+
             </div>
 
         </div>

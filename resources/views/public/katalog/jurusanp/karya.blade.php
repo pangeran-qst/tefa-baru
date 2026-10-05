@@ -500,7 +500,23 @@
 
     {{-- HERO SECTION --}}
     <section class="hero">
-        <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
+        {{-- TOMBOL KEMBALI --}}
+        @php
+            $routeKategori = match (strtoupper($produk->jurusan ?? '')) {
+                'ANIMASI' => 'portofolio.animasi',
+                'RPL'     => 'portofolio.rpl',
+                'TKJ'     => 'portofolio.tkj',
+                'DKV'     => 'portofolio.dkv',
+                'GIM'     => 'portofolio.gim',
+                'PSPT'    => 'portofolio.pspt',
+                default   => 'portofolio',
+            };
+        @endphp
+
+        <a href="{{ Route::has($routeKategori) ? route($routeKategori) : route('portofolio') }}"
+            class="back-link">
+            ← Kembali ke Portofolio
+        </a>
         <div class="hero-title-container">
             <div class="hero-icon">🎨</div> 
             <div>
@@ -559,20 +575,15 @@
                                     </div>
 
                                     <div class="price-value" style="font-size: 14px;">
-                                        {{ \Carbon\Carbon::parse($karya->created_at)->translatedFormat('d F Y') }}
+                                        {{ $karya->tahun }}
                                     </div>
                                 </div>
 
                                 {{-- TOMBOL LIHAT KARYA --}}
-                                @if($karya->link_karya)
-                                    <a href="{{ $karya->link_karya }}" target="_blank" class="btn-detail">
-                                        Lihat Karya
-                                    </a>
-                                @else
-                                    <span class="btn-detail" style="opacity: 0.6; cursor: default;">
-                                        Lihat Karya
-                                    </span>
-                                @endif
+                                <a href="{{ route('portofolio.karya', $karya->id_portofolio) }}"
+                                  class="btn-detail">
+                                    Lihat Detail
+                                </a>
 
                             </div>
 

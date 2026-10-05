@@ -218,6 +218,10 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::post('/produk', [AdminTefaController::class, 'storeProduk'])
             ->name('admin.tefa.produk.store');
 
+        // Simpan portofolio
+        Route::post('/portofolio', [AdminTefaController::class, 'storePortofolio'])
+            ->name('admin.tefa.portofolio.store');
+
 
         // Edit produk
         Route::get('/produk/{id_produk}/edit', [AdminTefaController::class, 'editProduk'])
