@@ -78,6 +78,16 @@
 
         </button>
 
+        <button
+            class="tab-switch px-4 py-2.5 text-xs font-semibold rounded-t-xl transition text-slate-500"
+            
+            data-tab="portofolio" 
+            onclick="switchCmstab('portofolio')">
+
+            Portofolio Produk
+
+        </button>
+
     </div>
 
 
@@ -324,6 +334,170 @@
                     @endforelse
 
                 </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+    {{-- ISI CMS PORTOFOLIO --}}
+
+    <div id="tab-portofolio" class="cms-tab-content block">
+
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">
+
+            {{-- SEARCH CMS --}}
+
+            <div class="relative mb-5 max-w-xs">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">
+                    🔍
+                </span>
+
+                <input
+                    type="text"
+                    id="search-portofolio"
+                    placeholder="Cari portofolio..."
+                    class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition">
+            </div>
+
+            {{-- TABEL CMS --}}
+
+            <div class="overflow-x-auto">
+
+                <table id="table-portofolio" class="w-full text-left text-xs">
+
+                    <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[10px] tracking-wider">
+                        <tr>
+                            <th class="pb-3 px-3">Judul Karya</th>
+                            <th class="pb-3 px-3">Jurusan</th>
+                            <th class="pb-3 px-3">Produk Terkait</th>
+                            <th class="pb-3 px-3">Klien</th>
+                            <th class="pb-3 px-3">Tahun</th>
+                            <th class="pb-3 px-3">Status</th>
+                            <th class="pb-3 px-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @forelse ($portofolios as $portofolio)
+
+                            <tr class="border-b border-slate-50 hover:bg-slate-50 transition">
+
+                                {{-- JUDUL KARYA + GAMBAR --}}
+
+                                <td class="py-4 px-3">
+                                    <div class="flex items-center gap-3">
+
+                                        @if ($portofolio->gambar)
+                                            <img
+                                                src="{{ asset('gambar/tefa/' . $portofolio->gambar) }}"
+                                                alt="{{ $portofolio->judul_karya }}"
+                                                class="w-12 h-12 rounded-xl object-cover border border-slate-200 flex-shrink-0">
+                                        @else
+                                            <div class="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-400 flex-shrink-0">
+                                                🖼️
+                                            </div>
+                                        @endif
+
+                                        <div class="min-w-0">
+                                            <div class="font-semibold text-slate-800">
+                                                {{ $portofolio->judul_karya }}
+                                            </div>
+
+                                            <div class="text-[11px] text-slate-400 mt-1">
+                                                {{ Str::limit($portofolio->deskripsi, 50) }}
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                                {{-- JURUSAN --}}
+
+                                <td class="py-4 px-3">
+                                    <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-600 font-semibold text-[10px]">
+                                        {{ $portofolio->jurusan }}
+                                    </span>
+                                </td>
+
+                                {{-- PRODUK TERKAIT --}}
+
+                                <td class="py-4 px-3 font-medium text-slate-700">
+                                    {{ $portofolio->tefa->nama_produk ?? '-' }}
+                                </td>
+
+                                {{-- KLIEN --}}
+
+                                <td class="py-4 px-3 text-slate-600">
+                                    {{ $portofolio->klien ?? '-' }}
+                                </td>
+
+                                {{-- TAHUN --}}
+
+                                <td class="py-4 px-3 text-slate-600">
+                                    {{ $portofolio->tahun ?? '-' }}
+                                </td>
+
+                                {{-- STATUS --}}
+
+                                <td class="py-4 px-3">
+                                    @if ($portofolio->status_aktif)
+                                        <span class="inline-flex px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 font-semibold text-[10px]">
+                                            Aktif
+                                        </span>
+                                    @else
+                                        <span class="inline-flex px-2.5 py-1 rounded-lg bg-slate-100 text-slate-500 font-semibold text-[10px]">
+                                            Tidak Aktif
+                                        </span>
+                                    @endif
+                                </td>
+
+                                {{-- AKSI --}}
+
+                                <td class="py-4 px-3">
+                                    <div class="flex items-center justify-end gap-2">
+
+                                        <button
+                                            type="button"
+                                            class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
+                                            Edit
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-semibold transition">
+                                            Hapus
+                                        </button>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        @empty
+
+                            <tr>
+                                <td colspan="7" class="py-16 text-center">
+                                    <div class="text-4xl mb-3">🖼️</div>
+
+                                    <h3 class="text-sm font-semibold text-slate-800">
+                                        Belum ada portofolio
+                                    </h3>
+
+                                    <p class="text-xs text-slate-400 mt-1">
+                                        Tambahkan portofolio atau karya pertama.
+                                    </p>
+                                </td>
+                            </tr>
+
+                        @endforelse
+
+                    </tbody>
 
                 </table>
 
@@ -778,6 +952,186 @@
 
 
 {{-- ========================================
+     MODAL TAMBAH PORTOFOLIO
+     ======================================== --}}
+
+<div class="modal fade"
+     id="modalTambahPortofolio"
+     tabindex="-1"
+     aria-labelledby="modalTambahPortofolioLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTambahPortofolioLabel">
+                    Tambah Portofolio Karya
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+
+            <form action="{{ route('admin.tefa.portofolio.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="modal-body">
+                    <div class="row g-3">
+
+                        {{-- JURUSAN --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Jurusan</label>
+                            <select name="jurusan" id="jurusanPortofolio" class="form-select" required>
+                                <option value="">Pilih Jurusan</option>
+                                <option value="RPL">RPL</option>
+                                <option value="TKJ">TKJ</option>
+                                <option value="GIM">GIM</option>
+                                <option value="DKV">DKV</option>
+                                <option value="PSPT">PSPT</option>
+                                <option value="ANIMASI">ANIMASI</option>
+                            </select>
+                        </div>
+
+                        {{-- PRODUK TERKAIT --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Produk Terkait</label>
+                            <select name="id_produk" id="produkTerkaitPortofolio" class="form-select" required>
+                                <option value="">Pilih Produk</option>
+
+                                @foreach ($tefas as $tefa)
+                                    <option
+                                        value="{{ $tefa->id_produk }}"
+                                        data-jurusan="{{ strtoupper(trim($tefa->jurusan)) }}">
+                                        {{ $tefa->nama_produk }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- JUDUL KARYA --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Judul Karya</label>
+                            <input
+                                type="text"
+                                name="judul_karya"
+                                class="form-control"
+                                placeholder="Masukkan judul karya"
+                                required>
+                        </div>
+
+                        {{-- KLIEN --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Klien</label>
+                            <input
+                                type="text"
+                                name="klien"
+                                class="form-control"
+                                placeholder="Nama klien (opsional)">
+                        </div>
+
+                        {{-- TAHUN --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Tahun</label>
+                            <input
+                                type="number"
+                                name="tahun"
+                                class="form-control"
+                                placeholder="Contoh: 2026"
+                                min="2000"
+                                max="2100"
+                                required>
+                        </div>
+
+                        {{-- STATUS --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <select name="status_aktif" class="form-select" required>
+                                <option value="1">Aktif</option>
+                                <option value="0">Tidak Aktif</option>
+                            </select>
+                        </div>
+
+                        {{-- DESKRIPSI --}}
+                        <div class="col-12">
+                            <label class="form-label">Deskripsi Karya</label>
+                            <textarea
+                                name="deskripsi"
+                                class="form-control"
+                                rows="4"
+                                placeholder="Masukkan deskripsi karya"
+                                required></textarea>
+                        </div>
+
+                        {{-- GAMBAR UTAMA --}}
+                        <div class="col-12">
+                            <label class="form-label">Gambar Utama</label>
+                            <input
+                                type="file"
+                                name="gambar"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png,.webp"
+                                required>
+
+                            <small class="text-muted">
+                                Format JPG, JPEG, PNG, WEBP. Maksimal 2 MB.
+                            </small>
+                        </div>
+
+                        {{-- GALERI SCREENSHOT --}}
+                        <div class="col-12">
+                            <label class="form-label">Galeri Screenshot</label>
+                            <input
+                                type="file"
+                                name="galeri_screenshot[]"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png,.webp"
+                                multiple>
+
+                            <small class="text-muted">
+                                Bisa memilih beberapa gambar sekaligus.
+                                Maksimal 2 MB per gambar.
+                            </small>
+                        </div>
+
+                        {{-- LINK PROYEK --}}
+                        <div class="col-12">
+                            <label class="form-label">Link Proyek</label>
+                            <input
+                                type="url"
+                                name="link_proyek"
+                                class="form-control"
+                                placeholder="https://contoh.com">
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i>
+                        Simpan Portofolio
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{{-- ========================================
      MODAL TAMBAH JURUSAN
      ======================================== --}}
 
@@ -1191,26 +1545,23 @@
 </div>
 
 <script>
+    
     function switchCmstab(tab) {
 
         const tabJurusan = document.getElementById('tab-jurusan');
         const tabProduk = document.getElementById('tab-produk');
+        const tabPortofolio = document.getElementById('tab-portofolio');
 
         const buttons = document.querySelectorAll('.tab-switch');
-
         const btnTambah = document.getElementById('btn-tambah');
 
-
         // Sembunyikan semua tab
-
         tabJurusan.classList.add('hidden');
         tabProduk.classList.add('hidden');
-
+        tabPortofolio.classList.add('hidden');
 
         // Reset style tombol tab
-
         buttons.forEach(button => {
-
             button.classList.remove(
                 'active',
                 'text-indigo-600',
@@ -1220,23 +1571,15 @@
             );
 
             button.classList.add('text-slate-500');
-
         });
 
-
-        // ========================================
         // TAB DATA JURUSAN
-        // ========================================
-
         if (tab === 'jurusan') {
 
             tabJurusan.classList.remove('hidden');
 
-
             buttons.forEach(button => {
-
                 if (button.dataset.tab === 'jurusan') {
-
                     button.classList.remove('text-slate-500');
 
                     button.classList.add(
@@ -1246,38 +1589,22 @@
                         'border-indigo-600',
                         'bg-white'
                     );
-
                 }
-
             });
 
-
-            // Ubah tombol atas
-
             btnTambah.innerHTML = '+ Tambah Jurusan';
-
             btnTambah.onclick = function () {
-
                 tambahJurusan();
-
             };
-
         }
 
-
-        // ========================================
         // TAB KATALOG PRODUK
-        // ========================================
-
         if (tab === 'produk') {
 
             tabProduk.classList.remove('hidden');
 
-
             buttons.forEach(button => {
-
                 if (button.dataset.tab === 'produk') {
-
                     button.classList.remove('text-slate-500');
 
                     button.classList.add(
@@ -1287,24 +1614,41 @@
                         'border-indigo-600',
                         'bg-white'
                     );
-
                 }
-
             });
 
-
-            // Ubah tombol atas
-
             btnTambah.innerHTML = '+ Tambah Produk';
-
             btnTambah.onclick = function () {
-
                 tambahProduk();
-
             };
-
         }
 
+        // TAB PORTOFOLIO PRODUK
+        if (tab === 'portofolio') {
+
+            tabPortofolio.classList.remove('hidden');
+
+            buttons.forEach(button => {
+                if (button.dataset.tab === 'portofolio') {
+                    button.classList.remove('text-slate-500');
+
+                    button.classList.add(
+                        'active',
+                        'text-indigo-600',
+                        'border-b-2',
+                        'border-indigo-600',
+                        'bg-white'
+                    );
+                }
+            });
+
+            btnTambah.innerHTML = '+ Tambah Portofolio';
+
+            // Aksi tombol portofolio dibuat nanti
+            btnTambah.onclick = function () {
+                tambahPortofolio();
+            };
+        }
     }
 
 
@@ -1331,6 +1675,14 @@
         modal.show();
 
     }
+
+    
+        function tambahPortofolio() {
+            const modalElement = document.getElementById('modalTambahPortofolio');
+            const modal = new bootstrap.Modal(modalElement);
+
+            modal.show();
+        }
 
     function tambahJurusan() {
 
@@ -1452,9 +1804,45 @@
     // ========================================
 
     document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab');
 
-        switchCmstab('produk');
+        switchCmstab(tab === 'portofolio' ? 'portofolio' : 'produk');
+    });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const jurusanSelect = document.getElementById('jurusanPortofolio');
+        const produkSelect = document.getElementById('produkTerkaitPortofolio');
+
+        if (!jurusanSelect || !produkSelect) return;
+
+        const semuaProduk = Array.from(produkSelect.options)
+            .filter(option => option.value !== '')
+            .map(option => ({
+                value: option.value,
+                text: option.textContent.trim(),
+                jurusan: option.dataset.jurusan
+            }));
+
+        function filterProduk() {
+            const jurusanDipilih = jurusanSelect.value.trim().toUpperCase();
+
+            produkSelect.innerHTML = '<option value="">Pilih Produk</option>';
+
+            semuaProduk
+                .filter(produk => produk.jurusan === jurusanDipilih)
+                .forEach(produk => {
+                    const option = document.createElement('option');
+                    option.value = produk.value;
+                    option.textContent = produk.text;
+                    produkSelect.appendChild(option);
+                });
+
+            produkSelect.value = '';
+        }
+
+        jurusanSelect.addEventListener('change', filterProduk);
+        filterProduk();
     });
 </script> 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role == 'client') {
-            return redirect()->intended('/tefa');
+            return redirect()->intended('/');
         }
 
             if (Auth::user()->role == 'admin_tefa') {
@@ -42,6 +43,34 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'no_hp' => 'nullable|string|max:20',
+            'alamat' => 'nullable|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = User::create([
+            'nama' => $validated['nama'],
+            'email' => $validated['email'],
+            'no_hp' => $validated['no_hp'] ?? null,
+            'alamat' => $validated['alamat'] ?? null,
+            'password' => $validated['password'],
+            'role' => 'client',
+            'jurusan' => null,
+        ]);
+
+        Auth::login($user);
+
+        $request->session()->regenerate();
+
+        return redirect()->intended('/')
+            ->with('success', 'Pendaftaran berhasil. Selamat datang!');
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
@@ -49,6 +78,8 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
+
+
 }

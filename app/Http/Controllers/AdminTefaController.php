@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tefa;
 use App\Models\Jurusan;
 use App\Models\Pesanan;
+use App\Models\Portofolio;
+use Illuminate\Support\Facades\File;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,14 +20,16 @@ class AdminTefaController extends Controller
     }
 
 
+    
     public function produk()
     {
         $tefas = Tefa::all();
         $jurusans = Jurusan::all();
+        $portofolios = Portofolio::with('tefa')->latest()->get();
 
         return view(
             'admin.tefa.produk.index',
-            compact('tefas', 'jurusans')
+            compact('tefas', 'jurusans', 'portofolios')
         );
     }
 
@@ -324,6 +328,187 @@ class AdminTefaController extends Controller
             ->with('success', 'Produk berhasil dihapus.');
     }
 
+    // ===============================
+    // CMS PORTOFOLIO
+    // ===============================
+
+    public function portofolio()
+    {
+        $portofolios = Portofolio::with('tefa')->get();
+
+        return view(
+            'admin.tefa.portofolio.index',
+            compact('portofolios')
+        );
+    }
+
+    public function createPortofolio()
+    {
+        $tefas = Tefa::all();
+
+        return view('admin.tefa.portofolio.create', compact('tefas'));
+    }
+
+    public function storePortofolio(Request $request)
+    {
+        $request->validate([
+            'id_produk' => 'required|exists:tefas,id_produk',
+            'jurusan' => 'required|string|max:255',
+            'judul_karya' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'klien' => 'nullable|string|max:255',
+            'tahun' => 'required|digits:4',
+            'gambar' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'link_proyek' => 'nullable|url|max:255',
+            'galeri_screenshot' => 'nullable|array',
+            'galeri_screenshot.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'status_aktif' => 'required|boolean',
+        ]);
+
+        // Pastikan produk sesuai dengan jurusan yang dipilih
+        $tefa = Tefa::findOrFail($request->id_produk);
+
+        if (strtoupper(trim($tefa->jurusan)) !== strtoupper(trim($request->jurusan))) {
+            return back()
+                ->withErrors(['id_produk' => 'Produk tidak sesuai dengan jurusan yang dipilih.'])
+                ->withInput();
+        }
+
+        $folder = public_path('gambar/portofolio');
+        File::ensureDirectoryExists($folder);
+
+        $data = $request->only([
+            'id_produk',
+            'jurusan',
+            'judul_karya',
+            'deskripsi',
+            'klien',
+            'tahun',
+            'link_proyek',
+            'status_aktif',
+        ]);
+
+        // Simpan gambar utama
+        $gambar = $request->file('gambar');
+        $namaGambar = time() . '_' . uniqid() . '.' . $gambar->extension();
+        $gambar->move($folder, $namaGambar);
+        $data['gambar'] = $namaGambar;
+
+        // Simpan galeri tambahan jika diunggah
+        $galeri = [];
+
+        foreach ($request->file('galeri_screenshot', []) as $file) {
+            $namaFile = time() . '_' . uniqid() . '.' . $file->extension();
+            $file->move($folder, $namaFile);
+            $galeri[] = $namaFile;
+        }
+
+        $data['galeri_screenshot'] = $galeri;
+
+        Portofolio::create($data);
+
+        return redirect()
+            ->route('admin.tefa.produk', ['tab' => 'portofolio'])
+            ->with('success', 'Portofolio berhasil ditambahkan.');
+    }
+
+    public function editPortofolio($id_portofolio)
+    {
+        $portofolio = Portofolio::findOrFail($id_portofolio);
+        $tefas = Tefa::all();
+
+        return view('admin.tefa.portofolio.edit', compact('portofolio', 'tefas'));
+    }
+
+    public function updatePortofolio(Request $request, $id_portofolio)
+    {
+        $portofolio = Portofolio::findOrFail($id_portofolio);
+
+        $request->validate([
+            'id_produk' => 'required|exists:tefas,id_produk',
+            'jurusan' => 'required|string|max:255',
+            'judul_karya' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'klien' => 'nullable|string|max:255',
+            'tahun' => 'nullable|digits:4',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'link_proyek' => 'nullable|url|max:255',
+            'galeri_screenshot' => 'nullable|array',
+            'galeri_screenshot.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            'status_aktif' => 'required|boolean',
+        ]);
+
+        $folder = public_path('gambar/portofolio');
+        File::ensureDirectoryExists($folder);
+
+        $data = $request->only([
+            'id_produk',
+            'jurusan',
+            'judul_karya',
+            'deskripsi',
+            'klien',
+            'tahun',
+            'link_proyek',
+            'status_aktif',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            if ($portofolio->gambar) {
+                File::delete($folder . '/' . $portofolio->gambar);
+            }
+
+            $gambar = $request->file('gambar');
+            $namaGambar = time() . '_' . uniqid() . '.' . $gambar->extension();
+            $gambar->move($folder, $namaGambar);
+            $data['gambar'] = $namaGambar;
+        }
+
+        // Jika screenshot baru diunggah, galeri lama diganti.
+        if ($request->hasFile('galeri_screenshot')) {
+            foreach ($portofolio->galeri_screenshot ?? [] as $fileLama) {
+                File::delete($folder . '/' . $fileLama);
+            }
+
+            $galeri = [];
+
+            foreach ($request->file('galeri_screenshot') as $file) {
+                $namaFile = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move($folder, $namaFile);
+                $galeri[] = $namaFile;
+            }
+
+            $data['galeri_screenshot'] = $galeri;
+        }
+
+        $portofolio->update($data);
+
+        return redirect()
+            ->route('admin.tefa.portofolio')
+            ->with('success', 'Portofolio berhasil diperbarui.');
+    }
+
+    public function destroyPortofolio($id_portofolio)
+    {
+        $portofolio = Portofolio::findOrFail($id_portofolio);
+        $folder = public_path('gambar/portofolio');
+
+        if ($portofolio->gambar) {
+            File::delete($folder . '/' . $portofolio->gambar);
+        }
+
+        foreach ($portofolio->galeri_screenshot ?? [] as $file) {
+            File::delete($folder . '/' . $file);
+        }
+
+        $portofolio->delete();
+
+        return redirect()
+            ->route('admin.tefa.portofolio')
+            ->with('success', 'Portofolio berhasil dihapus.');
+
+    }
+
+    
     // HALAMAN MANAJEMEN PENGGUNA
     public function pengguna(Request $request)
     {
