@@ -522,6 +522,7 @@
 
     <!-- MAIN CONTENT LAYOUT -->
     <div class="content-layout">
+
         <!-- SIDEBAR NAV JURUSAN -->
         <aside class="sidebar">
             <div class="sidebar-title">Kategori</div>
@@ -537,87 +538,93 @@
             </ul>
         </aside>
 
-        <main class="services-grid" id="servicesGrid">
+        <!-- MAIN CONTENT AREA (Bungkus Area Kanan) -->
+        <div class="main-content" style="flex: 1; display: flex; flex-direction: column;">
 
-            @forelse($tefas as $tefa)
+            <main class="services-grid" id="servicesGrid">
 
-                <div class="service-card">
+                @forelse($tefas as $tefa)
 
-                    {{-- THUMBNAIL PRODUK --}}
-                    @if($tefa->gambar)
-                        <img 
-                            src="{{ asset('gambar/tefa/' . $tefa->gambar) }}" 
-                            alt="{{ $tefa->nama_produk }}" 
-                            class="service-img">
-                    @else
-                        <div 
-                            class="service-img" 
-                            style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
-                            📦
-                        </div>
-                    @endif
+                    <div class="service-card">
 
-                    <div class="service-body">
+                        {{-- THUMBNAIL PRODUK --}}
+                        @if($tefa->gambar)
+                            <img 
+                                src="{{ asset('gambar/tefa/' . $tefa->gambar) }}" 
+                                alt="{{ $tefa->nama_produk }}" 
+                                class="service-img">
+                        @else
+                            <div 
+                                class="service-img" 
+                                style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
+                                📦
+                            </div>
+                        @endif
 
-                        {{-- NAMA PRODUK --}}
-                        <h3>
-                            {{ $tefa->nama_produk }}
-                        </h3>
+                        <div class="service-body">
 
-                        {{-- DESKRIPSI SINGKAT PRODUK --}}
-                        <p>
-                            {{ $tefa->deskripsi }}
-                        </p>
+                            {{-- NAMA PRODUK --}}
+                            <h3>
+                                {{ $tefa->nama_produk }}
+                            </h3>
 
-                        <div class="service-footer">
+                            {{-- DESKRIPSI SINGKAT PRODUK --}}
+                            <p>
+                                {{ $tefa->deskripsi }}
+                            </p>
 
-                            <div>
-                                <div class="price-label">
-                                    Kategori Produk
+                            <div class="service-footer">
+
+                                <div>
+                                    <div class="price-label">
+                                        Mulai dari
+                                    </div>
+
+                                    {{-- HARGA DARI DATABASE --}}
+                                    <div class="price-value">
+                                        Rp {{ number_format($tefa->harga, 0, ',', '.') }}
+                                    </div>
                                 </div>
 
-                                {{-- NAMA JURUSAN / KATEGORI PRODUK --}}
-                                <div class="price-value" style="font-size: 14px;">
-                                    {{ $tefa->jurusan ?? 'Produk TeFA' }}
-                                </div>
+                                {{-- TOMBOL DETAIL PRODUK --}}
+                                <a href="{{ route('detail.produk', $tefa->id_produk) }}" class="btn-detail">
+                                    Lihat Produk
+                                </a>
+
                             </div>
 
-                            {{-- TOMBOL DETAIL PRODUK --}}
-                            <a href="{{ route('portofolio.karya', $tefa->id_produk) }}" class="btn-detail">
-                                Lihat Produk
-                            </a>
-
                         </div>
-
                     </div>
+
+                @empty
+
+                    {{-- STATE KOSONG --}}
+                    <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                        <div style="font-size:50px;">📦</div>
+
+                        <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                            Belum Ada Produk Ditampilkan
+                        </h3>
+
+                        <p style="margin-top:8px; color:#64748b;">
+                            Daftar produk belum tersedia saat ini.
+                        </p>
+                    </div>
+
+                @endforelse
+
+            </main>
+
+            {{-- PAGINATION (Tepat di bawah grid produk, rata kanan area produk) --}}
+            @if($tefas->hasPages())
+                <div class="mt-8 flex justify-end">
+                    {{ $tefas->links() }}
                 </div>
+            @endif
 
-            @empty
+        </div> <!-- AKHIR .main-content -->
 
-                {{-- STATE KOSONG --}}
-                <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                    <div style="font-size:50px;">📦</div>
-
-                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                        Belum Ada Produk Ditampilkan
-                    </h3>
-
-                    <p style="margin-top:8px; color:#64748b;">
-                        Daftar produk portofolio belum tersedia saat ini.
-                    </p>
-                </div>
-
-            @endforelse
-
-        </main>
-        
-    </div>
-
-    @if($tefas->hasPages())
-        <div style="margin-top: 30px; display: flex; justify-content: center;">
-            {{ $tefas->links() }}
-        </div>
-    @endif
+    </div> <!-- AKHIR .content-layout -->
 
     <footer class="mt-[60px] bg-blue-900 px-5 md:px-[8%] pt-10 pb-5 text-white">
           <div class="mb-10 flex flex-wrap justify-between gap-8">
