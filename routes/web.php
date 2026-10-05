@@ -146,9 +146,8 @@ Route::middleware('auth')->group(function () {
     //admin jrusan menugaskan workernya
     Route::post('/admin/jurusan/pesanan/{id}/assign', [AdminJurusanController::class, 'assignWorker'])->name('admin.jurusan.pesanan.assign');
 
-    Route::get('/admin/jurusan/pengguna', function () {
-        return view('admin.jurusan.pengguna.index');
-    })->name('admin.jurusan.pengguna');
+    Route::get('/admin/jurusan/pengguna', [AdminJurusanController::class, 'pengguna'])
+        ->name('admin.jurusan.pengguna');
 
  
 
@@ -173,9 +172,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/worker/pesanan/{id}/progress', [WorkerController::class, 'updateProgress'])
         ->name('worker.pesanan.progress');
 
-    Route::get('/worker/portofolio', function () {
-        return view('worker.portofolio.index');
-    })->name('worker.portofolio');
+
+    Route::post('/worker/pesanan/{id}/selesai', [WorkerController::class, 'selesai'])
+        ->name('worker.pesanan.selesai');
+
+    Route::get('/worker/portofolio', [WorkerController::class, 'portofolio'])
+        ->name('worker.portofolio');
 
 });
 
@@ -272,9 +274,21 @@ Route::middleware(['auth', 'admin.tefa'])
         })->name('admin.tefa.transaksi');
 
 
-        // Pengguna
-        Route::get('/pengguna', function () {
-            return view('admin.tefa.pengguna');
-        })->name('admin.tefa.pengguna');
+        // Manajemen Pengguna
+        Route::get('/pengguna', [AdminTefaController::class, 'pengguna'])
+            ->name('admin.tefa.pengguna');
+
+        // Simpan akun pengguna
+        Route::post('/pengguna', [AdminTefaController::class, 'storePengguna'])
+            ->name('admin.tefa.pengguna.store');
+
+        Route::get('/pengguna/{id}/edit', [AdminTefaController::class, 'editPengguna'])
+            ->name('admin.tefa.pengguna.edit');
+
+        Route::put('/pengguna/{id}', [AdminTefaController::class, 'updatePengguna'])
+            ->name('admin.tefa.pengguna.update');
+
+        Route::delete('/pengguna/{id}', [AdminTefaController::class, 'destroyPengguna'])
+            ->name('admin.tefa.pengguna.destroy');
 
     });

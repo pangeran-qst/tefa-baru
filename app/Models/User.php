@@ -30,7 +30,8 @@ class User extends Authenticatable
         'no_hp',
         'alamat',
         'role',
-        'jurusan',  
+        'jurusan',
+        'kelas',
     ];
 
     /**

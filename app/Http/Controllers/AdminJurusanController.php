@@ -55,6 +55,7 @@ class AdminJurusanController extends Controller
         // ==========================================
 
         $dalamPengerjaan = (clone $baseQuery)
+            ->with('progress')
             ->where('status', 'pengerjaan')
             ->latest('tanggal_pesan')
             ->get();
@@ -87,13 +88,27 @@ class AdminJurusanController extends Controller
         // Sesuai jurusan admin yang login 
         // ==========================================
 
-        $workerQuery = User::where('role', 'worker');
+        $workerQuery = User::where('role', 'worker')
+            ->withCount([
+                'pesananSebagaiWorker as project_aktif' => function ($query) {
+                    $query->whereIn('status', [
+                        'ditugaskan',
+                        'pengerjaan',
+                        'review',
+                    ]);
+                },
+                'pesananSebagaiWorker as project_selesai' => function ($query) {
+                    $query->where('status', 'selesai');
+                },
+            ]);
 
         if ($jurusanUser) {
             $workerQuery->where('jurusan', $jurusanUser);
         }
 
-        $workers = $workerQuery->get();
+        $workers = $workerQuery
+            ->orderBy('nama')
+            ->get();
 
 
         // ==========================================
@@ -171,5 +186,49 @@ class AdminJurusanController extends Controller
         return redirect()
             ->back()
             ->with('success', 'Pesanan berhasil ditugaskan ke Worker!');
+    }
+
+
+    public function pengguna()
+    {
+        $userLogin = Auth::user();
+        $jurusanUser = $userLogin->jurusan;
+
+        $workerQuery = User::where('role', 'worker')
+            ->withCount([
+                'pesananSebagaiWorker as project_aktif' => function ($query) {
+                    $query->whereIn('status', [
+                        'ditugaskan',
+                        'pengerjaan',
+                        'review',
+                    ]);
+                },
+
+                'pesananSebagaiWorker as project_selesai' => function ($query) {
+                    $query->where('status', 'selesai');
+                },
+            ]);
+
+        if ($jurusanUser) {
+            $workerQuery->where('jurusan', $jurusanUser);
+        }
+
+        $workers = $workerQuery
+            ->orderBy('nama')
+            ->get();
+
+        // Statistik Worker
+        $totalWorker = $workers->count();
+
+        $workerBusy = $workers->where('project_aktif', '>', 0)->count();
+
+        $workerAvailable = $workers->where('project_aktif', 0)->count();
+
+        return view('admin.jurusan.pengguna.index', compact(
+            'workers',
+            'totalWorker',
+            'workerAvailable',
+            'workerBusy'
+        ));
     }
 }
