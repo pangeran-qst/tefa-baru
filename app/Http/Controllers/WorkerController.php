@@ -65,6 +65,15 @@ class WorkerController extends Controller
         $pesanan->status = 'pengerjaan';
         $pesanan->save();
 
+                ProgressPesanan::create([
+            'id_pesanan' => $pesanan->id_pesanan,
+            'id_user' => $workerId,
+            'progress' => 0,
+            'tahap' => 'Masuk Tahap Pengerjaan',
+            'catatan' => 'Pesanan sudah masuk ke tahap pengerjaan.',
+            'tanggal_progress' => now(),
+        ]);
+
         return redirect()
             ->back()
             ->with('success', 'Project berhasil diterima dan masuk ke Project Saya.');
@@ -106,12 +115,13 @@ class WorkerController extends Controller
             ->where('status', 'pengerjaan')
             ->firstOrFail();
 
-        ProgressPesanan::create([
+            ProgressPesanan::create([
             'id_pesanan' => $pesanan->id_pesanan,
             'id_user' => $workerId,
             'progress' => $request->progress,
             'tahap' => $request->tahap,
             'catatan' => $request->catatan,
+            'tanggal_progress' => now(),
         ]);
 
         return redirect()
@@ -131,6 +141,15 @@ class WorkerController extends Controller
 
         $pesanan->status = 'review';
         $pesanan->save();
+
+                ProgressPesanan::create([
+            'id_pesanan' => $pesanan->id_pesanan,
+            'id_user' => $workerId,
+            'progress' => 100,
+            'tahap' => 'Menunggu QC',
+            'catatan' => 'Project telah selesai dikerjakan dan sedang menunggu pemeriksaan QC.',
+            'tanggal_progress' => now(),
+        ]);
 
         return redirect()
             ->back()

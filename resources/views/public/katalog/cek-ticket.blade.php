@@ -178,15 +178,17 @@
           id="hasilTiket"
           class="mt-5 {{ isset($pesanan) ? '' : 'hidden' }}">
           @if(isset($pesanan))
-
-              @php
-                  $statusLabel = [
-                      'pending' => 'Menunggu Respons',
-                      'in_progress' => 'Sedang Dikerjakan',
-                      'completed' => 'Selesai',
-                      'cancelled' => 'Dibatalkan',
-                  ];
-              @endphp
+                @php
+                    $statusLabel = [
+                        'pending' => 'Pesanan Diterima',
+                        'diproses' => 'Pesanan Diproses',
+                        'ditugaskan' => 'Worker Ditugaskan',
+                        'pengerjaan' => 'Masuk Tahap Pengerjaan',
+                        'review' => 'Menunggu QC',
+                        'selesai' => 'Pesanan Selesai',
+                        'cancelled' => 'Pesanan Dibatalkan',
+                    ];
+                @endphp
 
               {{-- INFORMASI PESANAN --}}
               <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 mb-5">
@@ -270,7 +272,7 @@
 
 
                   {{-- RIWAYAT DARI DATABASE --}}
-                  @foreach($pesanan->riwayat as $riwayat)
+                        @foreach($pesanan->timeline as $riwayat)
 
                       <div class="relative flex gap-4 pb-6 last:pb-0">
 

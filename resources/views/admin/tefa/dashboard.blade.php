@@ -27,12 +27,15 @@
     /* ================= STAT CARD ================= */
 
     .tefa-stat-card {
-        background: #ffffff;
-        border: 1px solid rgba(226, 232, 240, 0.8);
-        border-radius: 16px;
-        padding: 20px;
-        height: 100%;
-        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+      background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 16px;
+    padding: 20px;
+    height: 100%;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+
+    min-width: 0;
+    overflow: hidden;
     }
 
     .tefa-stat-icon {
@@ -45,12 +48,23 @@
         font-size: 18px;
         margin-bottom: 12px;
     }
+.tefa-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
 
-    .tefa-stat-number {
-        font-size: 30px;
-        line-height: 1;
-        font-weight: 800;
-        color: #1e293b;
+    width: 100%;
+    max-width: 100%;
+
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+
+    letter-spacing: -0.03em;
+    }
+
+.tefa-omset {
+    font-size: 2.5rem;
     }
 
     .tefa-stat-label {
@@ -273,110 +287,99 @@
         {{-- CARD 1 --}}
 
         <div class="col-12 col-md-6 col-xl-3">
-
             <div class="tefa-stat-card">
 
-                <div class="tefa-stat-icon icon-amber">
-                    📁
-                </div>
-
-                <div class="tefa-stat-number">
-                    47
-                </div>
-
-                <div class="tefa-stat-label">
-                    Total Pesanan Masuk
-                </div>
-
-                <span class="tefa-stat-note text-green">
-                    +8 hari ini
-                </span>
-
+            <div class="tefa-stat-icon icon-amber">
+            📁
             </div>
 
+            <div class="tefa-stat-number">
+            {{ $totalPesanan }}
+            </div>
+
+            <div class="tefa-stat-label">
+            Total Pesanan Masuk
+            </div>
+
+            <span class="tefa-stat-note text-green">
+            Pesanan masuk
+            </span>
+
+             </div>
         </div>
 
 
         {{-- CARD 2 --}}
 
         <div class="col-12 col-md-6 col-xl-3">
+    <div class="tefa-stat-card">
 
-            <div class="tefa-stat-card">
+        <div class="tefa-stat-icon icon-purple">
+            ⚡
+        </div>
 
-                <div class="tefa-stat-icon icon-purple">
-                    ⚡
-                </div>
+        <div class="tefa-stat-number tefa-omset"> 
+           Rp.50.000.000.00
+        </div>
 
-                <div class="tefa-stat-number">
-                    Rp 24,7 Jt
-                </div>
+        <div class="tefa-stat-label">
+            Total Omset / Kas BLUD
+        </div>
 
-                <div class="tefa-stat-label">
-                    Total Omset / Kas BLUD
-                </div>
-
-                <span class="tefa-stat-note text-purple">
-                    Bulan Agustus
-                </span>
-
-            </div>
+        <span class="tefa-stat-note text-purple">
+            Bulan ini
+        </span>
 
         </div>
+    </div>
 
 
         {{-- CARD 3 --}}
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="tefa-stat-card">
 
-        <div class="col-12 col-md-6 col-xl-3">
-
-            <div class="tefa-stat-card">
-
-                <div class="tefa-stat-icon icon-amber">
-                    👷
-                </div>
-
-                <div class="tefa-stat-number">
-                    17
-                </div>
-
-                <div class="tefa-stat-label">
-                    Jumlah Project Aktif
-                </div>
-
-                <span class="tefa-stat-note text-blue">
-                    Sedang berjalan
-                </span>
-
-            </div>
-
+        <div class="tefa-stat-icon icon-amber">
+            👷
         </div>
+
+        <div class="tefa-stat-number">
+            {{ $projectAktif }}
+        </div>
+
+        <div class="tefa-stat-label">
+            Jumlah Project Aktif
+        </div>
+
+        <span class="tefa-stat-note text-blue">
+            Sedang berjalan
+        </span>
+
+         </div>
+    </div>
 
 
         {{-- CARD 4 --}}
 
-        <div class="col-12 col-md-6 col-xl-3">
-
+    <div class="col-12 col-md-6 col-xl-3">
             <div class="tefa-stat-card">
 
-                <div class="tefa-stat-icon icon-green">
-                    ✅
-                </div>
-
-                <div class="tefa-stat-number">
-                    61
-                </div>
-
-                <div class="tefa-stat-label">
-                    Total Project Selesai
-                </div>
-
-                <span class="tefa-stat-note text-amber">
-                    Lolos QC
-                </span>
-
-            </div>
-
+        <div class="tefa-stat-icon icon-green">
+            ✅
         </div>
 
+        <div class="tefa-stat-number">
+            {{ $projectSelesai }}
+        </div>
+
+        <div class="tefa-stat-label">
+            Total Project Selesai
+        </div>
+
+        <span class="tefa-stat-note text-amber">
+            Lolos QC
+        </span>
+
+            </div>
     </div>
 
 
