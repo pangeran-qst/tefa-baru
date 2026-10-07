@@ -19,7 +19,6 @@
         <div class="flex flex-col items-center text-center mb-6">
             <img src="{{ asset('logobg.png') }}" alt="Logo SMKN 4 Tanjungpinang" class="h-24 w-auto max-w-[120px] object-contain mb-3">
             <h2 class="text-xl font-bold">Lupa Password</h2>
-            <p class="text-xs text-blue-200 mt-1">Masukkan email terdaftar untuk pemulihan akun</p>
         </div>
 
         <!-- Alert Notifikasi Sukses -->
