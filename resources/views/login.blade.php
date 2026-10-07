@@ -42,9 +42,17 @@
         >
       </div>
 
-      <!-- Field Password dengan Toggle Mata -->
+      <!-- Field Password dengan Toggle Mata & Link Lupa Password di Samping Label -->
       <div>
-        <label for="password" class="block text-sm font-semibold mb-1.5 text-blue-100">Password</label>
+        <div class="flex items-center justify-between mb-1.5">
+          <label for="password" class="text-sm font-semibold text-blue-100">Password</label>
+          
+          <!-- LINK LUPA PASSWORD DI SAMPING LABEL PASSWORD -->
+          <a href="{{ route('password.request') }}" class="text-xs text-blue-200 hover:text-white hover:underline transition">
+            Lupa Password?
+          </a>
+        </div>
+
         <div class="relative">
           <input 
             type="password" 
@@ -80,14 +88,14 @@
         type="submit" 
         class="w-full py-3 bg-blue-600 hover:bg-blue-500 font-semibold rounded-xl text-sm transition duration-200 shadow-lg shadow-blue-600/40 mt-4"
       >
-        Login
+        Masuk
       </button>
 
       <div class="text-center text-xs text-blue-200 pt-2">
-    Belum punya akun?
-    <a href="{{ route('daftar') }}" class="font-bold text-white hover:underline">
-        Daftar di sini
-    </a>
+        Belum punya akun?
+        <a href="{{ route('daftar') }}" class="font-bold text-white hover:underline pd-r-10rem">
+            Daftar di sini
+        </a>
       </div>
 
     </form>

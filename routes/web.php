@@ -36,6 +36,13 @@ Route::get('/daftar', function () {
 Route::post('/daftar-proses', [AuthController::class, 'register'])
     ->name('daftar.proses');
 
+    Route::get('/forgot-password', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+
+    // --- TAMBAHKAN DUA BARIS INI ---
+    Route::get('/reset-password/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 
 // ==============================
 // KATALOG PRODUK TEFA
