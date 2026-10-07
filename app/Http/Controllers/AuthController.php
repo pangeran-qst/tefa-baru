@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Password;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -81,5 +82,33 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
+    // Menampilkan halaman form lupa password
+    public function showLinkRequestForm()
+    {
+        return view('lupa-password');
+    }
+
+    // Memproses pengiriman link reset password ke email
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.exists' => 'Email ini belum terdaftar di sistem kami.',
+        ]);
+
+        // Mengirimkan link reset password bawaan Laravel
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return back()->with('status', 'Link reset password telah dikirim ke email Anda! Silakan periksa kotak masuk atau folder spam.');
+        }
+
+        return back()->withErrors(['email' => __($status)]);
+    }
 
 }
