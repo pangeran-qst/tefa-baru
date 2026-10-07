@@ -48,23 +48,43 @@
         font-size: 18px;
         margin-bottom: 12px;
     }
-.tefa-stat-number {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.1;
 
-    width: 100%;
-    max-width: 100%;
+    .tefa-stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        line-height: 1;
 
-    white-space: nowrap;
-    overflow: visible;
-    text-overflow: clip;
+        width: 100%;
+        max-width: 100%;
 
-    letter-spacing: -0.03em;
+        /* Tinggi area angka dibuat tetap */
+        height: 48px;
+
+        /* Angka selalu berada di tengah area */
+        display: flex;
+        align-items: center;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: clip;
+
+        letter-spacing: -0.03em;
     }
 
-.tefa-omset {
-    font-size: 2.5rem;
+    .text-normal {
+        font-size: 2.4rem;
+    }
+
+    .text-sedang {
+        font-size: 1.8rem;
+    }
+
+    .text-kecil {
+        font-size: 1.65rem;
+    }
+
+    .text-kecil-1 {
+        font-size: 1.5rem;
     }
 
     .tefa-stat-label {
@@ -318,8 +338,17 @@
             ⚡
         </div>
 
-        <div class="tefa-stat-number tefa-omset"> 
-           Rp.50.000.000.00
+        <div class="tefa-stat-number 
+        @if($totalOmset >= 1000000000)
+            text-kecil-1
+        @elseif($totalOmset >= 100000000)
+            text-kecil
+        @elseif($totalOmset >= 10000000)
+            text-sedang
+        @else
+            text-normal
+        @endif"> 
+           Rp {{ number_format($totalOmset, 0, ',', '.') }}
         </div>
 
         <div class="tefa-stat-label">

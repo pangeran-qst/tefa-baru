@@ -23,9 +23,9 @@ class AdminTefaController extends Controller
         ->where('status', '!=', 'cancelled')
         ->sum('total_harga');
 
-    $projectAktif = Pesanan::where('status', 'in_progress')->count();
+    $projectAktif = Pesanan::where('status', 'diproses')->count();
 
-    $projectSelesai = Pesanan::where('status', 'completed')->count();
+    $projectSelesai = Pesanan::where('status', 'selesai')->count();
 
     return view('admin.tefa.dashboard', compact(
         'totalPesanan',

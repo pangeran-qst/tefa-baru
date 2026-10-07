@@ -168,11 +168,11 @@ public function cekTicket(Request $request)
         // Contoh: TF-0001
         $idPesanan = (int) str_replace('TF-', '', $ticket);
 
-        $pesanan = Pesanan::with([
+            $pesanan = Pesanan::with([
             'tefa',
             'riwayat',
             'progress'
-        ])
+                ])
             ->where('id_pesanan', $idPesanan)
             ->first();
 
