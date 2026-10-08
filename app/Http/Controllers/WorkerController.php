@@ -9,6 +9,27 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkerController extends Controller
 {
+
+    public function index()
+    {
+        $workerId = Auth::id();
+
+        // Project yang sedang dikerjakan worker
+        $projectAktif = Pesanan::where('id_user_worker', $workerId)
+            ->where('status', 'pengerjaan')
+            ->count();
+
+        // Project yang sudah selesai
+        $projectSelesai = Pesanan::where('id_user_worker', $workerId)
+            ->where('status', 'selesai')
+            ->count();
+
+        return view('worker.dashboard', compact(
+            'projectAktif',
+            'projectSelesai'
+        ));
+    }
+
     public function tugasku()
     {
         $workerId = Auth::id();

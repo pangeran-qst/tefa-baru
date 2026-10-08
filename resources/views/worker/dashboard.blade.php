@@ -4,11 +4,6 @@
 
 @section('content')
 
-
-
-
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Worker - TeFA Platform</title>
@@ -53,7 +48,7 @@
     </div>
 
     <!-- STATS CARDS -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
       
       <!-- Card 1: Project Aktif -->
       <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
@@ -63,14 +58,16 @@
           </div>
         </div>
         <div>
-          <h2 class="text-4xl font-extrabold text-slate-800 mb-1">2</h2>
+          <h2 class="text-4xl font-extrabold text-slate-800 mb-1">
+            {{ $projectAktif }}
+          </h2>
           <p class="text-xs text-slate-500 font-medium mb-3">Project Aktif</p>
           <span class="text-xs font-semibold text-indigo-600">Sedang berjalan</span>
         </div>
       </div>
 
       <!-- Card 2: Deadline Terdekat -->
-      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
+      <!-- <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between mb-4">
           <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500 text-lg">
             ⏰
@@ -81,7 +78,7 @@
           <p class="text-xs text-slate-500 font-medium mb-3">Deadline Terdekat</p>
           <span class="text-xs font-semibold text-amber-500">Aplikasi Kasir Mobile</span>
         </div>
-      </div>
+      </div> -->
 
       <!-- Card 3: Total Selesai -->
       <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col justify-between">
@@ -91,7 +88,9 @@
           </div>
         </div>
         <div>
-          <h2 class="text-4xl font-extrabold text-slate-800 mb-1">3</h2>
+          <h2 class="text-4xl font-extrabold text-slate-800 mb-1">
+            {{ $projectSelesai }}
+          </h2>
           <p class="text-xs text-slate-500 font-medium mb-3">Total Selesai</p>
           <span class="text-xs font-semibold text-emerald-600">Lolos QC</span>
         </div>
