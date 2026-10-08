@@ -178,9 +178,8 @@ Route::get('/admin/jurusan', function () {
     // DASHBOARD WORKER
     // ==========================
 
-    Route::get('/worker', function () {
-        return view('worker.dashboard');
-    })->name('worker.dashboard');
+    Route::get('/worker', [WorkerController::class, 'index'])
+    ->name('worker.dashboard');
 
     Route::get('/worker/tugasku', [WorkerController::class, 'tugasku'])
     ->name('worker.tugasku');
