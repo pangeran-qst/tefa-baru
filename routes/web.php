@@ -142,9 +142,24 @@ Route::middleware('auth')->group(function () {
     // DASHBOARD ADMIN JURUSAN
     // ==========================
 
-    Route::get('/admin/jurusan', function () {
-        return view('admin.jurusan.dashboard');
-    })->name('admin.jurusan.dashboard');
+Route::get('/admin/jurusan', function () {
+
+    $totalPesanan = \App\Models\Pesanan::count();
+
+    $projectAktif = \App\Models\Pesanan::where('status', 'in_progress')->count();
+
+    $totalWorkerAktif = \App\Models\User::where('role', 'worker')->count();
+
+    $projectSelesai = \App\Models\Pesanan::where('status', 'completed')->count();
+
+    return view('admin.jurusan.dashboard', compact(
+        'totalPesanan',
+        'projectAktif',
+        'totalWorkerAktif',
+        'projectSelesai'
+    ));
+
+})->name('admin.jurusan.dashboard');
 
     Route::get('/admin/jurusan/pesanan', [AdminJurusanController::class, 'index'])->name('admin.jurusan.pesanan');
 

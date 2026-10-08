@@ -27,6 +27,8 @@ class AdminTefaController extends Controller
 
     $projectSelesai = Pesanan::where('status', 'selesai')->count();
 
+    $totalWorkerAktif = User::where('role', 'worker')->count();
+
     return view('admin.tefa.dashboard', compact(
         'totalPesanan',
         'totalOmset',
