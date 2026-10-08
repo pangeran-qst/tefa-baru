@@ -11,6 +11,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\TransaksiJurusanExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminTefaController extends Controller
 {
@@ -642,5 +644,150 @@ class AdminTefaController extends Controller
         return redirect()
             ->route('admin.tefa.pengguna')
             ->with('success', 'Akun pengguna berhasil dihapus.');
+    }
+
+    public function transaksi(Request $request)
+    {
+        $tanggalDari = $request->tanggal_dari;
+        $tanggalSampai = $request->tanggal_sampai;
+
+        $query = Pesanan::with([
+            'tefa',
+            'user',
+            'worker',
+        ]);
+
+        if ($tanggalDari) {
+            $query->whereDate('tanggal_pesan', '>=', $tanggalDari);
+        }
+
+        if ($tanggalSampai) {
+            $query->whereDate('tanggal_pesan', '<=', $tanggalSampai);
+        }
+
+        $transaksi = $query
+            ->latest('tanggal_pesan')
+            ->get();
+
+        $totalTransaksi = $transaksi->sum('total_harga');
+
+        $transaksiLunas = $transaksi
+            ->where('status_pembayaran', 'lunas')
+            ->count();
+
+        $pendingPelunasan = $transaksi
+            ->whereIn('status_pembayaran', [
+                'belum_bayar',
+                'dp',
+            ])
+            ->count();
+
+        $omset = $transaksi->sum('total_harga');
+
+        return view('admin.tefa.transaksi', compact(
+            'transaksi',
+            'totalTransaksi',
+            'transaksiLunas',
+            'pendingPelunasan',
+            'omset',
+            'tanggalDari',
+            'tanggalSampai'
+        ));
+    }
+
+    public function transaksiPdfSatuan($id_pesanan)
+    {
+        $pesanan = Pesanan::with([
+            'tefa',
+            'user',
+            'worker',
+        ])
+        ->where('id_pesanan', $id_pesanan)
+        ->firstOrFail();
+
+        return Pdf::loadView(
+            'pdf.transaksi-jurusan',
+            [
+                'transaksi' => collect([$pesanan]),
+                'jurusanUser' => $pesanan->tefa->jurusan ?? '-',
+                'totalTransaksi' => $pesanan->harga_final ?? 0,
+                'omset' => $pesanan->nominal_dibayar ?? 0,
+            ]
+        )
+        ->setPaper('a4', 'landscape')
+        ->stream(
+            'transaksi-' . $pesanan->id_pesanan . '.pdf'
+        );
+    }
+
+    public function transaksiPdf(Request $request)
+    {
+        $tanggalDari = $request->tanggal_dari;
+        $tanggalSampai = $request->tanggal_sampai;
+
+        $query = Pesanan::with([
+            'tefa',
+            'user',
+            'worker',
+        ]);
+
+        // FILTER TANGGAL
+        if ($tanggalDari) {
+            $query->whereDate('tanggal_pesan', '>=', $tanggalDari);
+        }
+
+        if ($tanggalSampai) {
+            $query->whereDate('tanggal_pesan', '<=', $tanggalSampai);
+        }
+
+        $transaksi = $query
+            ->latest('tanggal_pesan')
+            ->get();
+
+        $totalTransaksi = $transaksi->sum('harga_final');
+
+        $omset = $transaksi->sum('nominal_dibayar');
+
+        return Pdf::loadView(
+            'pdf.transaksi-tefa',
+            compact(
+                'transaksi',
+                'tanggalDari',
+                'tanggalSampai',
+                'totalTransaksi',
+                'omset'
+            )
+        )
+        ->setPaper('a4', 'landscape')
+        ->stream('transaksi-tefa.pdf');
+    }
+
+    public function transaksiExcel(Request $request)
+    {
+        $tanggalDari = $request->tanggal_dari;
+        $tanggalSampai = $request->tanggal_sampai;
+
+        $query = Pesanan::with([
+            'tefa',
+            'user',
+            'worker',
+        ]);
+
+        if ($tanggalDari) {
+            $query->whereDate('tanggal_pesan', '>=', $tanggalDari);
+        }
+
+        if ($tanggalSampai) {
+            $query->whereDate('tanggal_pesan', '<=', $tanggalSampai);
+        }
+
+        $transaksi = $query
+            ->latest('tanggal_pesan')
+            ->get();
+
+        return Excel::download(
+            new TransaksiJurusanExport($transaksi),
+            'transaksi-tefa.xlsx'
+        );
     }
 }

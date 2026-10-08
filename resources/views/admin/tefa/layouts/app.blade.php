@@ -674,7 +674,7 @@
             {{-- Transaksi BLUD --}}
             <a href="{{ route('admin.tefa.transaksi') }}" class="{{ request()->routeIs('admin.tefa.transaksi') ? 'active' : '' }}">
 
-                <i class="bi bi-cash-coin"></i>
+                <i class="bi bi-wallet2"></i>
 
                 <div class="menu-text">
 

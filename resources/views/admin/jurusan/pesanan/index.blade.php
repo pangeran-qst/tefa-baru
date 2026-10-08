@@ -8,7 +8,7 @@
   
 
   
-  <title>Management Order - Admin Jurusan RPL</title>
+  <title>Manajemen Pesanan - Admin Jurusan RPL</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
@@ -19,7 +19,7 @@
     
     <!-- Title Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-slate-800">Management Order</h1>
+      <h1 class="text-2xl font-bold text-slate-800">Manajemen Pesanan</h1>
       <p class="text-xs text-slate-500 mt-0.5">Kelola alur pesanan masuk hingga penyelesaian</p>
     </div>
 
@@ -58,75 +58,79 @@
     <div id="content-pesanan-masuk" class="tab-content space-y-4">
       
       @forelse($pesananMasuk as $item)
-        <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs font-semibold text-slate-400">#TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}</span>
-              <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
-              <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">Baru</span>
-            </div>
+      <div class="bg-white rounded-2xl p-6 border border-slate-200/80 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
 
-            <h3 class="text-base font-bold text-slate-800">
-              {{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan Tidak Diketahui' }}
-            </h3>
+          <!-- INFORMASI RINGKAS PESANAN -->
+          <div class="flex-1">
 
-            <p class="text-xs text-slate-500 font-medium mt-0.5">
-              Klien: <span class="text-slate-700 font-semibold">{{ $item->nama_pemesan }}</span>
-              @if($item->no_hp_pemesan)
-                · <span class="text-slate-500">{{ $item->no_hp_pemesan }}</span>
-              @endif
-            </p>
+              <!-- TICKET + STATUS -->
+              <div class="flex items-center gap-2 mb-2">
 
-            <p class="text-xs text-slate-500 mt-2 max-w-2xl leading-relaxed">
-              {{ $item->catatan_pesanan ?? $item->catatan ?? 'Tidak ada catatan khusus dari Admin TEFA / Klien.' }}
-            </p>
+                  <span class="text-xs font-semibold text-slate-400">
+                      #TF-{{ str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) }}
+                  </span>
 
-            <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
-              <span>⏰</span> Tanggal Pesan: 
-              <strong class="text-slate-700">
-                {{ $item->created_at ? $item->created_at->format('d M Y - H:i') : '-' }} WIB
-              </strong>
-            </div>
+                  <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+
+                  <span class="text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-md">
+                      Baru
+                  </span>
+
+              </div>
+
+              <!-- NAMA PRODUK -->
+              <h3 class="text-base font-bold text-slate-800">
+                  {{ $item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan Tidak Diketahui' }}
+              </h3>
+
+              <!-- TANGGAL PESAN -->
+              <div class="flex items-center gap-1.5 text-xs text-rose-500 font-medium mt-3">
+
+                  <span>⏰</span>
+
+                  <span>
+                      Tanggal Pesan:
+                      <strong class="text-slate-700">
+                          {{ $item->created_at ? $item->created_at->format('d M Y - H:i') : '-' }} WIB
+                      </strong>
+                  </span>
+
+              </div>
+
           </div>
 
-          <div class="flex flex-col gap-2 min-w-[160px] w-full md:w-auto">
-            <!-- 1. Chat WA Klien -->
-            @php
-              $noHp = $item->no_hp_pemesan ?? '';
-              if (str_starts_with($noHp, '0')) {
-                  $noHp = '62' . substr($noHp, 1);
-              }
-              $pesanWa = rawurlencode("Halo " . $item->nama_pemesan . ", kami dari Admin Jurusan TeFa ingin mengonfirmasi pesanan #" . str_pad($item->id_pesanan ?? $item->id, 4, '0', STR_PAD_LEFT) . " (" . ($item->tefa->nama_produk ?? 'Layanan') . ").");
-            @endphp
-            <a href="https://wa.me/{{ $noHp }}?text={{ $pesanWa }}" target="_blank" class="px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-600 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition">
-              <span>💬 Chat WA</span>
-            </a>
+          <!-- TOMBOL DETAIL -->
+          <div class="flex-shrink-0 w-full md:w-auto">
 
-            <!-- 2. Tombol Tolak -->
-            <form action="{{ route('admin.jurusan.pesanan.updateStatus', $item->id_pesanan ?? $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menolak pesanan ini?')">
-              @csrf
-              <input type="hidden" name="status" value="ditolak">
-              <button type="submit" class="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-xl text-xs font-semibold transition">
-                ✕ Tolak
-              </button>
-            </form>
+              <a href="{{ route('admin.jurusan.pesanan.detail', $item->id_pesanan ?? $item->id) }}"
+                class="w-full md:w-[170px] px-4 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-xl text-xs font-semibold flex items-center justify-center transition">
 
-            <!-- 3. Tombol Terima & Tugaskan (Aktif Membuka Modal) -->
-            <button type="button" 
-              onclick="openAssignModal('{{ $item->id_pesanan ?? $item->id }}', '{{ addslashes($item->tefa->nama_produk ?? $item->nama_layanan ?? 'Layanan') }}')" 
-              class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold shadow-sm transition">
-              ✓ Terima & Tugaskan
-            </button>
+                  Detail Pesanan
+
+              </a>
+
           </div>
-        </div>
+
+      </div>
+
       @empty
-        <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+
+      <div class="bg-white rounded-2xl p-8 border border-slate-200/80 text-center">
+
           <div class="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3 text-lg">
-            📮
+              📮
           </div>
-          <h4 class="text-sm font-bold text-slate-700">Belum Ada Pesanan Masuk</h4>
-          <p class="text-xs text-slate-400 mt-1">Pesanan yang diteruskan oleh Admin TEFA ke jurusan ini akan muncul di sini.</p>
-        </div>
+
+          <h4 class="text-sm font-bold text-slate-700">
+              Belum Ada Pesanan Masuk
+          </h4>
+
+          <p class="text-xs text-slate-400 mt-1">
+              Pesanan yang diteruskan oleh Admin TEFA ke jurusan ini akan muncul di sini.
+          </p>
+
+      </div>
+
       @endforelse
 
     </div>

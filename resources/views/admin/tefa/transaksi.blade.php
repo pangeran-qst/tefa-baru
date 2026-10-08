@@ -23,77 +23,142 @@
 
     <!-- CARDS -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-xl shrink-0">
-          💳
-        </div>
-        <div>
-          <span class="text-[11px] text-slate-400 font-medium block">Total Transaksi Bulan Ini</span>
-          <span class="text-base font-bold text-indigo-900">Rp 31.200.000</span>
-        </div>
-      </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shrink-0">
-          ✅
-        </div>
-        <div>
-          <span class="text-[11px] text-slate-400 font-medium block">Transaksi Lunas</span>
-          <span class="text-base font-bold text-emerald-600">42 Kuitansi</span>
-        </div>
-      </div>
+        {{-- TOTAL TRANSAKSI --}}
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-500 flex items-center justify-center text-xl shrink-0">
+                💳
+            </div>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-xl shrink-0">
-          ⏳
-        </div>
-        <div>
-          <span class="text-[11px] text-slate-400 font-medium block">Pending Pelunasan</span>
-          <span class="text-base font-bold text-amber-600">5 Pesanan</span>
-        </div>
-      </div>
+            <div>
+                <span class="text-[11px] text-slate-400 font-medium block">
+                    Total Transaksi
+                </span>
 
-      <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shrink-0">
-          📈
+                <span class="text-base font-bold text-indigo-900">
+                    Rp {{ number_format($totalTransaksi, 0, ',', '.') }}
+                </span>
+            </div>
         </div>
-        <div>
-          <span class="text-[11px] text-slate-400 font-medium block">Omset YTD 2026</span>
-          <span class="text-base font-bold text-indigo-600">Rp 187,4 Jt</span>
+
+
+        {{-- TRANSAKSI LUNAS --}}
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shrink-0">
+                ✅
+            </div>
+
+            <div>
+                <span class="text-[11px] text-slate-400 font-medium block">
+                    Transaksi Lunas
+                </span>
+
+                <span class="text-base font-bold text-emerald-600">
+                    {{ $transaksiLunas }} Transaksi
+                </span>
+            </div>
         </div>
-      </div>
+
+
+        {{-- PENDING PELUNASAN --}}
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center text-xl shrink-0">
+                ⏳
+            </div>
+
+            <div>
+                <span class="text-[11px] text-slate-400 font-medium block">
+                    Pending Pelunasan
+                </span>
+
+                <span class="text-base font-bold text-amber-600">
+                    {{ $pendingPelunasan }} Pesanan
+                </span>
+            </div>
+        </div>
+
+
+        {{-- TOTAL PEMBAYARAN --}}
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm flex items-center gap-4">
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center text-xl shrink-0">
+                📈
+            </div>
+
+            <div>
+                <span class="text-[11px] text-slate-400 font-medium block">
+                    Total Pembayaran
+                </span>
+
+                <span class="text-base font-bold text-indigo-600">
+                    Rp {{ number_format($omset, 0, ',', '.') }}
+                </span>
+            </div>
+        </div>
+
     </div>
 
     <!-- TABLE AREA -->
     <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="p-6 border-b border-slate-100 flex flex-wrap items-center justify-between gap-4">
-        <div class="flex items-center gap-3 text-xs">
-          <span class="text-slate-500 font-medium">Dari</span>
-          <div class="relative">
-            <input type="text" value="01/08/2026" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
-            <span class="absolute right-3 top-2.5 text-slate-400 pointer-events-none">📅</span>
-          </div>
 
-          <span class="text-slate-500 font-medium">Sampai</span>
-          <div class="relative">
-            <input type="text" value="25/08/2026" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
-            <span class="absolute right-3 top-2.5 text-slate-400 pointer-events-none">📅</span>
-          </div>
+        {{-- FILTER TANGGAL --}}
+        <form
+            action="{{ route('admin.tefa.transaksi') }}"
+            method="GET"
+            class="flex items-center gap-3 text-xs">
 
-          <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded-xl text-xs transition shadow-sm">
-            Tampilkan
-          </button>
-        </div>
+            <span class="text-slate-500 font-medium">
+                Dari
+            </span>
 
+            <div class="relative">
+                <input
+                    type="date"
+                    name="tanggal_dari"
+                    value="{{ $tanggalDari }}"
+                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700
+                          w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+            </div>
+
+
+            <span class="text-slate-500 font-medium">
+                Sampai
+            </span>
+
+            <div class="relative">
+                <input
+                    type="date"
+                    name="tanggal_sampai"
+                    value="{{ $tanggalSampai }}"
+                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700
+                          w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+            </div>
+
+
+            <button
+                type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold
+                      px-5 py-2 rounded-xl text-xs transition shadow-sm">
+                Tampilkan
+            </button>
+
+        </form>
+
+
+        {{-- EXPORT --}}
         <div class="flex items-center gap-2">
-          <button class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
-            📥 Export Excel
-          </button>
-          <button class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
-            📥 Export PDF
-          </button>
+
+            <a href="{{ route('admin.tefa.transaksi.excel', [ 'tanggal_dari' => $tanggalDari, 'tanggal_sampai' => $tanggalSampai ]) }}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
+              📥 Export Excel
+            </a>
+
+            <a href="{{ route('admin.tefa.transaksi.pdf', [ 'tanggal_dari' => $tanggalDari, 'tanggal_sampai' => $tanggalSampai ]) }}" target="_blank" class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
+              📥 Export PDF
+            </a>
+
         </div>
-      </div>
+
+    </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
@@ -111,53 +176,134 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-50 text-xs text-slate-600">
-            <tr class="hover:bg-slate-50/50 transition">
-              <td class="py-4 px-6 font-semibold text-indigo-600">INV-2026-0047</td>
-              <td class="py-4 px-6 text-slate-400 font-medium">#TF-2878</td>
-              <td class="py-4 px-6 font-semibold text-slate-700">SMKN 1 Tanjungpinang</td>
-              <td class="py-4 px-6">Sistem Informasi Siswa</td>
-              <td class="py-4 px-6"><span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded text-[11px]">RPL</span></td>
-              <td class="py-4 px-6 text-slate-400">20 Agu 2026</td>
-              <td class="py-4 px-6 text-right font-bold text-slate-800">Rp 9.000.000</td>
-              <td class="py-4 px-6 text-center"><span class="bg-emerald-100 text-emerald-700 font-medium px-3 py-1 rounded-full text-[11px]">Lunas</span></td>
-              <td class="py-4 px-6 text-center"><button class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-semibold text-[11px]">Cetak</button></td>
-            </tr>
 
-            <tr class="hover:bg-slate-50/50 transition">
-              <td class="py-4 px-6 font-semibold text-indigo-600">INV-2026-0046</td>
-              <td class="py-4 px-6 text-slate-400 font-medium">#TF-2870</td>
-              <td class="py-4 px-6 font-semibold text-slate-700">PT Batam Teknologi</td>
-              <td class="py-4 px-6">UI/UX Design</td>
-              <td class="py-4 px-6"><span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded text-[11px]">DKV</span></td>
-              <td class="py-4 px-6 text-slate-400">18 Agu 2026</td>
-              <td class="py-4 px-6 text-right font-bold text-slate-800">Rp 3.800.000</td>
-              <td class="py-4 px-6 text-center"><span class="bg-emerald-100 text-emerald-700 font-medium px-3 py-1 rounded-full text-[11px]">Lunas</span></td>
-              <td class="py-4 px-6 text-center"><button class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-semibold text-[11px]">Cetak</button></td>
-            </tr>
+            @forelse($transaksi as $pesanan)
 
-            <tr class="hover:bg-slate-50/50 transition">
-              <td class="py-4 px-6 font-semibold text-indigo-600">INV-2026-0044</td>
-              <td class="py-4 px-6 text-slate-400 font-medium">#TF-2884</td>
-              <td class="py-4 px-6 font-semibold text-slate-700">PT Kepri Digital</td>
-              <td class="py-4 px-6">Website E-commerce (DP)</td>
-              <td class="py-4 px-6"><span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded text-[11px]">RPL</span></td>
-              <td class="py-4 px-6 text-slate-400">14 Agu 2026</td>
-              <td class="py-4 px-6 text-right font-bold text-slate-800">Rp 7.500.000</td>
-              <td class="py-4 px-6 text-center">
-                <div class="inline-flex flex-col items-center">
-                  <span class="bg-amber-100 text-amber-700 font-semibold px-2.5 py-0.5 rounded-full text-[10px]">DP</span>
-                  <span class="text-[10px] text-amber-600 font-semibold mt-0.5">50%</span>
-                </div>
-              </td>
-              <td class="py-4 px-6 text-center"><button class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-semibold text-[11px]">Cetak</button></td>
-            </tr>
-          </tbody>
+                @php
+                    $hargaFinal = $pesanan->harga_final ?? 0;
+                    $sudahDibayar = $pesanan->nominal_dibayar ?? 0;
+                    $sisa = max($hargaFinal - $sudahDibayar, 0);
+                @endphp
+
+                <tr class="hover:bg-slate-50/50 transition">
+
+                    {{-- NO. INVOICE --}}
+                    <td class="py-4 px-6 font-semibold text-indigo-600">
+                        INV-{{ date('Y', strtotime($pesanan->tanggal_pesan)) }}-{{ str_pad($pesanan->id_pesanan, 4, '0', STR_PAD_LEFT) }}
+                    </td>
+
+
+                    {{-- ORDER --}}
+                    <td class="py-4 px-6 text-slate-400 font-medium">
+                        #{{ $pesanan->id_pesanan }}
+                    </td>
+
+
+                    {{-- KLIEN --}}
+                    <td class="py-4 px-6 font-semibold text-slate-700">
+                        {{ $pesanan->nama_pemesan }}
+                    </td>
+
+
+                    {{-- LAYANAN --}}
+                    <td class="py-4 px-6">
+                        {{ $pesanan->tefa->nama_produk ?? '-' }}
+                    </td>
+
+
+                    {{-- JURUSAN --}}
+                    <td class="py-4 px-6">
+
+                        <span class="bg-indigo-50 text-indigo-600 font-bold px-2 py-0.5 rounded text-[11px]">
+                            {{ $pesanan->tefa->jurusan ?? '-' }}
+                        </span>
+
+                    </td>
+
+
+                    {{-- TANGGAL --}}
+                    <td class="py-4 px-6 text-slate-400 whitespace-nowrap">
+                        {{ $pesanan->tanggal_pesan
+                            ? $pesanan->tanggal_pesan->format('d M Y')
+                            : '-' }}
+                    </td>
+
+
+                    {{-- JUMLAH --}}
+                    <td class="py-4 px-6 text-right font-bold text-slate-800 whitespace-nowrap">
+                        Rp {{ number_format($hargaFinal, 0, ',', '.') }}
+                    </td>
+
+
+                    {{-- TIPE --}}
+                    <td class="py-4 px-6 text-center">
+
+                        @if($pesanan->status_pembayaran === 'lunas')
+
+                            <span class="bg-emerald-100 text-emerald-700 font-medium px-3 py-1 rounded-full text-[11px] whitespace-nowrap">
+                                Lunas
+                            </span>
+
+                        @elseif($pesanan->status_pembayaran === 'dp')
+
+                            <div class="inline-flex flex-col items-center">
+
+                                <span class="bg-amber-100 text-amber-700 font-semibold px-2.5 py-0.5 rounded-full text-[10px]">
+                                    DP
+                                </span>
+
+                                @if($hargaFinal > 0)
+                                    <span class="text-[10px] text-amber-600 font-semibold mt-0.5">
+                                        {{ round(($sudahDibayar / $hargaFinal) * 100) }}%
+                                    </span>
+                                @endif
+
+                            </div>
+
+                        @else
+
+                            <span class="bg-rose-100 text-rose-700 font-medium px-3 py-1 rounded-full text-[11px] whitespace-nowrap">
+                                Belum Bayar
+                            </span>
+
+                        @endif
+
+                    </td>
+
+
+                    {{-- AKSI --}}
+                    <td class="py-4 px-6 text-center">
+
+                        <a href="{{ route('admin.tefa.transaksi.pdf.satuan', $pesanan->id_pesanan) }}" target="_blank" class="bg-slate-100 hover:bg-slate-200 text-slate-600 px-3 py-1.5 rounded-lg font-semibold text-[11px]">
+                            Cetak
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            @empty
+
+                <tr>
+                    <td colspan="9" class="py-8 text-center text-slate-400">
+                        Belum ada transaksi pada periode ini.
+                    </td>
+                </tr>
+
+            @endforelse
+
+        </tbody>
         </table>
       </div>
 
       <div class="bg-indigo-50/60 border-t border-indigo-100 p-6 flex justify-between items-center">
-        <span class="font-bold text-indigo-900 text-sm">Total Periode</span>
-        <span class="font-bold text-indigo-600 text-lg">Rp 31.200.000</span>
+        <span class="font-bold text-indigo-900 text-sm">
+            Total Harga
+        </span>
+
+        <span class="font-bold text-indigo-600 text-lg">
+            Rp {{ number_format($totalTransaksi, 0, ',', '.') }}
+        </span>
       </div>
     </div>
   </main>

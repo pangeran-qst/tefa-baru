@@ -26,11 +26,20 @@ class Pesanan extends Model
         'catatan_pesanan',
         'total_harga',
         'status',
+        'harga_final',
+        'status_pembayaran',
+        'nominal_dibayar',
+        'metode_pembayaran',
+        'tanggal_pembayaran',
+        'catatan_pembayaran',
     ];
 
     protected $casts = [
         'tanggal_pesan' => 'datetime',
         'total_harga' => 'integer',
+        'tanggal_pembayaran' => 'date',
+        'harga_final' => 'integer',
+        'nominal_dibayar' => 'integer',
     ];
 
     // Client yang melakukan pesanan

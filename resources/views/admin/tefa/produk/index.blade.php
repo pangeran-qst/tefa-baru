@@ -30,8 +30,7 @@
             <button
                 type="button"
                 onclick="cetakKatalogPDF()"
-                class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-red-600/20 transition flex items-center gap-2"
-            >
+                class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-red-600/20 transition flex items-center gap-2">
                 <i class="bi bi-file-earmark-pdf"></i>
                 Cetak PDF
             </button>

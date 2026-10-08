@@ -655,6 +655,26 @@
 
             </a>
 
+            {{-- Transaksi --}}
+            <a href="{{ route('admin.jurusan.transaksi') }}"
+                class="{{ request()->routeIs('admin.jurusan.transaksi*') ? 'active' : '' }}">
+
+                <i class="bi bi-wallet2"></i>
+
+                <div class="menu-text">
+
+                    <span>
+                        Transaksi
+                    </span>
+
+                    <small>
+                        Transaksi & Pembayaran
+                    </small>
+
+                </div>
+
+            </a>
+
 
                     
 

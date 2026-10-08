@@ -165,12 +165,30 @@ Route::get('/admin/jurusan', function () {
 
     Route::post('/admin/jurusan/pesanan/{id}/update-status', [AdminJurusanController::class, 'updateStatus'])->name('admin.jurusan.pesanan.updateStatus');
     
+    Route::get('/pesanan/{id}/detail', [AdminJurusanController::class, 'detailPesanan'])
+        ->name('admin.jurusan.pesanan.detail');
+
+    Route::put('/pesanan/{id_pesanan}/pembayaran', [AdminJurusanController::class, 'updatePembayaran'])
+        ->name('admin.jurusan.pesanan.pembayaran');
+
     //admin jrusan menugaskan workernya
     Route::post('/admin/jurusan/pesanan/{id}/assign', [AdminJurusanController::class, 'assignWorker'])->name('admin.jurusan.pesanan.assign');
 
     Route::get('/admin/jurusan/pengguna', [AdminJurusanController::class, 'pengguna'])
         ->name('admin.jurusan.pengguna');
 
+    Route::get('/transaksi', [AdminJurusanController::class, 'transaksi'])
+        ->name('admin.jurusan.transaksi');
+
+    Route::get('/transaksi/cetak-pdf', [AdminJurusanController::class, 'transaksiPdf'])
+        ->name('admin.jurusan.transaksi.pdf');
+
+    //cetak pdf transaksi per satu
+    Route::get('/transaksi/{id_pesanan}/cetak-pdf', [AdminJurusanController::class, 'transaksiPdfSatuan'])
+        ->name('admin.jurusan.transaksi.pdf.satuan');
+
+    Route::get('/transaksi/export-excel', [AdminJurusanController::class, 'transaksiExcel'])
+        ->name('admin.jurusan.transaksi.excel');
  
 
 
@@ -248,6 +266,18 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::post('/produk', [AdminTefaController::class, 'storeProduk'])
             ->name('admin.tefa.produk.store');
 
+        Route::get('/transaksi', [AdminTefaController::class, 'transaksi'])
+            ->name('admin.tefa.transaksi');
+
+        Route::get('/transaksi/cetak-pdf/{id_pesanan}', [AdminTefaController::class, 'transaksiPdfSatuan'])
+            ->name('admin.tefa.transaksi.pdf.satuan');
+
+        Route::get('/transaksi/export-pdf', [AdminTefaController::class, 'transaksiPdf'])
+            ->name('admin.tefa.transaksi.pdf');
+
+        Route::get('/transaksi/export-excel', [AdminTefaController::class, 'transaksiExcel'])
+            ->name('admin.tefa.transaksi.excel');
+
         // Simpan portofolio
         Route::post('/portofolio', [AdminTefaController::class, 'storePortofolio'])
             ->name('admin.tefa.portofolio.store');
@@ -298,12 +328,6 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::get('/analitik', function () {
             return view('admin.tefa.analitik');
         })->name('admin.tefa.analitik');
-
-
-        // Transaksi
-        Route::get('/transaksi', function () {
-            return view('admin.tefa.transaksi');
-        })->name('admin.tefa.transaksi');
 
 
         // Manajemen Pengguna

@@ -26,7 +26,7 @@
     $jumlahPesananBaru = $pesanans->where('status', 'pending')->count();
     $jumlahMenungguRespons = $pesanans->where('status', 'diproses')->count();
     $jumlahDalamPengerjaan = $pesanans->where('status', 'pengerjaan')->count();
-    $jumlahSelesai = $pesanans->where('status', 'selesao')->count();
+    $jumlahSelesai = $pesanans->where('status', 'selesai')->count();
     $jumlahDibatalkan = $pesanans->where('status', 'ditolak')->count();
     @endphp
 
@@ -336,7 +336,7 @@
 
                 <tbody>
 
-                    @forelse ($pesanans->where('status', 'in_progress') as $pesanan)
+                    @forelse ($pesanans->where('status', 'pengerjaan') as $pesanan) <!-- variabel nya diperhatikan kalo mau menampilkan datanya -->
 
                         <tr class="hover:bg-slate-50 transition">
 
@@ -444,7 +444,7 @@
 
                 <tbody>
 
-                    @forelse ($pesanans->where('status', 'completed') as $pesanan)
+                    @forelse ($pesanans->where('status', 'selesai') as $pesanan)
 
                         <tr class="hover:bg-slate-50 transition">
 
@@ -552,7 +552,7 @@
 
                 <tbody>
 
-                    @forelse ($pesanans->where('status', 'cancelled') as $pesanan)
+                    @forelse ($pesanans->where('status', 'ditolak') as $pesanan)
 
                         <tr class="hover:bg-slate-50 transition">
 

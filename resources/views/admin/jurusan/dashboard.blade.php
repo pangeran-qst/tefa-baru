@@ -26,8 +26,14 @@
     
     <!-- Title Header -->
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-slate-800">Dashboard Jurusan</h1>
-      <p class="text-xs text-slate-500 mt-0.5">Selamat datang kembali — Ringkasan kinerja Jurusan RPL per 25 Agustus 2024</p>
+      <h1 class="text-2xl font-bold text-slate-800">
+          Dashboard Jurusan
+      </h1>
+
+      <p class="text-xs text-slate-500 mt-0.5">
+          Selamat datang kembali — Ringkasan kinerja Jurusan {{ Auth::user()->jurusan }}
+          / {{ now()->translatedFormat('d F Y') }}
+      </p>
     </div>
 
     <!-- 4 KARTU STATISTIK -->
