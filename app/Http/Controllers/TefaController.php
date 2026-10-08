@@ -6,10 +6,32 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Tefa;
 use App\Models\Pesanan;
 use App\Models\Portofolio;
+use App\Models\User;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
 class TefaController extends Controller
 {
+
+public function index()
+{
+    $tefas = Tefa::where('status_aktif', true)->get();
+
+    // Statistik beranda
+    $proyekSelesai = Pesanan::where('status', 'selesai')->count();
+
+    $jurusanAktif = Jurusan::where('status', true)->count();
+
+    $jumlahPekerja = User::where('role', 'worker')->count();
+
+    return view('welcome', compact(
+        'tefas',
+        'proyekSelesai',
+        'jurusanAktif',
+        'jumlahPekerja'
+    ));
+}
+
    public function katalog()
     {
         $tefas = Tefa::where('status_aktif', true)->get();
@@ -135,28 +157,57 @@ class TefaController extends Controller
     ));
 }
 
+public function cekTicket(Request $request)
+{
+    $pesanan = null;
 
-    public function cekTicket(Request $request)
-    {
-        $pesanan = null;
+    if ($request->filled('ticket')) {
 
-        if ($request->filled('ticket')) {
+        $ticket = strtoupper(trim($request->ticket));
 
-            $ticket = strtoupper(trim($request->ticket));
-
-            // Contoh: TF-0001
-            $idPesanan = (int) str_replace('TF-', '', $ticket);
+        // Contoh: TF-0001
+        $idPesanan = (int) str_replace('TF-', '', $ticket);
 
             $pesanan = Pesanan::with([
-                'tefa',
-                'riwayat'
-            ])
-                ->where('id_pesanan', $idPesanan)
-                ->first();
-        }
+            'tefa',
+            'riwayat',
+            'progress'
+                ])
+            ->where('id_pesanan', $idPesanan)
+            ->first();
 
-        return view('public.katalog.cek-ticket', compact('pesanan'));
+        if ($pesanan) {
+
+            // Riwayat dari tabel riwayat_pesanans
+            $riwayat = $pesanan->riwayat->map(function ($item) {
+                return (object) [
+                    'status' => $item->status,
+                    'tanggal_tracking' => $item->tanggal_tracking,
+                    'keterangan' => $item->keterangan,
+                    'lokasi' => $item->lokasi,
+                ];
+            });
+
+            // Progress dari worker
+            $progress = $pesanan->progress->map(function ($item) {
+                return (object) [
+                    'status' => $item->tahap,
+                    'tanggal_tracking' => $item->tanggal_progress,
+                    'keterangan' => $item->catatan,
+                    'lokasi' => null,
+                ];
+            });
+
+            // Gabungkan riwayat + progress
+            $pesanan->timeline = $riwayat
+                ->concat($progress)
+                ->sortBy('tanggal_tracking')
+                ->values();
+        }
     }
+
+    return view('public.katalog.cek-ticket', compact('pesanan'));
+}
 
     // Halaman Katalog Utama Portofolio (Semua Jurusan)
     public function portofolio()

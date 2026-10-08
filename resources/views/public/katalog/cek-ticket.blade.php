@@ -178,15 +178,17 @@
           id="hasilTiket"
           class="mt-5 {{ isset($pesanan) ? '' : 'hidden' }}">
           @if(isset($pesanan))
-
-              @php
-                  $statusLabel = [
-                      'pending' => 'Menunggu Respons',
-                      'in_progress' => 'Sedang Dikerjakan',
-                      'completed' => 'Selesai',
-                      'cancelled' => 'Dibatalkan',
-                  ];
-              @endphp
+                @php
+                    $statusLabel = [
+                        'pending' => 'Pesanan Diterima',
+                        'diproses' => 'Pesanan Diproses',
+                        'ditugaskan' => 'Worker Ditugaskan',
+                        'pengerjaan' => 'Masuk Tahap Pengerjaan',
+                        'review' => 'Menunggu QC',
+                        'selesai' => 'Pesanan Selesai',
+                        'cancelled' => 'Pesanan Dibatalkan',
+                    ];
+                @endphp
 
               {{-- INFORMASI PESANAN --}}
               <div class="rounded-lg border border-slate-200 bg-slate-50 p-4 mb-5">
@@ -216,6 +218,43 @@
                   </div>
 
               </div>
+
+                            {{-- PROGRESS PENGERJAAN --}}
+                @php
+                    $progressTerakhir = $pesanan->progress->first();
+                    $persentaseProgress = $progressTerakhir?->progress ?? 0;
+                    $tahapProgress = $progressTerakhir?->tahap ?? 'Menunggu Pengerjaan';
+                @endphp
+
+                <div class="mb-5 rounded-lg border border-slate-200 bg-white p-5">
+
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h3 class="font-bold text-slate-800">
+                                Progress Pengerjaan
+                            </h3>
+
+                            <p class="text-xs text-slate-500 mt-1">
+                                {{ $tahapProgress }}
+                            </p>
+                        </div>
+
+                        <div class="text-lg font-bold text-blue-600">
+                            {{ $persentaseProgress }}%
+                        </div>
+                    </div>
+
+                    {{-- BAR PROGRESS --}}
+                    <div class="w-full h-3 rounded-full bg-slate-200 overflow-hidden">
+
+                        <div
+                            class="h-full rounded-full bg-blue-600 transition-all duration-500"
+                            style="width: {{ $persentaseProgress }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
 
 
               {{-- RIWAYAT PENGERJAAN --}}
@@ -270,7 +309,7 @@
 
 
                   {{-- RIWAYAT DARI DATABASE --}}
-                  @foreach($pesanan->riwayat as $riwayat)
+                        @foreach($pesanan->timeline as $riwayat)
 
                       <div class="relative flex gap-4 pb-6 last:pb-0">
 

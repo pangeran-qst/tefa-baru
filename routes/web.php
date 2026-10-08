@@ -7,9 +7,9 @@ use App\Http\Controllers\TefaController;
 use App\Http\Controllers\WorkerController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TefaController::class, 'index'])
+    ->name('welcome');
+
 
 Route::get('/detail/{id_produk}', [TefaController::class, 'detail'])
     ->name('detail.produk');

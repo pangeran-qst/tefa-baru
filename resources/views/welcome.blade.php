@@ -167,24 +167,39 @@
 
     </section>
 
-    <section class="grid grid-cols-2 md:grid-cols-4 gap-5  px-[5%] md:px-[8%] py-7 text-center text-white">
-      <div>
-        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">247+</div>
-        <div class="mt-1 text-xs md:text-sm text-gray-500">Proyek Selesai</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">6</div>
-        <div class="mt-1 text-xs md:text-sm text-gray-500">Jurusan Aktif</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">180+</div>
-        <div class="mt-1 text-xs md:text-sm text-gray-500">Klien Terlayani</div>
-      </div>
-      <div>
-        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">98%</div>
-        <div class="mt-1 text-xs md:text-sm text-gray-500">Tingkat Kepuasan</div>
-      </div>
-    </section>
+   <section class="grid grid-cols-3 max-w-4xl mx-auto px-5 py-7 text-center text-white">
+    <!-- PROYEK SELESAI -->
+    <div>
+        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">
+            {{ $proyekSelesai }}
+        </div>
+        <div class="mt-1 text-xs md:text-sm text-gray-500">
+            Proyek Selesai
+        </div>
+    </div>
+
+    <!-- JURUSAN AKTIF -->
+    <div>
+        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">
+            {{ $jurusanAktif }}
+        </div>
+        <div class="mt-1 text-xs md:text-sm text-gray-500">
+            Jurusan Aktif
+        </div>
+    </div>
+
+    <!-- JUMLAH PEKERJA -->
+    <div>
+        <div class="text-3xl md:text-4xl font-extrabold text-blue-700 leading-none">
+            {{ $jumlahPekerja }}
+        </div>
+        <div class="mt-1 text-xs md:text-sm text-gray-500">
+            Jumlah Pekerja
+        </div>
+        </div>
+
+
+</section>
 
     <section class="px-[5%] md:px-[8%] py-[60px]" id="tentang">
       <div class="mx-auto mb-10 max-w-[700px] text-center">

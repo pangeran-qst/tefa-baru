@@ -16,7 +16,23 @@ class AdminTefaController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.tefa.dashboard');
+    $totalPesanan = Pesanan::count();
+
+    $totalOmset = Pesanan::whereMonth('tanggal_pesan', now()->month)
+        ->whereYear('tanggal_pesan', now()->year)
+        ->where('status', '!=', 'cancelled')
+        ->sum('total_harga');
+
+    $projectAktif = Pesanan::where('status', 'diproses')->count();
+
+    $projectSelesai = Pesanan::where('status', 'selesai')->count();
+
+    return view('admin.tefa.dashboard', compact(
+        'totalPesanan',
+        'totalOmset',
+        'projectAktif',
+        'projectSelesai'
+    ));
     }
 
 
