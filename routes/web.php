@@ -238,6 +238,17 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::post('/portofolio', [AdminTefaController::class, 'storePortofolio'])
             ->name('admin.tefa.portofolio.store');
 
+        // Edit portofolio
+        Route::get('/portofolio/{id_portofolio}/edit', [AdminTefaController::class, 'editPortofolio'])
+            ->name('admin.tefa.portofolio.edit');
+
+        // Update portofolio
+        Route::put('/portofolio/{id_portofolio}', [AdminTefaController::class, 'updatePortofolio'])
+            ->name('admin.tefa.portofolio.update');
+
+        // Hapus portofolio
+        Route::delete('/portofolio/{id_portofolio}', [AdminTefaController::class, 'destroyPortofolio'])
+            ->name('admin.tefa.portofolio.destroy');
 
         // Edit produk
         Route::get('/produk/{id_produk}/edit', [AdminTefaController::class, 'editProduk'])

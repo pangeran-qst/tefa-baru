@@ -428,13 +428,13 @@ class AdminTefaController extends Controller
             ->with('success', 'Portofolio berhasil ditambahkan.');
     }
 
-    public function editPortofolio($id_portofolio)
-    {
-        $portofolio = Portofolio::findOrFail($id_portofolio);
-        $tefas = Tefa::all();
+    // public function editPortofolio($id_portofolio)
+    // {
+    //     $portofolio = Portofolio::findOrFail($id_portofolio);
+    //     $tefas = Tefa::all();
 
-        return view('admin.tefa.portofolio.edit', compact('portofolio', 'tefas'));
-    }
+    //     return view('admin.tefa.portofolio.edit', compact('portofolio', 'tefas'));
+    // }
 
     public function updatePortofolio(Request $request, $id_portofolio)
     {
@@ -453,6 +453,17 @@ class AdminTefaController extends Controller
             'galeri_screenshot.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
             'status_aktif' => 'required|boolean',
         ]);
+
+        $tefa = Tefa::findOrFail($request->id_produk);
+
+        if (strtoupper(trim($tefa->jurusan)) !== strtoupper(trim($request->jurusan))) {
+
+            return back()
+                ->withErrors([
+                    'id_produk' => 'Produk tidak sesuai dengan jurusan yang dipilih.'
+                ])
+                ->withInput();
+        }
 
         $folder = public_path('gambar/portofolio');
         File::ensureDirectoryExists($folder);
@@ -499,7 +510,7 @@ class AdminTefaController extends Controller
         $portofolio->update($data);
 
         return redirect()
-            ->route('admin.tefa.portofolio')
+            ->route('admin.tefa.produk', ['tab' => 'portofolio'])
             ->with('success', 'Portofolio berhasil diperbarui.');
     }
 
@@ -519,7 +530,7 @@ class AdminTefaController extends Controller
         $portofolio->delete();
 
         return redirect()
-            ->route('admin.tefa.portofolio')
+            ->route('admin.tefa.produk', ['tab' => 'portofolio'])
             ->with('success', 'Portofolio berhasil dihapus.');
 
     }

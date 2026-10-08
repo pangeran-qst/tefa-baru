@@ -395,7 +395,7 @@
 
                                         @if ($portofolio->gambar)
                                             <img
-                                                src="{{ asset('gambar/tefa/' . $portofolio->gambar) }}"
+                                                src="{{ asset('gambar/portofolio/' . $portofolio->gambar) }}"
                                                 alt="{{ $portofolio->judul_karya }}"
                                                 class="w-12 h-12 rounded-xl object-cover border border-slate-200 flex-shrink-0">
                                         @else
@@ -462,17 +462,47 @@
                                 <td class="py-4 px-3">
                                     <div class="flex items-center justify-end gap-2">
 
+                                        {{-- EDIT --}}
                                         <button
                                             type="button"
+                                            onclick="editPortofolio(
+                                                {{ $portofolio->id_portofolio }},
+                                                {{ $portofolio->id_produk }},
+                                                @js($portofolio->jurusan),
+                                                @js($portofolio->judul_karya),
+                                                @js($portofolio->klien),
+                                                @js($portofolio->tahun),
+                                                @js($portofolio->deskripsi),
+                                                @js($portofolio->link_proyek),
+                                                {{ $portofolio->status_aktif ? 1 : 0 }},
+                                                @js($portofolio->gambar),
+                                                @js($portofolio->galeri_screenshot ?? [])
+                                            )"
                                             class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
+
                                             Edit
+
                                         </button>
 
-                                        <button
-                                            type="button"
-                                            class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-semibold transition">
-                                            Hapus
-                                        </button>
+
+                                        {{-- HAPUS --}}
+                                        <form
+                                            action="{{ route('admin.tefa.portofolio.destroy', $portofolio->id_portofolio) }}"
+                                            method="POST"
+                                            onsubmit="return confirm('Yakin ingin menghapus portofolio ini?');">
+
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                type="submit"
+                                                class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[10px] font-semibold transition">
+
+                                                Hapus
+
+                                            </button>
+
+                                        </form>
 
                                     </div>
                                 </td>
@@ -1130,6 +1160,305 @@
     </div>
 </div>
 
+{{-- ========================================
+     MODAL EDIT PORTOFOLIO
+     ======================================== --}}
+
+<div class="modal fade"
+     id="modalEditPortofolio"
+     tabindex="-1"
+     aria-labelledby="modalEditPortofolioLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="modalEditPortofolioLabel">
+                    Edit Portofolio Karya
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+
+            </div>
+
+
+            <form
+                id="formEditPortofolio"
+                method="POST"
+                enctype="multipart/form-data">
+
+                @csrf
+                @method('PUT')
+
+
+                <div class="modal-body">
+
+                    <div class="row g-3">
+
+                        {{-- JURUSAN --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Jurusan
+                            </label>
+
+                            <select
+                                name="jurusan"
+                                id="edit_portofolio_jurusan"
+                                class="form-select"
+                                required>
+
+                                <option value="">Pilih Jurusan</option>
+                                <option value="RPL">RPL</option>
+                                <option value="TKJ">TKJ</option>
+                                <option value="GIM">GIM</option>
+                                <option value="DKV">DKV</option>
+                                <option value="PSPT">PSPT</option>
+                                <option value="ANIMASI">ANIMASI</option>
+
+                            </select>
+
+                        </div>
+
+
+                        {{-- PRODUK TERKAIT --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Produk Terkait
+                            </label>
+
+                            <select
+                                name="id_produk"
+                                id="edit_portofolio_produk"
+                                class="form-select"
+                                required>
+
+                                <option value="">
+                                    Pilih Produk
+                                </option>
+
+                                @foreach ($tefas as $tefa)
+
+                                    <option
+                                        value="{{ $tefa->id_produk }}"
+                                        data-jurusan="{{ strtoupper(trim($tefa->jurusan)) }}">
+
+                                        {{ $tefa->nama_produk }}
+
+                                    </option>
+
+                                @endforeach
+
+                            </select>
+
+                        </div>
+
+
+                        {{-- JUDUL --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Judul Karya
+                            </label>
+
+                            <input
+                                type="text"
+                                name="judul_karya"
+                                id="edit_portofolio_judul"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+
+                        {{-- KLIEN --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Klien
+                            </label>
+
+                            <input
+                                type="text"
+                                name="klien"
+                                id="edit_portofolio_klien"
+                                class="form-control">
+
+                        </div>
+
+
+                        {{-- TAHUN --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Tahun
+                            </label>
+
+                            <input
+                                type="number"
+                                name="tahun"
+                                id="edit_portofolio_tahun"
+                                class="form-control"
+                                min="2000"
+                                max="2100">
+
+                        </div>
+
+
+                        {{-- STATUS --}}
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Status
+                            </label>
+
+                            <select
+                                name="status_aktif"
+                                id="edit_portofolio_status"
+                                class="form-select"
+                                required>
+
+                                <option value="1">
+                                    Aktif
+                                </option>
+
+                                <option value="0">
+                                    Tidak Aktif
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        {{-- DESKRIPSI --}}
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Deskripsi Karya
+                            </label>
+
+                            <textarea
+                                name="deskripsi"
+                                id="edit_portofolio_deskripsi"
+                                class="form-control"
+                                rows="4"
+                                required></textarea>
+
+                        </div>
+
+
+                        {{-- GAMBAR UTAMA --}}
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Gambar Utama
+                            </label>
+
+                            <div
+                                id="edit_portofolio_gambar_lama"
+                                class="mb-2">
+                            </div>
+
+                            <input
+                                type="file"
+                                name="gambar"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png,.webp">
+
+                            <small class="text-muted">
+                                Kosongkan jika tidak ingin mengganti gambar.
+                            </small>
+
+                        </div>
+
+
+                        {{-- GALERI --}}
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Galeri Screenshot
+                            </label>
+
+                            <div
+                                id="edit_portofolio_galeri_lama"
+                                class="flex flex-wrap gap-2 mb-3">
+                            </div>
+
+                            <input
+                                type="file"
+                                name="galeri_screenshot[]"
+                                class="form-control"
+                                accept=".jpg,.jpeg,.png,.webp"
+                                multiple>
+
+                            <small class="text-muted">
+                                Jika memilih gambar baru, galeri lama akan diganti.
+                            </small>
+
+                        </div>
+
+
+                        {{-- LINK --}}
+                        <div class="col-12">
+
+                            <label class="form-label">
+                                Link Proyek
+                            </label>
+
+                            <input
+                                type="url"
+                                name="link_proyek"
+                                id="edit_portofolio_link"
+                                class="form-control"
+                                placeholder="https://contoh.com">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                        Batal
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        <i class="bi bi-save me-2"></i>
+                        Simpan Perubahan
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 {{-- ========================================
      MODAL TAMBAH JURUSAN
@@ -1690,6 +2019,141 @@
 
         const modal =
             new bootstrap.Modal(modalElement);
+
+        modal.show();
+    }
+
+    // ========================================
+    // MODAL EDIT PORTOFOLIO
+    // ========================================
+
+    function editPortofolio(
+        id,
+        idProduk,
+        jurusan,
+        judul,
+        klien,
+        tahun,
+        deskripsi,
+        linkProyek,
+        statusAktif,
+        gambar,
+        galeri
+    ) {
+
+        const modalElement =
+            document.getElementById('modalEditPortofolio');
+
+        const modal =
+            new bootstrap.Modal(modalElement);
+
+
+        // ==========================
+        // ISI DATA FORM
+        // ==========================
+
+        document.getElementById('edit_portofolio_jurusan').value =
+            jurusan;
+
+        document.getElementById('edit_portofolio_produk').value =
+            idProduk;
+
+        document.getElementById('edit_portofolio_judul').value =
+            judul ?? '';
+
+        document.getElementById('edit_portofolio_klien').value =
+            klien ?? '';
+
+        document.getElementById('edit_portofolio_tahun').value =
+            tahun ?? '';
+
+        document.getElementById('edit_portofolio_deskripsi').value =
+            deskripsi ?? '';
+
+        document.getElementById('edit_portofolio_link').value =
+            linkProyek ?? '';
+
+        document.getElementById('edit_portofolio_status').value =
+            statusAktif;
+
+
+        // ==========================
+        // ACTION FORM
+        // ==========================
+
+        document.getElementById('formEditPortofolio').action =
+            '/admin/tefa/portofolio/' + id;
+
+
+        // ==========================
+        // GAMBAR UTAMA LAMA
+        // ==========================
+
+        const gambarLama =
+            document.getElementById('edit_portofolio_gambar_lama');
+
+        if (gambar) {
+
+            gambarLama.innerHTML = `
+                <img
+                    src="/gambar/portofolio/${gambar}"
+                    alt="Gambar Portofolio"
+                    style="
+                        width: 120px;
+                        height: 80px;
+                        object-fit: cover;
+                    "
+                    class="rounded border">
+            `;
+
+        } else {
+
+            gambarLama.innerHTML = '';
+
+        }
+
+
+        // ==========================
+        // GALERI LAMA
+        // ==========================
+
+        const galeriLama =
+            document.getElementById('edit_portofolio_galeri_lama');
+
+        galeriLama.innerHTML = '';
+
+        if (Array.isArray(galeri) && galeri.length > 0) {
+
+            galeri.forEach(function (file) {
+
+                galeriLama.innerHTML += `
+                    <img
+                        src="/gambar/portofolio/${file}"
+                        alt="Screenshot"
+                        style="
+                            width: 80px;
+                            height: 60px;
+                            object-fit: cover;
+                        "
+                        class="rounded border">
+                `;
+
+            });
+
+        } else {
+
+            galeriLama.innerHTML = `
+                <span class="text-muted text-sm">
+                    Tidak ada galeri screenshot.
+                </span>
+            `;
+
+        }
+
+
+        // ==========================
+        // TAMPILKAN MODAL
+        // ==========================
 
         modal.show();
     }
