@@ -537,79 +537,62 @@
           {{-- GRID KARYA PORTOFOLIO RPL --}}
           <main class="services-grid" id="servicesGrid">
 
-              @forelse($tefas as $tefa)
+              
+            @forelse($karyas as $karya)
+                <div class="service-card">
 
-                  <div class="service-card">
+                    @if($karya->gambar)
+                        <img
+                            src="{{ asset('gambar/portofolio/' . $karya->gambar) }}"
+                            alt="{{ $karya->judul_karya }}"
+                            class="service-img">
+                    @else
+                        <div class="service-img"
+                            style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
+                            💻
+                        </div>
+                    @endif
 
-                      {{-- FOTO/THUMBNAIL KARYA DARI DATABASE --}}
-                      @if($tefa->gambar)
-                          <img
-                              src="{{ asset('gambar/tefa/' . $tefa->gambar) }}"
-                              alt="{{ $tefa->nama_produk }}"
-                              class="service-img">
-                      @else
-                          <div
-                              class="service-img"
-                              style="display:flex; align-items:center; justify-content:center; background:#ede9fe; font-size:50px;">
-                              💻
-                          </div>
-                      @endif
+                    <div class="service-body">
+                        <h3>{{ $karya->judul_karya }}</h3>
+                        <p>{{ $karya->deskripsi }}</p>
 
-                      <div class="service-body">
+                        <div class="service-footer">
+                            <div>
+                                <div class="price-label">Tahun Rilis</div>
+                                <div class="price-value" style="font-size:14px;">
+                                    {{ $karya->tahun }}
+                                </div>
+                            </div>
 
-                          {{-- JUDUL KARYA --}}
-                          <h3>
-                              {{ $tefa->nama_produk }}
-                          </h3>
-
-                          {{-- DESKRIPSI KARYA --}}
-                          <p>
-                              {{ $tefa->deskripsi }}
-                          </p>
-
-                          <div class="service-footer">
-
-                              <div>
-                                  <div class="price-label">
-                                      Karya / Kategori
-                                  </div>
-
-                                  {{-- TAMPILAN INFORMASI KARYA (Bisa nama siswa/kategori) --}}
-                                  <div class="price-value" style="font-size: 14px;">
-                                      Portofolio RPL
-                                  </div>
-                              </div>
-
-                            <a href="{{ route('portofolio.produk', $tefa->id_produk) }}" class="btn-detail">
-                                Lihat Karya
+                            <a href="{{ route('portofolio.karya', $karya->id_portofolio) }}"
+                              class="btn-detail">
+                                Lihat Detail
                             </a>
-
-                          </div>
-
-                      </div>
-                  </div>
+                        </div>
+                    </div>
+                </div>
 
               @empty
+                <div style="grid-column:1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                    <div style="font-size:50px;">💻</div>
 
-                  <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                      <div style="font-size:50px;">💻</div>
+                    <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                        Belum Ada Karya RPL
+                    </h3>
 
-                      <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                          Belum Ada Karya RPL
-                      </h3>
+                    <p style="margin-top:8px; color:#64748b;">
+                        Portofolio karya RPL belum tersedia saat ini.
+                    </p>
+                </div>
+            @endforelse
 
-                      <p style="margin-top:8px; color:#64748b;">
-                          Portofolio karya RPL belum tersedia saat ini.
-                      </p>
-                  </div>
-
-              @endforelse
 
           </main>
           
-          @if($tefas->hasPages())
+          @if($karyas->hasPages())
               <div style="margin-top: 30px; display: flex; justify-content: center;">
-                  {{ $tefas->links() }}
+                  {{ $karyas->links() }}
               </div>
           @endif
 

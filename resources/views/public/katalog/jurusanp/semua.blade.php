@@ -504,7 +504,7 @@
     <div class="hero-title-container">
         <div class="hero-icon">✨</div> 
         <div>
-            <h1>Semua Layanan TeFA</h1>
+            <h1>Semua Portofolio TEFA</h1>
             <p>Jelajahi seluruh Portofolio Teaching Factory (TeFA).</p>
         </div>
     </div>
@@ -535,81 +535,66 @@
 
             <main class="services-grid" id="servicesGrid">
 
-                @forelse($tefas as $tefa)
+              @forelse($karyas as $karya)
+                  <div class="service-card">
 
-                    <div class="service-card">
+                      {{-- GAMBAR KARYA --}}
+                      @if($karya->gambar)
+                          <img
+                              src="{{ asset('gambar/portofolio/' . $karya->gambar) }}"
+                              alt="{{ $karya->judul_karya }}"
+                              class="service-img">
+                      @else
+                          <div class="service-img"
+                              style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
+                              🎨
+                          </div>
+                      @endif
 
-                        {{-- THUMBNAIL PRODUK --}}
-                        @if($tefa->gambar)
-                            <img 
-                                src="{{ asset('gambar/tefa/' . $tefa->gambar) }}" 
-                                alt="{{ $tefa->nama_produk }}" 
-                                class="service-img">
-                        @else
-                            <div 
-                                class="service-img" 
-                                style="display:flex; align-items:center; justify-content:center; background:#f1f5f9; font-size:50px;">
-                                📦
-                            </div>
-                        @endif
+                      <div class="service-body">
 
-                        <div class="service-body">
+                          {{-- JUDUL KARYA --}}
+                          <h3>{{ $karya->judul_karya }}</h3>
 
-                            {{-- NAMA PRODUK --}}
-                            <h3>
-                                {{ $tefa->nama_produk }}
-                            </h3>
+                          {{-- DESKRIPSI KARYA --}}
+                          <p>{{ $karya->deskripsi }}</p>
 
-                            {{-- DESKRIPSI SINGKAT PRODUK --}}
-                            <p>
-                                {{ $tefa->deskripsi }}
-                            </p>
+                          <div class="service-footer">
+                              <div>
+                                  <div class="price-label">Tahun Rilis</div>
+                                  <div class="price-value" style="font-size:14px;">
+                                      {{ $karya->tahun }}
+                                  </div>
+                              </div>
 
-                            <div class="service-footer">
+                              {{-- TOMBOL DETAIL KARYA --}}
+                              <a href="{{ route('portofolio.karya', $karya->id_portofolio) }}"
+                                class="btn-detail">
+                                  Lihat Detail
+                              </a>
+                          </div>
+                      </div>
+                  </div>
 
-                                <div>
-                                    <div class="price-label">
-                                        Kategori Produk
-                                    </div>
+              @empty
+                  <div style="grid-column:1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
+                      <div style="font-size:50px;">🖼️</div>
 
-                                    {{-- NAMA JURUSAN / KATEGORI PRODUK --}}
-                                    <div class="price-value" style="font-size: 14px;">
-                                        {{ $tefa->jurusan ?? 'Produk TeFA' }}
-                                    </div>
-                                </div>
+                      <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
+                          Belum Ada Karya Portofolio
+                      </h3>
 
-                                {{-- TOMBOL DETAIL PRODUK --}}
-                                <a href="{{ route('portofolio.produk', $tefa->id_produk) }}" class="btn-detail">
-                                    Lihat Karya
-                                </a>
-
-                            </div>
-
-                        </div>
-                    </div>
-
-                @empty
-
-                    {{-- STATE KOSONG --}}
-                    <div style="grid-column: 1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
-                        <div style="font-size:50px;">📦</div>
-
-                        <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
-                            Belum Ada Produk Ditampilkan
-                        </h3>
-
-                        <p style="margin-top:8px; color:#64748b;">
-                            Daftar produk portofolio belum tersedia saat ini.
-                        </p>
-                    </div>
-
-                @endforelse
+                      <p style="margin-top:8px; color:#64748b;">
+                          Karya portofolio belum tersedia saat ini.
+                      </p>
+                  </div>
+              @endforelse
 
             </main>
 
-            @if($tefas->hasPages())
+            @if($karyas->hasPages())
                 <div class="mt-8 flex justify-end">
-                    {{ $tefas->links() }}
+                    {{ $karyas->links() }}
                 </div>
             @endif
         

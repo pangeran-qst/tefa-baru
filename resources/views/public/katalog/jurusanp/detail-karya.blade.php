@@ -141,7 +141,19 @@
                     </p>
                 </div>
 
-                <a href="{{ url('/portofolio/produk/' . $karya->id_produk) }}"
+                @php
+                    $routePortofolio = match (strtoupper($karya->jurusan)) {
+                        'GIM' => route('portofolio.gim'),
+                        'RPL' => route('portofolio.rpl'),
+                        'TKJ' => route('portofolio.tkj'),
+                        'DKV' => route('portofolio.dkv'),
+                        'PSPT' => route('portofolio.pspt'),
+                        'ANIMASI' => route('portofolio.animasi'),
+                        default => route('portofolio.semua'),
+                    };
+                @endphp
+
+                <a href="{{ $routePortofolio }}"
                     class="shrink-0 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800">
                     ← Kembali ke Portofolio
                 </a>
@@ -287,7 +299,7 @@
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
 
                         {{-- TOMBOL TERTARIK --}}
-                        <a href="{{ route('detail.produk', $karya->id_produk) }}"
+                        <a href="{{ route('detail.produk', $karya->id_produk) }}?from={{ urlencode(url()->current()) }}"
                             class="mt-4 block w-full rounded-xl bg-green-600 py-4 text-center font-semibold text-white transition hover:bg-green-700">
                             Tertarik? → Lihat Detail Produk & Pesan
                         </a>

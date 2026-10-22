@@ -297,14 +297,28 @@
                         'PSPT' => 'katalog.pspt',
                         default => 'katalog',
                     };
+
+                    $urlKembali = request()->query('from');
+                    $pathKembali = $urlKembali
+                        ? parse_url($urlKembali, PHP_URL_PATH)
+                        : null;
+
+                    // Pastikan URL berasal dari aplikasi sendiri
+                    // dan mengarah ke halaman portofolio.
+                    if (
+                        !$urlKembali ||
+                        parse_url($urlKembali, PHP_URL_HOST) !== request()->getHost() ||
+                        !str_starts_with($pathKembali ?? '', '/portofolio/')
+                    ) {
+                        $urlKembali = null;
+                    }
                 @endphp
 
-                {{-- TOMBOL KEMBALI --}}
                 <a
-                    href="{{ route($routeJurusan) }}"
+                    href="{{ $urlKembali ?? route($routeJurusan) }}"
                     class="shrink-0 rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-800">
 
-                    ← Kembali ke Katalog
+                    ← {{ $urlKembali ? 'Kembali ke Portofolio' : 'Kembali ke Katalog' }}
 
                 </a>
 
