@@ -209,57 +209,87 @@ public function cekTicket(Request $request)
     return view('public.katalog.cek-ticket', compact('pesanan'));
 }
 
-    // Halaman Katalog Utama Portofolio (Semua Jurusan)
+    
+    // Halaman utama Portofolio
     public function portofolio()
     {
-        $tefas = Tefa::where('status_aktif', true)->get();
-
-        return view('public.katalog.portofolio', compact('tefas'));
+        return view('public.katalog.portofolio');
     }
 
+    // Portofolio Semua Jurusan
     public function portofolioSemua()
     {
-        // Ambil SEMUA karya tefa tanpa filter jurusan
-        $tefas = Tefa::where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12); 
+        $karyas = Portofolio::where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
 
-        return view('public.katalog.jurusanp.semua', compact('tefas'));
+        return view('public.katalog.jurusanp.semua', compact('karyas'));
     }
 
-    // Portofolio Per Jurusan
+    // Portofolio TKJ
     public function portofolioTkj()
     {
-        $tefas = Tefa::where('jurusan', 'TKJ') ->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.tkj', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'TKJ')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.tkj', compact('karyas'));
     }
 
+    // Portofolio GIM
     public function portofolioGim()
     {
-        $tefas = Tefa::where('jurusan', 'GIM')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.gim', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'GIM')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.gim', compact('karyas'));
     }
 
+    // Portofolio ANIMASI
     public function portofolioAnimasi()
     {
-        $tefas = Tefa::where('jurusan', 'ANIMASI')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.animasi', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'ANIMASI')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.animasi', compact('karyas'));
     }
 
+    // Portofolio RPL
     public function portofolioRpl()
     {
-        $tefas = Tefa::where('jurusan', 'RPL')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.rpl', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'RPL')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.rpl', compact('karyas'));
     }
 
+    // Portofolio DKV
     public function portofolioDkv()
     {
-        $tefas = Tefa::where('jurusan', 'DKV')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.dkv', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'DKV')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.dkv', compact('karyas'));
     }
 
+    // Portofolio PSPT
     public function portofolioPspt()
     {
-        $tefas = Tefa::where('jurusan', 'PSPT')->where('status_aktif', true)->orderBy('id_produk', 'asc')->paginate(12);
-        return view('public.katalog.jurusanp.pspt', compact('tefas'));
+        $karyas = Portofolio::where('jurusan', 'PSPT')
+            ->where('status_aktif', true)
+            ->orderByDesc('id_portofolio')
+            ->paginate(12);
+
+        return view('public.katalog.jurusanp.pspt', compact('karyas'));
     }
 
     public function portofolioProduk($id_produk)
