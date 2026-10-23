@@ -91,6 +91,9 @@
               {{ $jumlahDibatalkan }}
           </span>
       </button>
+
+
+
   </div>
 
     <!-- TAB 1: PESANAN BARU -->
@@ -638,6 +641,83 @@
 
         </div>
     </div>
+
+
+        <!-- TAB PENGAJUAN PEMBATALAN -->
+    <div class="mb-6">
+        <h2 class="text-lg font-bold text-slate-800">
+            Pengajuan Pembatalan
+            <span class="ml-2 text-sm font-semibold text-orange-500">
+                {{ $pengajuanPembatalan->count() }}
+            </span>
+        </h2>
+        <p class="text-xs text-slate-500 mt-1">
+            Pesanan yang menunggu keputusan admin.
+        </p>
+    </div>
+
+<div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto mb-8">
+    <table class="w-full text-left text-xs">
+        <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
+            <tr>
+                <th class="py-4 px-3">ID Pesanan</th>
+                <th class="py-4 px-3">Klien</th>
+                <th class="py-4 px-3">Layanan</th>
+                <th class="py-4 px-3">Alasan Pembatalan</th>
+                <th class="py-4 px-3">Status</th>
+                <th class="py-4 px-3">Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @forelse ($pengajuanPembatalan as $pesanan)
+                <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                    <td class="py-3.5 px-3 font-bold text-indigo-600">
+                        #TF-{{ str_pad($pesanan->id_pesanan, 4, '0', STR_PAD_LEFT) }}
+                    </td>
+
+                    <td class="py-3.5 px-3">
+                        <div class="font-semibold text-slate-800">
+                            {{ $pesanan->nama_pemesan }}
+                        </div>
+                        <div class="text-[10px] text-slate-400 mt-0.5">
+                            {{ $pesanan->email_pemesan }}
+                        </div>
+                    </td>
+
+                    <td class="py-3.5 px-3">
+                        {{ $pesanan->tefa->nama_produk ?? '-' }}
+                    </td>
+
+                    <td class="py-3.5 px-3 text-slate-600">
+                        {{ $pesanan->alasan_pembatalan ?: '-' }}
+                    </td>
+
+                    <td class="py-3.5 px-3">
+                        <span class="inline-flex px-2.5 py-1 rounded-lg bg-orange-50 text-orange-600 font-semibold text-[10px]">
+                            Menunggu Keputusan
+                        </span>
+                    </td>
+
+                    <td class="py-3.5 px-3">
+                        <a
+                            href="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
+                            class="inline-flex px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
+                            Detail
+                        </a>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" class="py-12 text-center text-slate-400">
+                        Belum ada pengajuan pembatalan.
+                    </td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</div>
+
 
   </main>
 

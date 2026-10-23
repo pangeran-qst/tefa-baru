@@ -157,6 +157,62 @@ public function index()
     ));
 }
 
+
+public function ajukanPembatalan(Request $request, $id)
+{
+    $request->validate([
+        'alasan_pembatalan' => 'required|string|max:1000',
+    ]);
+
+    $pesanan = Pesanan::where('id_pesanan', $id)
+        ->where('id_user', Auth::id())
+        ->firstOrFail();
+
+    if (in_array($pesanan->status, [
+        'selesai', 'ditolak', 'cancelled', 'completed'
+    ])) {
+        return back()->with('error', 'Pesanan ini tidak bisa dibatalkan.');
+    }
+
+    if ($pesanan->status_pembatalan !== 'tidak_ada') {
+        return back()->with('error', 'Pengajuan pembatalan sudah pernah dilakukan.');
+    }
+
+    if (in_array($pesanan->status, [
+        'pending', 'diproses', 'ditugaskan'
+    ])) {
+        $pesanan->status_sebelum_pembatalan = $pesanan->status;
+        $pesanan->status = 'cancelled';
+        $pesanan->status_pembatalan = 'disetujui';
+        $pesanan->tanggal_dibatalkan = now();
+        $pesanan->dibatalkan_oleh = Auth::id();
+        $pesanan->alasan_pembatalan = $request->alasan_pembatalan;
+        $pesanan->save();
+
+        return back()->with('success', 'Pesanan berhasil dibatalkan.');
+    }
+
+    if (in_array($pesanan->status, [
+        'pengerjaan', 'review', 'in_progress'
+    ])) {
+        $pesanan->status_sebelum_pembatalan = $pesanan->status;
+        $pesanan->status_pembatalan = 'diajukan';
+        $pesanan->alasan_pembatalan = $request->alasan_pembatalan;
+        $pesanan->save();
+
+        return back()->with(
+            'success',
+            'Permintaan pembatalan diajukan dan menunggu keputusan admin.'
+        );
+    }
+
+    return back()->with(
+        'error',
+        'Status pesanan belum mendukung pembatalan.'
+    );
+}
+
+
 public function cekTicket(Request $request)
 {
     $pesanan = null;

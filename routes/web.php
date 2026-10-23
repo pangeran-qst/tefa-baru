@@ -129,6 +129,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/klien/pesanan', [TefaController::class, 'pesananSaya'])
     ->name('client.pesanan'); 
 
+    // PEMBATALAN PESANAN CLIENT
+    Route::post('/klien/pesanan/{id}/pembatalan', [TefaController::class, 'ajukanPembatalan'])
+    ->name('client.pesanan.pembatalan');
+
     // ==========================
     // DASHBOARD CLIENT
     // ==========================
@@ -317,6 +321,18 @@ Route::middleware(['auth', 'admin.tefa'])
         // Proses pesanan
         Route::post('/pesanan/{id_pesanan}/proses', [AdminTefaController::class, 'prosesPesanan'])
             ->name('admin.tefa.pesanan.proses');
+
+            // Setujui pengajuan pembatalan
+        Route::post('/pesanan/{id_pesanan}/pembatalan/setujui', [
+         AdminTefaController::class,
+        'setujuiPembatalan'
+        ])->name('admin.tefa.pesanan.pembatalan.setujui');
+
+        // Tolak pengajuan pembatalan
+        Route::post('/pesanan/{id_pesanan}/pembatalan/tolak', [
+        AdminTefaController::class,
+        'tolakPembatalan'
+        ])->name('admin.tefa.pesanan.pembatalan.tolak');
 
 
         // Hapus produk
