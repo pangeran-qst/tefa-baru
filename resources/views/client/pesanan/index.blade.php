@@ -330,14 +330,64 @@
                             </span>
                         </div>
 
-                        {{-- TOMBOL TIKET --}}
-                        <div class="shrink-0 sm:ml-auto">
-                            <a href="{{ route('cek.ticket', ['ticket' => $kodeTiket]) }}"
-                               class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-4 py-2.5 text-sm font-semibold text-blue-700 transition hover:border-blue-700 hover:bg-blue-700 hover:text-white sm:w-auto">
-                                Lihat Tiket
-                                <span class="text-base">→</span>
-                            </a>
-                        </div>
+                      
+                    {{-- AKSI PESANAN --}}
+                    <div class="shrink-0 sm:ml-auto flex flex-col gap-2">
+
+                        {{-- TOMBOL LIHAT TIKET --}}
+                        <a href="{{ route('cek.ticket', ['ticket' => $kodeTiket]) }}"
+                        class="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-blue-100 bg-blue-50 px-4 py-2.5 text-sm font-semibold text-blue-700 transition hover:border-blue-700 hover:bg-blue-700 hover:text-white sm:w-auto">
+                            Lihat Tiket
+                            <span class="text-base">→</span>
+                        </a>
+
+                        {{-- TOMBOL BATALKAN PESANAN --}}
+                        @if (in_array($pesanan->status, [
+                            'pending', 'diproses', 'ditugaskan',
+                            'pengerjaan', 'review', 'in_progress'
+                        ]) && ($pesanan->status_pembatalan ?? 'tidak_ada') === 'tidak_ada')
+
+                            <details class="w-full sm:w-auto">
+                                <summary class="cursor-pointer list-none inline-flex w-full items-center justify-center rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm font-semibold text-red-600 transition hover:bg-red-100 sm:w-auto">
+                                    Batalkan Pesanan
+                                </summary>
+
+                                <form
+                                    action="{{ route('client.pesanan.pembatalan', $pesanan->id_pesanan) }}"
+                                    method="POST"
+                                    class="mt-2 w-full rounded-xl border border-red-100 bg-white p-3 sm:w-64"
+                                    onsubmit="return confirm('Yakin ingin mengajukan pembatalan pesanan ini?')">
+
+                                    @csrf
+
+                                    <label class="mb-2 block text-xs font-semibold text-slate-700">
+                                        Alasan pembatalan
+                                    </label>
+
+                                    <textarea
+                                        name="alasan_pembatalan"
+                                        rows="3"
+                                        maxlength="1000"
+                                        required
+                                        class="w-full rounded-lg border border-slate-200 p-2 text-sm outline-none focus:border-red-400"
+                                        placeholder="Tuliskan alasan pembatalan..."></textarea>
+
+                                    <button
+                                        type="submit"
+                                        class="mt-2 w-full rounded-lg bg-red-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-red-700">
+                                        Kirim Pembatalan
+                                    </button>
+                                </form>
+                            </details>
+
+                        @elseif (($pesanan->status_pembatalan ?? 'tidak_ada') === 'diajukan')
+                            <span class="inline-flex items-center justify-center rounded-xl bg-amber-50 px-4 py-2.5 text-xs font-semibold text-amber-700">
+                                Menunggu Persetujuan
+                            </span>
+                        @endif
+
+                    </div>
+
                     </div>
 
                 @empty
