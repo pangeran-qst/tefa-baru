@@ -158,6 +158,11 @@ class AdminTefaController extends Controller
         }
 
         $pesanans = $query->get();
+        // Pesanan yang menunggu keputusan pembatalan
+        $pengajuanPembatalan = Pesanan::with('tefa')
+            ->where('status_pembatalan', 'diajukan')
+            ->latest('tanggal_pesan')
+            ->get();
 
         // Jumlah masing-masing status
         $jumlahPending = Pesanan::where('status', 'pending')->count();
@@ -182,15 +187,18 @@ class AdminTefaController extends Controller
             'ditolak'
         )->count();
 
+      
         return view('admin.tefa.pesanan.index', compact(
-            'pesanans',
-            'status',
-            'jumlahPending',
-            'jumlahWaitingResponse',
-            'jumlahInProgress',
-            'jumlahCompleted',
-            'jumlahCancelled'
-        ));
+    'pesanans',
+    'pengajuanPembatalan',
+    'status',
+    'jumlahPending',
+    'jumlahWaitingResponse',
+    'jumlahInProgress',
+    'jumlahCompleted',
+    'jumlahCancelled'
+));
+
     }
 
 
@@ -203,6 +211,57 @@ class AdminTefaController extends Controller
 
         return view('admin.tefa.pesanan.detail', compact('pesanan', 'listJurusan'));
     }
+
+    
+public function setujuiPembatalan($id_pesanan)
+{
+    $pesanan = Pesanan::findOrFail($id_pesanan);
+
+    if ($pesanan->status_pembatalan !== 'diajukan') {
+        return back()->with(
+            'error',
+            'Pengajuan pembatalan tidak ditemukan atau sudah diproses.'
+        );
+    }
+
+    $pesanan->status = 'cancelled';
+    $pesanan->status_pembatalan = 'disetujui';
+    $pesanan->tanggal_dibatalkan = now();
+    $pesanan->dibatalkan_oleh = auth()->id();
+    $pesanan->save();
+
+    return redirect()
+        ->route('admin.tefa.pesanan')
+        ->with('success', 'Pembatalan pesanan berhasil disetujui.');
+}
+
+    public function tolakPembatalan($id_pesanan)
+    {
+        $pesanan = Pesanan::findOrFail($id_pesanan);
+
+        if ($pesanan->status_pembatalan !== 'diajukan') {
+            return back()->with(
+                'error',
+                'Pengajuan pembatalan tidak ditemukan atau sudah diproses.'
+            );
+        }
+
+        if (empty($pesanan->status_sebelum_pembatalan)) {
+            return back()->with(
+                'error',
+                'Status pesanan sebelumnya tidak ditemukan.'
+            );
+        }
+
+        $pesanan->status = $pesanan->status_sebelum_pembatalan;
+        $pesanan->status_pembatalan = 'ditolak';
+        $pesanan->save();
+
+        return redirect()
+            ->route('admin.tefa.pesanan')
+            ->with('success', 'Pengajuan pembatalan berhasil ditolak.');
+    }
+
 
 
 

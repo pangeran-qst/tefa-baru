@@ -81,16 +81,29 @@
       </button>
 
       {{-- DITOLAK / BATAL --}}
-      <button
-          type="button"
-          id="btn-ditolak"
-          onclick="switchTab('ditolak')"
-          class="tab-btn px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50 transition">
-          Ditolak/Batal
-          <span class="ml-1 text-slate-400">
-              {{ $jumlahDibatalkan }}
-          </span>
-      </button>
+    <button
+        type="button"
+        id="btn-ditolak"
+        onclick="switchTab('ditolak')"
+        class="tab-btn px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50 transition">
+        Ditolak/Batal
+        <span class="ml-1 text-slate-400">
+            {{ $jumlahDibatalkan }}
+        </span>
+    </button>
+
+    <!-- TEMPEL TOMBOL BARU DI SINI -->
+    <button
+        type="button"
+        id="btn-pengajuan-batal"
+        onclick="switchTab('pengajuan-batal')"
+        class="tab-btn px-6 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 font-semibold text-xs hover:bg-slate-50 transition">
+        Pengajuan Batal
+        <span class="ml-1 text-slate-400">
+            {{ $pengajuanPembatalan->count() }}
+        </span>
+    </button>
+
   </div>
 
     <!-- TAB 1: PESANAN BARU -->
@@ -639,6 +652,104 @@
         </div>
     </div>
 
+    <div id="tab-pengajuan-batal" class="tab-content hidden">
+
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto mb-8">
+        <table class="w-full text-left text-xs">
+            <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
+                <tr>
+                    <th class="py-4 px-3">ID Pesanan</th>
+                    <th class="py-4 px-3">Klien</th>
+                    <th class="py-4 px-3">Layanan</th>
+                    <th class="py-4 px-3">Alasan Pembatalan</th>
+                    <th class="py-4 px-3">Status</th>
+                    <th class="py-4 px-3">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @forelse ($pengajuanPembatalan as $pesanan)
+                    <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+                        <td class="py-3.5 px-3 font-bold text-indigo-600">
+                            #TF-{{ str_pad($pesanan->id_pesanan, 4, '0', STR_PAD_LEFT) }}
+                        </td>
+
+                        <td class="py-3.5 px-3">
+                            <div class="font-semibold text-slate-800">
+                                {{ $pesanan->nama_pemesan }}
+                            </div>
+                            <div class="text-[10px] text-slate-400 mt-0.5">
+                                {{ $pesanan->email_pemesan }}
+                            </div>
+                        </td>
+
+                        <td class="py-3.5 px-3">
+                            {{ $pesanan->tefa->nama_produk ?? '-' }}
+                        </td>
+
+                                        
+                        <td class="py-3.5 px-3">
+                            <div class="flex flex-wrap gap-2">
+                                <form
+                                    action="{{ route('admin.tefa.pesanan.pembatalan.setujui', $pesanan->id_pesanan) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menyetujui pembatalan pesanan ini?')">
+                                    @csrf
+
+                                    <button
+                                        type="submit"
+                                        class="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-semibold">
+                                        Setujui
+                                    </button>
+                                </form>
+
+                                <form
+                                    action="{{ route('admin.tefa.pesanan.pembatalan.tolak', $pesanan->id_pesanan) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menolak pengajuan pembatalan ini?')">
+                                    @csrf
+
+                                    <button
+                                        type="submit"
+                                        class="px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-700 text-xs font-semibold">
+                                        Tolak
+                                    </button>
+                                </form>
+
+                                <a
+                                    href="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
+                                    class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-xs font-semibold">
+                                    Detail
+                                </a>
+                            </div>
+                        </td>
+
+                        <td class="py-3.5 px-3">
+                            <span class="inline-flex px-2.5 py-1 rounded-lg bg-orange-50 text-orange-600 font-semibold text-[10px]">
+                                Menunggu Keputusan
+                            </span>
+                        </td>
+
+                        <td class="py-3.5 px-3">
+                            <a
+                                href="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
+                                class="inline-flex px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
+                                Detail
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="py-12 text-center text-slate-400">
+                            Belum ada pengajuan pembatalan.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+  </div>
   </main>
 
   <!-- SCRIPT SWITCH TAB -->

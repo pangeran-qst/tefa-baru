@@ -32,6 +32,12 @@ class Pesanan extends Model
         'metode_pembayaran',
         'tanggal_pembayaran',
         'catatan_pembayaran',
+        'alasan_pembatalan',
+        'tanggal_dibatalkan',
+        'dibatalkan_oleh',
+        'status_sebelum_pembatalan',
+        'status_pembatalan',
+
     ];
 
     protected $casts = [
@@ -40,6 +46,7 @@ class Pesanan extends Model
         'tanggal_pembayaran' => 'date',
         'harga_final' => 'integer',
         'nominal_dibayar' => 'integer',
+        'tanggal_dibatalkan' => 'datetime',
     ];
 
     // Client yang melakukan pesanan
