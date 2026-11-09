@@ -282,6 +282,10 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::get('/transaksi/export-excel', [AdminTefaController::class, 'transaksiExcel'])
             ->name('admin.tefa.transaksi.excel');
 
+        // Edit jurusan
+        Route::put('/jurusan/{id_jurusan}', [AdminTefaController::class, 'updateJurusan'])
+            ->name('admin.tefa.jurusan.update');
+
         // Simpan portofolio
         Route::post('/portofolio', [AdminTefaController::class, 'storePortofolio'])
             ->name('admin.tefa.portofolio.store');

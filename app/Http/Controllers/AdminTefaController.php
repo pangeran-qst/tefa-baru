@@ -135,6 +135,33 @@ class AdminTefaController extends Controller
             ->with('success', 'Jurusan berhasil ditambahkan.');
     }
 
+    public function updateJurusan(Request $request, $id_jurusan)
+    {
+        $jurusan = Jurusan::findOrFail($id_jurusan);
+
+        $request->validate([
+            'kode' => 'required|string|max:20|unique:jurusans,kode,' . $id_jurusan . ',id_jurusan',
+            'nama_jurusan' => 'required|string|max:255',
+            'ketua_kajur' => 'required|string|max:255',
+            'worker' => 'required|integer|min:0',
+            'produk' => 'required|integer|min:0',
+            'status' => 'required|boolean',
+        ]);
+
+        $jurusan->update([
+            'kode' => $request->kode,
+            'nama_jurusan' => $request->nama_jurusan,
+            'ketua_kajur' => $request->ketua_kajur,
+            'worker' => $request->worker,
+            'produk' => $request->produk,
+            'status' => $request->status,
+        ]);
+
+        return redirect()
+            ->route('admin.tefa.produk')
+            ->with('success', 'Jurusan berhasil diperbarui.');
+    }
+
 
     public function pesanan(Request $request)
     {
@@ -640,6 +667,7 @@ public function setujuiPembatalan($id_pesanan)
             'role' => 'required|in:admin_jurusan,worker',
             'jurusan' => 'required|string|max:100',
             'kelas' => 'required|string|max:100',
+            'status_akun' => true,
         ]);
 
         $user = User::create([
@@ -674,9 +702,10 @@ public function setujuiPembatalan($id_pesanan)
             'email' => 'required|email|max:255|unique:users,email,' . $user->id_user . ',id_user',
             'no_hp' => 'nullable|string|max:20',
             'alamat' => 'nullable|string|max:255',
-            'role' => 'required|in:admin_jurusan,worker',
+            'role' => 'required|in:admin_tefa,admin_jurusan,worker',
             'jurusan' => 'required|string|max:100',
             'kelas' => 'required|string|max:100',
+            'status_akun' => 'required|boolean',
         ]);
 
         $user->update([
@@ -687,6 +716,7 @@ public function setujuiPembatalan($id_pesanan)
             'role' => $request->role,
             'jurusan' => $request->jurusan,
             'kelas' => $request->kelas,
+            'status_akun' => $request->status_akun,
         ]);
 
         return redirect()

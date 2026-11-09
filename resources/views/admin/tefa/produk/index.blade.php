@@ -693,10 +693,18 @@
 
                     <button
                         type="button"
+                        onclick="editJurusan(
+                            {{ $jurusan->id_jurusan }},
+                            @js($jurusan->kode),
+                            @js($jurusan->nama_jurusan),
+                            @js($jurusan->ketua_kajur),
+                            {{ $jurusan->worker }},
+                            {{ $jurusan->produk }},
+                            {{ $jurusan->status ? 1 : 0 }}
+                        )"
                         class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
 
                         Edit
-
                     </button>
 
 
@@ -1652,6 +1660,133 @@
 </div>
 
 {{-- ========================================
+     MODAL EDIT JURUSAN
+     ======================================== --}}
+
+<div class="modal fade"
+     id="modalEditJurusan"
+     tabindex="-1"
+     aria-labelledby="modalEditJurusanLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditJurusanLabel">
+                    Edit Jurusan
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+            </div>
+
+            <form id="formEditJurusan" method="POST">
+
+                @csrf
+                @method('PUT')
+
+                <div class="modal-body">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Kode Jurusan</label>
+                            <input
+                                type="text"
+                                id="edit_kode_jurusan"
+                                name="kode"
+                                class="form-control"
+                                required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Nama Jurusan</label>
+                            <input
+                                type="text"
+                                id="edit_nama_jurusan"
+                                name="nama_jurusan"
+                                class="form-control"
+                                required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Ketua / Kajur</label>
+                            <input
+                                type="text"
+                                id="edit_ketua_kajur"
+                                name="ketua_kajur"
+                                class="form-control"
+                                required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Worker</label>
+                            <input
+                                type="number"
+                                id="edit_worker"
+                                name="worker"
+                                class="form-control"
+                                min="0"
+                                required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Produk</label>
+                            <input
+                                type="number"
+                                id="edit_produk_jurusan"
+                                name="produk"
+                                class="form-control"
+                                min="0"
+                                required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <select
+                                id="edit_status_jurusan"
+                                name="status"
+                                class="form-select"
+                                required>
+
+                                <option value="1">Aktif</option>
+                                <option value="0">Nonaktif</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Batal
+                    </button>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-2"></i>
+                        Simpan Perubahan
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{{-- ========================================
      MODAL EDIT PRODUK
      ======================================== --}}
 
@@ -2160,6 +2295,24 @@
     // ========================================
     // MODAL EDIT PRODUK
     // ========================================
+
+    function editJurusan(id, kode, nama, ketua, worker, produk, status) {
+
+        const modalElement = document.getElementById('modalEditJurusan');
+        const modal = new bootstrap.Modal(modalElement);
+
+        document.getElementById('edit_kode_jurusan').value = kode;
+        document.getElementById('edit_nama_jurusan').value = nama;
+        document.getElementById('edit_ketua_kajur').value = ketua;
+        document.getElementById('edit_worker').value = worker;
+        document.getElementById('edit_produk_jurusan').value = produk;
+        document.getElementById('edit_status_jurusan').value = status;
+
+        document.getElementById('formEditJurusan').action =
+            '/admin/tefa/jurusan/' + id;
+
+        modal.show();
+    }
 
     function editProduk(id, jurusan, namaProduk, deskripsi, harga, statusAktif, gambar) {
 
