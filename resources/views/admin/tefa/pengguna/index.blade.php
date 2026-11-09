@@ -1,6 +1,6 @@
 @extends('admin.tefa.layouts.app')
 
-@section('title', 'Dashboard Admin TEFA')
+@section('title', 'Manajemen Pengguna')
 
 @section('content')
   

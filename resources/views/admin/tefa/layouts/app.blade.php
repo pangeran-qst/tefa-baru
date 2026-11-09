@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>@yield('title', 'Admin TEFA')</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 
     {{-- Bootstrap --}}
     <link
@@ -467,68 +468,209 @@
             border-radius: 12px;
         }
 
+        
         /* =====================================================
-           RESPONSIVE
+        RESPONSIVE MOBILE
         ===================================================== */
 
         @media (max-width: 768px) {
 
             .sidebar {
-                width: 72px;
-
-                padding: 12px;
+                width: 256px;
+                transform: translateX(-100%);
+                transition: transform .3s ease;
+                overflow-y: auto;
             }
 
-            .sidebar-brand {
-                justify-content: center;
-                padding: 10px 0;
-            }
-
-            .brand-logo {
-                width: 40px;
-                height: 40px;
-            }
-
-            .brand-title,
-            .brand-subtitle,
-            .school-card,
-            .menu-text,
-            .menu-title,
-            .sidebar-user .user-info {
-                display: none;
-            }
-
-            .sidebar-menu a {
-                justify-content: center;
-
-                padding: 12px;
-            }
-
-            .sidebar-menu a i {
-                margin: 0;
-            }
-
-            .sidebar-user {
-                justify-content: center;
-            }
-
-            .logout-icon {
-                display: none;
+            .sidebar.show {
+                transform: translateX(0);
             }
 
             .main-content {
-                margin-left: 72px;
+                margin-left: 0;
+                width: 100%;
             }
 
             .content {
-                padding: 20px;
+                padding: 20px 15px;
             }
 
             .topbar {
-                padding: 0 20px;
+                height: 60px;
+                padding: 0 15px;
+                gap: 10px;
             }
 
+            .topbar-title {
+                font-size: 13px;
+            }
+
+            .topbar-user {
+                padding: 7px 9px;
+                font-size: 11px;
+                max-width: 160px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .page-description {
+                font-size: 12px;
+            }
+
+            .stat-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 17px;
+            }
+
+            .content-card,
+            .stat-card {
+                border-radius: 14px;
+            }
         }
+
+        @media (max-width: 400px) {
+
+            .content {
+                padding: 16px 12px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .topbar {
+                padding: 0 12px;
+            }
+        }
+
+
+        /* TOMBOL MENU MOBILE */
+        .mobile-menu-btn {
+            display: none;
+            border: none;
+            background: #f1f5f9;
+            color: #1e293b;
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            font-size: 21px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* OVERLAY SIDEBAR */
+        .sidebar-overlay {
+            display: none;
+        }
+
+        /* RESPONSIVE MOBILE */
+        @media (max-width: 768px) {
+
+            .sidebar {
+                width: 256px;
+                transform: translateX(-100%);
+                transition: transform .3s ease;
+                overflow-y: auto;
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+                position: fixed;
+                inset: 0;
+                background: rgba(15, 23, 42, .5);
+                z-index: 999;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: inline-flex;
+            }
+
+            .topbar {
+                height: 60px;
+                padding: 0 15px;
+                gap: 10px;
+            }
+
+            .topbar-left {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                min-width: 0;
+            }
+
+            .topbar-title {
+                font-size: 13px;
+            }
+
+            .topbar-user {
+                padding: 7px 9px;
+                font-size: 11px;
+                max-width: 145px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .content {
+                padding: 20px 15px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .page-description {
+                font-size: 12px;
+            }
+
+            /* TABEL MOBILE */
+            .table-responsive {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .table-responsive > .table {
+                min-width: 650px;
+                white-space: nowrap;
+            }
+
+            .content-card,
+            .stat-card {
+                border-radius: 14px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .content {
+                padding: 16px 12px;
+            }
+
+            .page-title {
+                font-size: 21px;
+            }
+
+            .topbar {
+                padding: 0 12px;
+            }
+        }
+
+
 
     </style>
 
@@ -778,54 +920,20 @@
         {{-- TOPBAR --}}
         <nav class="topbar">
 
-            <div class="topbar-title">
-                Dashboard AdminTefa
-            </div>
+            <div class="topbar-left">
 
+                <button type="button"
+                    class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    aria-label="Buka menu">
 
-            <div class="dropdown">
-
-                <button
-                    class="topbar-user dropdown-toggle"
-                    type="button"
-                    data-bs-toggle="dropdown">
-
-                    <i class="bi bi-person-circle me-2"></i>
-
-                    {{ Auth::user()->nama }}
+                    <i class="bi bi-list"></i>
 
                 </button>
 
-
-                <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li>
-
-                        <span class="dropdown-item-text text-muted">
-
-                            {{ Auth::user()->email }}
-
-                        </span>
-
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-
-                    <li>
-
-                        <a class="dropdown-item" href="#">
-
-                            <i class="bi bi-person me-2"></i>
-
-                            Profil
-
-                        </a>
-
-                    </li>
-
-                </ul>
+                <div class="topbar-title">
+                    Dashboard AdminTefa
+                </div>
 
             </div>
 

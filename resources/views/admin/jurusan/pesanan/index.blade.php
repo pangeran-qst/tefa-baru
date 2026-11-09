@@ -1,6 +1,6 @@
 @extends('admin.jurusan.layouts.app')
 
-@section('title', 'Produk / Layanan')
+@section('title', 'Manajemen Pesanan')
 
 @section('content')
 
