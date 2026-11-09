@@ -130,32 +130,53 @@ public function index()
         ]);
     }
 
-    public function pesananSaya()
-{
-    $userId = Auth::id();
+   
+   public function pesananSaya()
+    {
+        $userId = Auth::id();
 
-    $pesanans = Pesanan::with('tefa')
-        ->where('id_user', $userId)
-        ->latest('tanggal_pesan')
-        ->get();
+        // Ambil semua pesanan milik client
+        $pesanans = Pesanan::with('tefa')
+            ->where('id_user', $userId)
+            ->latest('tanggal_pesan')
+            ->get();
 
-    $totalPesanan = $pesanans->count();
+        // 1. Total seluruh pesanan
+        $totalPesanan = $pesanans->count();
 
-    $sedangDiproses = $pesanans
-        ->where('status', 'in_progress')
-        ->count();
+        // 2. Pesanan sedang diproses
+        $sedangDiproses = $pesanans
+            ->whereIn('status', [
+                'diproses',
+                'ditugaskan',
+                'pengerjaan',
+                'review',
+                'in_progress'
+            ])
+            ->count();
 
-    $pesananSelesai = $pesanans
-        ->where('status', 'completed')
-        ->count();
+        // 3. Pesanan dibatalkan
+        $pesananBatal = $pesanans
+            ->where('status', 'cancelled')
+            ->count();
 
-    return view('client.pesanan.index', compact(
-        'pesanans',
-        'totalPesanan',
-        'sedangDiproses',
-        'pesananSelesai'
-    ));
-}
+        // 4. Pesanan selesai
+        $pesananSelesai = $pesanans
+            ->whereIn('status', [
+                'selesai',
+                'completed'
+            ])
+            ->count();
+
+        return view('client.pesanan.index', compact(
+            'pesanans',
+            'totalPesanan',
+            'sedangDiproses',
+            'pesananBatal',
+            'pesananSelesai'
+        ));
+    }
+
 
 
 public function ajukanPembatalan(Request $request, $id)

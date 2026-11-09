@@ -162,16 +162,16 @@
         </section>
 
         {{-- RINGKASAN PESANAN --}}
-        <section class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <section class="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 
             {{-- TOTAL PESANAN --}}
             <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md md:p-6">
                 <div class="flex items-center justify-between gap-3">
                     <div>
-                        <p class="text-sm font-medium text-slate-500">
+                        <p class="text-sm font-medium text-blue-700">
                             Total Pesanan
                         </p>
-                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-slate-900">
+                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-blue-700">
                             {{ $totalPesanan ?? 0 }}
                         </h2>
                         <p class="mt-1 text-xs text-slate-400">
@@ -194,10 +194,10 @@
             <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-amber-200 hover:shadow-md md:p-6">
                 <div class="flex items-center justify-between gap-3">
                     <div>
-                        <p class="text-sm font-medium text-slate-500">
+                        <p class="text-sm font-medium text-amber-500">
                             Sedang Diproses
                         </p>
-                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-slate-900">
+                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-amber-500">
                             {{ $sedangDiproses ?? 0 }}
                         </h2>
                         <p class="mt-1 text-xs text-slate-400">
@@ -216,14 +216,56 @@
                 </div>
             </div>
 
+            {{-- PESANAN DIBATALKAN --}}
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-red-200 hover:shadow-md md:p-6">
+
+            <div class="flex items-center justify-between gap-3">
+
+                <div>
+                    <p class="text-sm font-medium text-red-600">
+                        Dibatalkan
+                    </p>
+
+                    <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-red-600">
+                        {{ $pesananBatal ?? 0 }}
+                    </h2>
+
+                    <p class="mt-1 text-xs text-slate-400">
+                        Pesanan yang dibatalkan
+                    </p>
+                </div>
+
+                <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="m15 9-6 6"/>
+                        <path d="m9 9 6 6"/>
+
+                    </svg>
+
+                </div>
+
+            </div>
+
+        </div>
+
             {{-- PESANAN SELESAI --}}
             <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-emerald-200 hover:shadow-md md:p-6">
                 <div class="flex items-center justify-between gap-3">
                     <div>
-                        <p class="text-sm font-medium text-slate-500">
+                        <p class="text-sm font-medium text-emerald-600">
                             Selesai
                         </p>
-                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-slate-900">
+                        <h2 class="mt-2 text-3xl font-extrabold tabular-nums text-emerald-600">
                             {{ $pesananSelesai ?? 0 }}
                         </h2>
                         <p class="mt-1 text-xs text-slate-400">
