@@ -1,6 +1,6 @@
 @extends('admin.jurusan.layouts.app')
 
-@section('title', 'Dashboard Admin Jurusan')
+@section('title', 'Dashboard')
 
 @section('content')
 

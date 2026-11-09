@@ -1,6 +1,6 @@
 @extends('admin.tefa.layouts.app')
 
-@section('title', 'Produk / Layanan')
+@section('title', 'Transaksi')
 
 @section('content')
 

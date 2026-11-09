@@ -44,11 +44,11 @@
                   Beranda
               </a>
 
-              {{-- LAYANAN --}}
+              <!-- {{-- LAYANAN --}}
               <a href="{{ route('katalog') }}"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                   Layanan
-              </a>
+              </a> -->
 
               {{-- PORTOFOLIO --}}
               <a href="{{ route('portofolio') }}"
@@ -133,12 +133,34 @@
 
       </div>
 
-      {{-- TOMBOL MENU MOBILE --}}
-      <button class="block md:hidden rounded-md bg-blue-700 px-3 py-2 text-lg text-white" onclick="toggleMenu()"
-          aria-label="Buka Menu Navigasi">
-          ☰
-      </button>
+        {{-- TOMBOL MENU MOBILE --}}
+        <button
+            type="button"
+            class="block md:hidden rounded-md bg-blue-700 px-3 py-2 text-lg text-white"
+            onclick="toggleMenu()"
+            aria-label="Buka Menu Navigasi"
+            aria-controls="navMenu"
+            aria-expanded="false"
+            id="menuToggle">
+            ☰
+        </button>
   </header>
+
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const button = document.getElementById('menuToggle');
+
+            menu.classList.toggle('hidden');
+
+            button.setAttribute(
+                'aria-expanded',
+                !menu.classList.contains('hidden')
+            );
+        }
+    </script>
+
 
     {{-- MAIN --}}
     <main class="max-w-7xl mx-auto px-5 md:px-10 lg:px-16 py-10 md:py-14">
@@ -382,6 +404,34 @@
       <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
     </div>
   </footer>
+
+
+    <script>
+    function toggleMenu() {
+        const nav = document.getElementById('navMenu');
+
+        nav.classList.toggle('hidden');
+        nav.classList.toggle('flex');
+    }
+
+    function filterServices() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+                const desc = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+  </script>
+
+
 
 </body>
 </html>
