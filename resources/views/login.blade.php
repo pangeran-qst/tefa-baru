@@ -10,7 +10,7 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon.png') }}" />
 </head>
 <body class="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-950 min-h-screen flex items-center justify-center p-4 font-sans text-white relative">
 

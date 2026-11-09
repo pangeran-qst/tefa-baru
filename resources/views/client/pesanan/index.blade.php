@@ -46,10 +46,10 @@
               </a>
 
               {{-- LAYANAN --}}
-              <a href="{{ route('katalog') }}"
+              <!-- <a href="{{ route('katalog') }}"
                   class="rounded-md px-4 py-2 text-sm font-medium text-slate-600 transition hover:bg-blue-700 hover:text-white">
                   Layanan
-              </a>
+              </a> -->
 
               {{-- PORTOFOLIO --}}
               <a href="{{ route('portofolio') }}"
@@ -475,6 +475,33 @@
             </span>
         </div>
     </footer>
+
+
+    <script>
+    function toggleMenu() {
+        const nav = document.getElementById('navMenu');
+
+        nav.classList.toggle('hidden');
+        nav.classList.toggle('flex');
+    }
+
+    function filterServices() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .service-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('h3') ? card.querySelector('h3').innerText.toLowerCase() : '';
+                const desc = card.querySelector('p') ? card.querySelector('p').innerText.toLowerCase() : '';
+
+                if (title.includes(input) || desc.includes(input)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+  </script>
+
 
 </body>
 </html>
