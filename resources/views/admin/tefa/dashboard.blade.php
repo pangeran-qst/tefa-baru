@@ -416,10 +416,7 @@
 
     <div class="row g-4 mb-4">
 
-
-        {{-- BAR CHART --}}
-
-        <div class="col-12 col-lg-7">
+        <div class="col-12">
 
             <div class="tefa-content-card p-4">
 
@@ -428,38 +425,11 @@
                 </h2>
 
                 <p class="tefa-card-description">
-                    Total order per kategori layanan
+                    Jumlah pesanan untuk setiap produk atau jasa
                 </p>
 
                 <div class="tefa-chart-wrapper">
-
                     <canvas id="barChart"></canvas>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        {{-- LINE CHART --}}
-
-        <div class="col-12 col-lg-5">
-
-            <div class="tefa-content-card p-4">
-
-                <h2 class="tefa-card-title">
-                    Rata-rata Kecepatan Pengerjaan
-                </h2>
-
-                <p class="tefa-card-description">
-                    Dalam hari per project
-                </p>
-
-                <div class="tefa-chart-wrapper">
-
-                    <canvas id="lineChart"></canvas>
-
                 </div>
 
             </div>
@@ -469,343 +439,7 @@
     </div>
 
 
-    {{-- ================= BOTTOM SECTION ================= --}}
-
-    <div class="row g-4">
-
-
-        {{-- PESANAN BUTUH DISPOSISI --}}
-
-        <div class="col-12 col-lg-7">
-
-            <div class="tefa-content-card p-4">
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-
-                    <div>
-
-                        <h2 class="tefa-card-title">
-                            Pesanan Butuh Disposisi
-                        </h2>
-
-                        <p class="tefa-card-description mb-0">
-                            Tindak segera pesanan baru
-                        </p>
-
-                    </div>
-
-                    <span class="tefa-badge-danger">
-                        2 Mendesak
-                    </span>
-
-                </div>
-
-
-                <div class="d-flex flex-column gap-3">
-
-
-                    {{-- ORDER 1 --}}
-
-                    <div class="tefa-order-item">
-
-                        <div class="d-flex align-items-center justify-content-between">
-
-                            <div class="d-flex align-items-start gap-3">
-
-                                <span
-                                    class="tefa-order-dot"
-                                    style="background:#f43f5e;">
-                                </span>
-
-                                <div>
-
-                                    <div class="tefa-order-number">
-
-                                        #TF-2892
-
-                                        <span class="tefa-order-name">
-                                            PT Digital Nusantara
-                                        </span>
-
-                                    </div>
-
-                                    <p class="tefa-order-description mb-0">
-                                        Web Dev — Company Profile
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <span class="tefa-order-time">
-                                    10 menit lalu
-                                </span>
-
-                                <a
-                                    href="{{ route('admin.tefa.pesanan') }}"
-                                    class="tefa-btn-disposisi">
-
-                                    Disposisi
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- ORDER 2 --}}
-
-                    <div class="tefa-order-item">
-
-                        <div class="d-flex align-items-center justify-content-between">
-
-                            <div class="d-flex align-items-start gap-3">
-
-                                <span
-                                    class="tefa-order-dot"
-                                    style="background:#f43f5e;">
-                                </span>
-
-                                <div>
-
-                                    <div class="tefa-order-number">
-
-                                        #TF-2891
-
-                                        <span class="tefa-order-name">
-                                            CV Tanjung Kreatif
-                                        </span>
-
-                                    </div>
-
-                                    <p class="tefa-order-description mb-0">
-                                        UI/UX Design — Mobile App
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <span class="tefa-order-time">
-                                    2 jam lalu
-                                </span>
-
-                                <a
-                                    href="{{ route('admin.tefa.pesanan') }}"
-                                    class="tefa-btn-disposisi">
-
-                                    Disposisi
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- ORDER 3 --}}
-
-                    <div class="tefa-order-item">
-
-                        <div class="d-flex align-items-center justify-content-between">
-
-                            <div class="d-flex align-items-start gap-3">
-
-                                <span
-                                    class="tefa-order-dot"
-                                    style="background:#cbd5e1;">
-                                </span>
-
-                                <div>
-
-                                    <div class="tefa-order-number">
-
-                                        #TF-2890
-
-                                        <span class="tefa-order-name">
-                                            Dinas Pendidikan Kota
-                                        </span>
-
-                                    </div>
-
-                                    <p class="tefa-order-description mb-0">
-                                        Sistem Informasi Sekolah
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <span class="tefa-order-time">
-                                    4 jam lalu
-                                </span>
-
-                                <a
-                                    href="{{ route('admin.tefa.pesanan') }}"
-                                    class="tefa-btn-disposisi">
-
-                                    Disposisi
-
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        {{-- AKTIVITAS TERKINI --}}
-
-        <div class="col-12 col-lg-5">
-
-            <div class="tefa-content-card p-4">
-
-                <h2 class="tefa-card-title">
-                    Aktivitas Terkini
-                </h2>
-
-                <p class="tefa-card-description">
-                    Log sistem real-time
-                </p>
-
-
-                <div class="d-flex flex-column gap-4">
-
-
-                    {{-- LOG 1 --}}
-
-                    <div class="tefa-activity-item">
-
-                        <span class="tefa-activity-dot dot-green"></span>
-
-                        <div>
-
-                            <p class="tefa-activity-text mb-0">
-                                Pesanan #TF-2891 dari PT Riau Kreatif disetujui
-                            </p>
-
-                            <span class="tefa-activity-time">
-                                09:14
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- LOG 2 --}}
-
-                    <div class="tefa-activity-item">
-
-                        <span class="tefa-activity-dot dot-indigo"></span>
-
-                        <div>
-
-                            <p class="tefa-activity-text mb-0">
-                                Pembayaran DP 50% dikonfirmasi — Project #TF-2887
-                            </p>
-
-                            <span class="tefa-activity-time">
-                                08:52
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- LOG 3 --}}
-
-                    <div class="tefa-activity-item">
-
-                        <span class="tefa-activity-dot dot-purple"></span>
-
-                        <div>
-
-                            <p class="tefa-activity-text mb-0">
-                                Project #TF-2843 selesai QC oleh Guru RPL
-                            </p>
-
-                            <span class="tefa-activity-time">
-                                08:31
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- LOG 4 --}}
-
-                    <div class="tefa-activity-item">
-
-                        <span class="tefa-activity-dot dot-amber"></span>
-
-                        <div>
-
-                            <p class="tefa-activity-text mb-0">
-                                Pesanan baru #TF-2890 dari CV Maju Bersama
-                            </p>
-
-                            <span class="tefa-activity-time">
-                                Yesterday
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    {{-- LOG 5 --}}
-
-                    <div class="tefa-activity-item">
-
-                        <span class="tefa-activity-dot dot-gray"></span>
-
-                        <div>
-
-                            <p class="tefa-activity-text mb-0">
-                                Laporan BLUD Bulan Juli diekspor oleh Admin
-                            </p>
-
-                            <span class="tefa-activity-time">
-                                Yesterday
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+   
 
 </div>
 
@@ -815,8 +449,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-
-    // ================= BAR CHART =================
+    // ================= BAR CHART PRODUK TERLARIS =================
 
     const barElement = document.getElementById('barChart');
 
@@ -828,25 +461,15 @@
 
             data: {
 
-                labels: [
-                    'UI/UX Design',
-                    'Web Dev',
-                    'Mobile App',
-                    'Sistem Info',
-                    'API Service',
-                    'QA Testing'
-                ],
+                // Nama produk dari database
+                labels: @json($produkTerlaris->pluck('nama_produk')),
 
                 datasets: [{
 
-                    data: [
-                        25,
-                        18,
-                        13,
-                        11,
-                        7,
-                        5
-                    ],
+                    label: 'Jumlah Pesanan',
+
+                    // Jumlah pesanan masing-masing produk
+                    data: @json($produkTerlaris->pluck('pesanans_count')),
 
                     backgroundColor: '#5850ec',
 
@@ -868,6 +491,14 @@
 
                     legend: {
                         display: false
+                    },
+
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' Pesanan';
+                            }
+                        }
                     }
 
                 },
@@ -878,133 +509,13 @@
 
                         beginAtZero: true,
 
-                        max: 24,
-
                         ticks: {
-
-                            stepSize: 6,
-
-                            color: '#94a3b8',
-
-                            font: {
-                                size: 10
-                            }
-
-                        },
-
-                        grid: {
-                            color: '#f1f5f9'
-                        }
-
-                    },
-
-                    x: {
-
-                        ticks: {
-
-                            color: '#94a3b8',
-
-                            font: {
-                                size: 10
-                            }
-
-                        },
-
-                        grid: {
-                            display: false
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
-    }
-
-
-    // ================= LINE CHART =================
-
-    const lineElement = document.getElementById('lineChart');
-
-    if (lineElement) {
-
-        new Chart(lineElement, {
-
-            type: 'line',
-
-            data: {
-
-                labels: [
-                    'Mar',
-                    'Apr',
-                    'Mei',
-                    'Jun',
-                    'Jul',
-                    'Agu'
-                ],
-
-                datasets: [{
-
-                    data: [
-                        6.3,
-                        5.9,
-                        7.1,
-                        6.4,
-                        5.1,
-                        5.6
-                    ],
-
-                    borderColor: '#10b981',
-
-                    backgroundColor: 'rgba(16, 185, 129, 0.08)',
-
-                    fill: true,
-
-                    tension: 0.4,
-
-                    pointBackgroundColor: '#10b981',
-
-                    pointRadius: 4
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                plugins: {
-
-                    legend: {
-                        display: false
-                    }
-
-                },
-
-                scales: {
-
-                    y: {
-
-                        min: 4,
-
-                        max: 8,
-
-                        ticks: {
-
+                            precision: 0,
                             stepSize: 1,
-
                             color: '#94a3b8',
-
                             font: {
-                                size: 10
+                                size: 11
                             }
-
                         },
 
                         grid: {
@@ -1016,13 +527,10 @@
                     x: {
 
                         ticks: {
-
-                            color: '#94a3b8',
-
+                            color: '#64748b',
                             font: {
-                                size: 10
+                                size: 11
                             }
-
                         },
 
                         grid: {

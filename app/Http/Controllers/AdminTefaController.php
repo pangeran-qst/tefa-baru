@@ -31,11 +31,19 @@ class AdminTefaController extends Controller
 
     $totalWorkerAktif = User::where('role', 'worker')->count();
 
+            // Grafik Produk/Jasa Terlaris
+        $produkTerlaris = Tefa::withCount('pesanans')
+            ->whereHas('pesanans')
+            ->orderByDesc('pesanans_count')
+            ->take(5)
+            ->get();
+
     return view('admin.tefa.dashboard', compact(
         'totalPesanan',
         'totalOmset',
         'projectAktif',
-        'projectSelesai'
+        'projectSelesai',
+        'produkTerlaris'
     ));
     }
 
