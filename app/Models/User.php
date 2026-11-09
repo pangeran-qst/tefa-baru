@@ -32,6 +32,7 @@ class User extends Authenticatable
         'role',
         'jurusan',
         'kelas',
+        'status_akun',
     ];
 
     /**
@@ -49,13 +50,7 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-   protected function casts(): array
-    {
-    return [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-    }
+   
 
     public function pesanans()
     {
@@ -71,4 +66,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tracking::class, 'id_user_petugas', 'id_user');
     }
+
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+            'status_akun' => 'boolean',
+        ];
+    }
+    
 }
