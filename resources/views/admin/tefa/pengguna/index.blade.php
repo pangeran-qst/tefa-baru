@@ -844,33 +844,44 @@
     }
 
 
+    
     function openEditPengguna(id) {
-      document.getElementById('edit_status_akun').value =
-      user.status_akun ? '1' : '0';
-      const modal = document.getElementById('modalEditPengguna');
-      const form = document.getElementById('formEditPengguna');
 
-      const users = @json($users);
-      const user = users.find(user => user.id_user == id);
+        const modal = document.getElementById('modalEditPengguna');
+        const form = document.getElementById('formEditPengguna');
 
-      if (!user) {
-          console.error('Data pengguna tidak ditemukan!');
-          return;
-      }
+        // Ambil data pengguna dari Laravel
+        const users = @json($users);
 
-      form.action = `/admin/tefa/pengguna/${id}`;
+        // Cari pengguna berdasarkan ID
+        const user = users.find(user => user.id_user == id);
 
-      document.getElementById('edit_nama').value = user.nama || '';
-      document.getElementById('edit_email').value = user.email || '';
-      document.getElementById('edit_role').value = user.role || '';
-      document.getElementById('edit_jurusan').value = user.jurusan || '';
-      document.getElementById('edit_kelas').value = user.kelas || '';
-      document.getElementById('edit_no_hp').value = user.no_hp || '';
-      document.getElementById('edit_alamat').value = user.alamat || '';
+        if (!user) {
+            console.error('Data pengguna tidak ditemukan!');
+            return;
+        }
 
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+        // Atur URL form edit
+        form.action = `/admin/tefa/pengguna/${id}`;
+
+        // Isi data pengguna
+        document.getElementById('edit_nama').value = user.nama || '';
+        document.getElementById('edit_email').value = user.email || '';
+        document.getElementById('edit_role').value = user.role || '';
+        document.getElementById('edit_jurusan').value = user.jurusan || '';
+        document.getElementById('edit_kelas').value = user.kelas || '';
+        document.getElementById('edit_no_hp').value = user.no_hp || '';
+        document.getElementById('edit_alamat').value = user.alamat || '';
+
+        // Status akun
+        document.getElementById('edit_status_akun').value =
+            user.status_akun ? '1' : '0';
+
+        // Tampilkan modal
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
     }
+
 
     function closeEditPengguna() {
         const modal = document.getElementById('modalEditPengguna');

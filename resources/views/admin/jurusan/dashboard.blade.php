@@ -27,13 +27,13 @@
     <!-- Title Header -->
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-slate-800">
-          Dashboard Jurusan
+          Selamat datang kembali, {{ Auth::user()->nama }} 👋 
       </h1>
 
-      <p class="text-xs text-slate-500 mt-0.5">
-          Selamat datang kembali — Ringkasan kinerja Jurusan {{ Auth::user()->jurusan }}
-          / {{ now()->translatedFormat('d F Y') }}
-      </p>
+      <h2>
+        Ringkasan kinerja Jurusan {{ Auth::user()->jurusan }} /
+        {{ now()->translatedFormat('d F Y') }}
+      </h2>
     </div>
 
     <!-- 4 KARTU STATISTIK -->
@@ -49,7 +49,6 @@
               {{ $totalPesanan }}
             </div>
           <p class="text-xs text-slate-500 font-medium mt-1">Total Project Jurusan</p>
-          <span class="inline-block text-[11px] font-semibold text-indigo-600 mt-2">+12 bulan ini</span>
         </div>
       </div>
 
@@ -63,7 +62,6 @@
               {{ $projectAktif }}
             </div>
           <p class="text-xs text-slate-500 font-medium mt-1">Project Aktif Diproses</p>
-          <span class="inline-block text-[11px] font-semibold text-sky-500 mt-2">Sedang berjalan</span>
         </div>
       </div>
 
@@ -77,7 +75,6 @@
                {{ $totalWorkerAktif }}
             </div>
           <p class="text-xs text-slate-500 font-medium mt-1">Total Worker Aktif</p>
-          <span class="inline-block text-[11px] font-semibold text-emerald-600 mt-2">Dari 3 kelas</span>
         </div>
       </div>
 
@@ -91,7 +88,6 @@
             {{ $projectSelesai }}
           </div>
           <p class="text-xs text-slate-500 font-medium mt-1">Project Selesai</p>
-          <span class="inline-block text-[11px] font-semibold text-amber-500 mt-2">Lolos QC</span>
         </div>
       </div>
 

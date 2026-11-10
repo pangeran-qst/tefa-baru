@@ -12,28 +12,6 @@
                 Arsip project yang telah lolos Quality Control
             </p>
         </div>
-
-        @php
-            $nama = Auth::user()->nama ?? 'Worker';
-
-            $inisial = collect(explode(' ', trim($nama)))
-                ->filter()
-                ->map(fn($word) => strtoupper(substr($word, 0, 1)))
-                ->take(2)
-                ->implode('');
-        @endphp
-
-        <div class="d-flex align-items-center gap-3">
-            <span class="text-xs text-muted">
-                {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
-            </span>
-
-            <div
-                class="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center shadow"
-                style="width: 32px; height: 32px; font-size: 11px;">
-                {{ $inisial }}
-            </div>
-        </div>
     </div>
 
 
