@@ -12,118 +12,61 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminJurusanController extends Controller
 {
-    /**
-     * Dashboard Pesanan Admin Jurusan
+     /**
+     * Dashboard Admin Jurusan
      */
-    public function index()
+    public function dashboard()
     {
-        // ==========================================
-        // 1. Ambil admin jurusan yang sedang login
-        // ==========================================
-
         $userLogin = Auth::user();
 
-        // Contoh: RPL, TKJ, DKV, GIM, PSPT, ANIMASI
         $jurusanUser = $userLogin->jurusan;
 
+        // Query pesanan sesuai jurusan
+        $baseQuery = Pesanan::whereHas('tefa', function ($q) use ($jurusanUser) {
+            $q->where('jurusan', $jurusanUser);
+        });
 
-        // ==========================================
-        // 2. Query dasar pesanan sesuai jurusan
-        // ==========================================
+        // Statistik pesanan
+        $totalPesanan = (clone $baseQuery)->count();
 
-        $baseQuery = Pesanan::with(['tefa', 'worker', 'user'])
-            ->whereHas('tefa', function ($q) use ($jurusanUser) {
+        $projectAktif = (clone $baseQuery)
+            ->whereIn('status', [
+                'ditugaskan',
+                'pengerjaan',
+                'review'
+            ])
+            ->count();
 
-                if ($jurusanUser) {
-                    $q->where('jurusan', $jurusanUser);
-                }
-
-            });
-
-
-        // ==========================================
-        // 3. PESANAN MASUK
-        // Status: diproses
-        // ==========================================
-
-        $pesananMasuk = (clone $baseQuery)
-            ->where('status', 'diproses')
-            ->latest('tanggal_pesan')
-            ->get();
-
-
-        // ==========================================
-        // 4. DALAM PENGERJAAN
-        // Status: pengerjaan
-        // ==========================================
-
-        $dalamPengerjaan = (clone $baseQuery)
-            ->with('progress')
-            ->where('status', 'pengerjaan')
-            ->latest('tanggal_pesan')
-            ->get();
-
-
-        // ==========================================
-        // 5. PENINJAUAN & QC
-        // Status: review
-        // ==========================================
-
-        $peninjauanQC = (clone $baseQuery)
-            ->where('status', 'review')
-            ->latest('tanggal_pesan')
-            ->get();
-
-
-        // ==========================================
-        // 6. PESANAN SELESAI
-        // Status: selesai
-        // ==========================================
-
-        $pesananSelesai = (clone $baseQuery)
+        $projectSelesai = (clone $baseQuery)
             ->where('status', 'selesai')
-            ->latest('tanggal_pesan')
-            ->get();
+            ->count();
+
+        // Statistik worker sesuai jurusan
+        $totalWorkerAktif = User::where('role', 'worker')
+            ->where('jurusan', $jurusanUser)
+            ->count();
+
+    
+    // ANALISIS SELURUH PRODUK/JASA
+    $produkAnalisis = \App\Models\Tefa::withCount([
+        'pesanans as total_pesanan'
+    ])
+    ->where('jurusan', $jurusanUser)
+    ->orderByDesc('total_pesanan')
+    ->orderBy('id_produk')
+    ->get();
+
+    // 8 PRODUK TERLARIS
+    $produkTerlaris = $produkAnalisis->take(8);
 
 
-        // ==========================================
-        // 7. AMBIL DATA WORKER / SISWA
-        // Sesuai jurusan admin yang login 
-        // ==========================================
-
-        $workerQuery = User::where('role', 'worker')
-            ->withCount([
-                'pesananSebagaiWorker as project_aktif' => function ($query) {
-                    $query->whereIn('status', [
-                        'ditugaskan',
-                        'pengerjaan',
-                        'review',
-                    ]);
-                },
-                'pesananSebagaiWorker as project_selesai' => function ($query) {
-                    $query->where('status', 'selesai');
-                },
-            ]);
-
-        if ($jurusanUser) {
-            $workerQuery->where('jurusan', $jurusanUser);
-        }
-
-        $workers = $workerQuery
-            ->orderBy('nama')
-            ->get();
-
-
-        // ==========================================
-        // 8. Kirim data ke Blade
-        // ==========================================
-
-        return view('admin.jurusan.pesanan.index', compact(
-            'pesananMasuk',
-            'dalamPengerjaan',
-            'peninjauanQC',
-            'pesananSelesai',
-            'workers'
+        return view('admin.jurusan.dashboard', compact(
+            'totalPesanan',
+            'projectAktif',
+            'totalWorkerAktif',
+            'projectSelesai',
+            'produkTerlaris',
+            'produkAnalisis'
         ));
     }
 
@@ -162,22 +105,13 @@ class AdminJurusanController extends Controller
         // Ambil pesanan
         $pesanan = Pesanan::findOrFail($id);
 
-
-        // ==========================================
         // Simpan worker yang ditugaskan
-        // ==========================================
-
         $pesanan->id_user_worker = $request->id_user_worker;
-
 
         // Setelah ditugaskan → status pengerjaan
         $pesanan->status = 'ditugaskan';
 
-
-        // ==========================================
         // Simpan catatan worker jika ada
-        // ==========================================
-
         if ($request->filled('catatan_worker')) {
             $pesanan->catatan_pesanan = $request->catatan_worker;
         }
