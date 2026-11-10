@@ -285,15 +285,13 @@
 
     {{-- ================= HEADER ================= --}}
 
-    <div class="mb-4">
+    <div class="mb-6">
 
         <h1 class="dashboard-title">
             Selamat datang kembali, {{ Auth::user()->nama }} 👋
         </h1>
 
-        <p class="dashboard-description mb-0">
-            {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
-        </p>
+            <h4>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h4>
 
     </div>
 

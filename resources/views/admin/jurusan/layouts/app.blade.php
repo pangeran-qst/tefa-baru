@@ -557,7 +557,7 @@
                 </button>
 
                 <div class="topbar-title">
-                     Admin Jurusan
+                    Dashboard Admin Jurusan
                 </div>
             </div>
         </nav>
