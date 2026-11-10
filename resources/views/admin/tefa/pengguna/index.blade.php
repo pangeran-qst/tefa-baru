@@ -156,17 +156,21 @@
                         @endif
                     </td>
 
-                    {{-- Status Akun --}}
+                    {{-- Status --}}
                     <td class="py-4 px-4">
 
-                        @if($user->status_akun)
+                        @if($user->role === 'worker')
+
+                            <span class="font-bold text-emerald-600">
+                                Available
+                            </span>
+
+                        @else
+
                             <span class="font-bold text-emerald-600">
                                 Aktif
                             </span>
-                        @else
-                            <span class="font-bold text-red-600">
-                                Nonaktif
-                            </span>
+
                         @endif
 
                     </td>
@@ -639,31 +643,8 @@
                               Worker
                           </option>
 
-                          <option value="admin_tefa">Admin TEFA</option>
-
                       </select>
                   </div>
-
-                  {{-- STATUS AKUN --}}
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1.5">
-                        Status Akun
-                    </label>
-
-                    <select
-                        id="edit_status_akun"
-                        name="status_akun"
-                        required
-                        class="w-full px-4 py-3 rounded-xl border border-slate-200
-                            text-sm text-slate-700 bg-white
-                            focus:outline-none focus:ring-2 focus:ring-indigo-500
-                            focus:border-indigo-500">
-
-                        <option value="1">Aktif</option>
-                        <option value="0">Nonaktif</option>
-
-                    </select>
-                </div>
 
                   {{-- JURUSAN --}}
                   <div>
@@ -845,8 +826,6 @@
 
 
     function openEditPengguna(id) {
-      document.getElementById('edit_status_akun').value =
-      user.status_akun ? '1' : '0';
       const modal = document.getElementById('modalEditPengguna');
       const form = document.getElementById('formEditPengguna');
 
