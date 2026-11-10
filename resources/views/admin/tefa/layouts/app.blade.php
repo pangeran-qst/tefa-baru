@@ -686,7 +686,7 @@
 
     <aside class="sidebar">
 
-        {{-- BRAND --}}
+        <!-- {{-- BRAND --}}
         <a href="{{ route('admin.tefa.dashboard') }}"
             class="sidebar-brand">
 
@@ -704,14 +704,14 @@
                 </div>
             </div>
 
-        </a>
+        </a> -->
 
 
         {{-- SCHOOL INFO --}}
-        <!-- <div class="school-card">
+        <div class="school-card">
 
             <div class="school-name">
-                SMKN 4 Tanjungpinang
+                ADMIN TEFA
             </div>
 
             <div class="school-badge">
@@ -719,10 +719,10 @@
             </div>
 
             <div class="school-leader">
-                Ketua: Bu Neni, S.Pd
+                Ketua Kurikulum: Bu Neni, S.Pd
             </div>
 
-        </div> -->
+        </div>
 
 
         {{-- MENU --}}
@@ -919,7 +919,7 @@
 
         {{-- TOPBAR --}}
         <nav class="topbar">
-
+            {{-- Tombol Hamburger Mobile (Ukurannya sama persis dengan Admin TEFA) --}}
             <div class="topbar-left">
 
                 <button type="button"
@@ -1002,6 +1002,44 @@
     </script>
 
     @stack('scripts')
+
+
+
+    {{-- Script Kontrol Sidebar Mobile --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.createElement('div');
+            overlay.className = 'sidebar-overlay';
+            document.body.appendChild(overlay);
+
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('show');
+                overlay.classList.toggle('show');
+            }
+
+            function closeSidebar() {
+                sidebar.classList.remove('show');
+                overlay.classList.remove('show');
+            }
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleSidebar);
+            }
+
+            if (overlay) {
+                overlay.addEventListener('click', closeSidebar);
+            }
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', closeSidebar);
+            });
+        });
+    </script>
+
 
 </body>
 

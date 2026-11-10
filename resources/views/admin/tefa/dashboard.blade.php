@@ -288,12 +288,11 @@
     <div class="mb-4">
 
         <h1 class="dashboard-title">
-            Selamat datang kembali 
-            
+            Selamat datang kembali, {{ Auth::user()->nama }} 👋
         </h1>
 
         <p class="dashboard-description mb-0">
-            Senin, 25 Agustus 2026
+            {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
         </p>
 
     </div>
