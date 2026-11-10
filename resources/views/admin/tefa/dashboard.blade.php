@@ -306,106 +306,87 @@
         <div class="col-12 col-md-6 col-xl-3">
             <div class="tefa-stat-card">
 
-            <div class="tefa-stat-icon icon-amber">
-            📁
+                <div class="tefa-stat-icon icon-amber">
+                📁
+                </div>
+
+                <div class="tefa-stat-number">
+                {{ $totalPesanan }}
+                </div>
+
+                <div class="tefa-stat-label">
+                Total Pesanan Masuk
+                </div>
+
             </div>
-
-            <div class="tefa-stat-number">
-            {{ $totalPesanan }}
-            </div>
-
-            <div class="tefa-stat-label">
-            Total Pesanan Masuk
-            </div>
-
-            <span class="tefa-stat-note text-green">
-            Pesanan masuk
-            </span>
-
-             </div>
         </div>
 
 
         {{-- CARD 2 --}}
+    <div class="col-12 col-md-6 col-xl-3">
+        <div class="tefa-stat-card">
 
-        <div class="col-12 col-md-6 col-xl-3">
-    <div class="tefa-stat-card">
+            <div class="tefa-stat-icon icon-purple">
+                ⚡
+            </div>
 
-        <div class="tefa-stat-icon icon-purple">
-            ⚡
-        </div>
+            <div class="tefa-stat-number 
+            @if($totalOmset >= 1000000000)
+                text-kecil-1
+            @elseif($totalOmset >= 100000000)
+                text-kecil
+            @elseif($totalOmset >= 10000000)
+                text-sedang
+            @else
+                text-normal
+            @endif"> 
+            Rp {{ number_format($totalOmset, 0, ',', '.') }}
+            </div>
 
-        <div class="tefa-stat-number 
-        @if($totalOmset >= 1000000000)
-            text-kecil-1
-        @elseif($totalOmset >= 100000000)
-            text-kecil
-        @elseif($totalOmset >= 10000000)
-            text-sedang
-        @else
-            text-normal
-        @endif"> 
-           Rp {{ number_format($totalOmset, 0, ',', '.') }}
-        </div>
-
-        <div class="tefa-stat-label">
-            Total Omset / Kas BLUD
-        </div>
-
-        <span class="tefa-stat-note text-purple">
-            Bulan ini
-        </span>
-
+            <div class="tefa-stat-label">
+                Total Omset / Kas BLUD
+            </div>
         </div>
     </div>
 
 
         {{-- CARD 3 --}}
-    <div class="col-12 col-md-6 col-xl-3">
-        <div class="tefa-stat-card">
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="tefa-stat-card">
 
-        <div class="tefa-stat-icon icon-amber">
-            👷
+                <div class="tefa-stat-icon icon-amber">
+                    👷
+                </div>
+
+                <div class="tefa-stat-number">
+                    {{ $projectAktif }}
+                </div>
+
+                <div class="tefa-stat-label">
+                    Jumlah Project Aktif
+                </div>
+
+            </div>
         </div>
-
-        <div class="tefa-stat-number">
-            {{ $projectAktif }}
-        </div>
-
-        <div class="tefa-stat-label">
-            Jumlah Project Aktif
-        </div>
-
-        <span class="tefa-stat-note text-blue">
-            Sedang berjalan
-        </span>
-
-         </div>
-    </div>
 
 
         {{-- CARD 4 --}}
 
     <div class="col-12 col-md-6 col-xl-3">
-            <div class="tefa-stat-card">
+        <div class="tefa-stat-card">
 
-        <div class="tefa-stat-icon icon-green">
-            ✅
-        </div>
-
-        <div class="tefa-stat-number">
-            {{ $projectSelesai }}
-        </div>
-
-        <div class="tefa-stat-label">
-            Total Project Selesai
-        </div>
-
-        <span class="tefa-stat-note text-amber">
-            Lolos QC
-        </span>
-
+            <div class="tefa-stat-icon icon-green">
+                ✅
             </div>
+
+            <div class="tefa-stat-number">
+                {{ $projectSelesai }}
+            </div>
+
+            <div class="tefa-stat-label">
+                Total Project Selesai
+            </div>
+        </div>
     </div>
 
 

@@ -479,7 +479,7 @@
                     </span>
 
                     <small>
-                        Akun siswa jurusan
+                        Data Worker Jurusan
                     </small>
 
                 </div>
@@ -499,7 +499,7 @@
                     </span>
 
                     <small>
-                        Transaksi & Pembayaran
+                        Data Transaksi & Status Pembayaran
                     </small>
 
                 </div>

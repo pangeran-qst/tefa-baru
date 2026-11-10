@@ -146,24 +146,16 @@ Route::middleware('auth')->group(function () {
     // DASHBOARD ADMIN JURUSAN
     // ==========================
 
-Route::get('/admin/jurusan', function () {
+Route::middleware(['auth'])->group(function () {
 
-    $totalPesanan = \App\Models\Pesanan::count();
+    Route::get('/admin/jurusan', [
+        AdminJurusanController::class,
+        'dashboard'
+    ])->name('admin.jurusan.dashboard');
 
-    $projectAktif = \App\Models\Pesanan::where('status', 'in_progress')->count();
+});
 
-    $totalWorkerAktif = \App\Models\User::where('role', 'worker')->count();
-
-    $projectSelesai = \App\Models\Pesanan::where('status', 'completed')->count();
-
-    return view('admin.jurusan.dashboard', compact(
-        'totalPesanan',
-        'projectAktif',
-        'totalWorkerAktif',
-        'projectSelesai'
-    ));
-
-})->name('admin.jurusan.dashboard');
+    })->name('admin.jurusan.dashboard');
 
     Route::get('/admin/jurusan/pesanan', [AdminJurusanController::class, 'index'])->name('admin.jurusan.pesanan');
 
@@ -222,7 +214,6 @@ Route::get('/admin/jurusan', function () {
     Route::get('/worker/portofolio', [WorkerController::class, 'portofolio'])
         ->name('worker.portofolio');
 
-});
 
 
 // ==============================
@@ -343,12 +334,9 @@ Route::middleware(['auth', 'admin.tefa'])
         Route::delete('/produk/{id_produk}', [AdminTefaController::class, 'destroyProduk'])
             ->name('admin.tefa.produk.destroy');
 
-
         // Analitik
-        Route::get('/analitik', function () {
-            return view('admin.tefa.analitik');
-        })->name('admin.tefa.analitik');
-
+        Route::get('/analitik', [AdminTefaController::class, 'analitik'])
+            ->name('admin.tefa.analitik');
 
         // Manajemen Pengguna
         Route::get('/pengguna', [AdminTefaController::class, 'pengguna'])
