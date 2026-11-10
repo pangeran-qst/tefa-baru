@@ -27,13 +27,13 @@
     <!-- Title Header -->
     <div class="mb-6">
       <h1 class="text-2xl font-bold text-slate-800">
-          Selamat datang kembali, {{ Auth::user()->nama }} 👋 
+        Selamat datang kembali, {{ Auth::user()->nama }} 👋
       </h1>
 
-      <h2>
-        Ringkasan kinerja Jurusan {{ Auth::user()->jurusan }} /
-        {{ now()->translatedFormat('d F Y') }}
-      </h2>
+          <h2> 
+            Ringkasan kinerja Jurusan {{ Auth::user()->jurusan }}
+            / {{ now()->translatedFormat('d F Y') }}
+          </h2>
     </div>
 
     <!-- 4 KARTU STATISTIK -->

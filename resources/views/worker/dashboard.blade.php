@@ -21,12 +21,8 @@
     <!-- Header Title & User Status -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
       <div>
-        <h1 class="text-2xl font-bold text-slate-800">
-            Selamat datang kembali, {{ Auth::user()->nama }} 👋
-        </h1>
-
-        <h2>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h2>
-
+        <h1 class="text-2xl font-bold text-slate-800">Selamat datang kembali, {{ Auth::user()->nama }} 👋</h1>
+          <h2>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h2>
       </div>
     </div>
 

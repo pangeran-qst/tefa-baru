@@ -519,8 +519,18 @@
 
     <script>
         
-            function openPurchaseModal() {
-            document.getElementById('formModal').classList.add('active');
+        function openPurchaseModal() {
+
+            @if(Auth::check() && Auth::user()->role === 'client')
+
+                document.getElementById('formModal').classList.add('active');
+
+            @else
+
+                window.location.href = "{{ route('login', ['redirect' => url()->current()]) }}";
+
+            @endif
+
         }
 
         function closePurchaseModal() {

@@ -291,7 +291,7 @@
             Selamat datang kembali, {{ Auth::user()->nama }} 👋
         </h1>
 
-        <h>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h2>
+            <h4>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h4>
 
     </div>
 
