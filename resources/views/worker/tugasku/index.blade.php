@@ -25,28 +25,6 @@
         <h1 class="text-2xl font-bold text-slate-800">Tugasku — Project Management</h1>
         <p class="text-xs text-slate-500 mt-0.5">Kelola seluruh alur pengerjaan tugas kamu</p>
       </div>
-      <div class="flex items-center gap-3 self-start sm:self-auto">
-
-        <span class="text-xs text-muted">
-          {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
-        </span>
-
-          @php
-            $nama = Auth::user()->nama ?? 'Worker';
-
-            $inisial = collect(explode(' ', trim($nama)))
-                ->filter()
-                ->map(fn($word) => strtoupper(substr($word, 0, 1)))
-                ->take(2)
-                ->implode('');
-        @endphp
-
-        <div
-            class="rounded-circle bg-primary text-white fw-bold d-flex align-items-center justify-content-center shadow"
-            style="width: 32px; height: 32px; font-size: 11px;">
-            {{ $inisial }}
-        </div>
-      </div>
     </div>
 
     <!-- TAB NAVIGATION CARD -->
