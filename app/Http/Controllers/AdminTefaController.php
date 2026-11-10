@@ -48,6 +48,89 @@ class AdminTefaController extends Controller
     }
 
 
+   
+ 
+    public function analitik()
+    {
+        
+        // 1. PRODUK/JASA TERLARIS
+        $produkTerlaris = Tefa::withCount('pesanans')
+            ->whereHas('pesanans')
+            ->orderByDesc('pesanans_count')
+            ->take(5)
+            ->get();
+
+       
+        // 2. TREN PESANAN BULANAN
+        $tahunIni = now()->year;
+
+        $dataBulanan = Pesanan::selectRaw(
+            'MONTH(tanggal_pesan) as bulan, COUNT(*) as total'
+        )
+            ->whereYear('tanggal_pesan', $tahunIni)
+            ->groupByRaw('MONTH(tanggal_pesan)')
+            ->pluck('total', 'bulan');
+
+        $labelBulan = collect(range(1, 12))->map(function ($bulan) use ($tahunIni) {
+            return \Carbon\Carbon::createFromDate($tahunIni, $bulan, 1)
+                ->locale('id')
+                ->translatedFormat('M');
+        });
+
+        $jumlahPesananBulanan = collect(range(1, 12))->map(function ($bulan) use ($dataBulanan) {
+            return (int) $dataBulanan->get($bulan, 0);
+        });
+
+
+        // 3. DISTRIBUSI STATUS PESANAN
+        $daftarStatus = [
+            'pending' => 'Menunggu',
+            'in_progress' => 'Diproses',
+            'completed' => 'Selesai',
+            'cancelled' => 'Dibatalkan',
+        ];
+
+        $labelStatus = array_values($daftarStatus);
+
+        $jumlahStatus = collect($daftarStatus)->map(function ($label, $status) {
+            return Pesanan::where('status', $status)->count();
+        })->values();
+
+      
+        // 4. PESANAN ANTARJURUSAN
+        $daftarJurusan = [
+            'RPL',
+            'TKJ',
+            'DKV',
+            'ANIMASI',
+            'GIM',
+            'PSPT',
+        ];
+
+        $labelJurusan = $daftarJurusan;
+
+        $jumlahPesananJurusan = collect($daftarJurusan)->map(function ($jurusan) {
+
+            return Pesanan::whereHas('tefa', function ($query) use ($jurusan) {
+                $query->where('jurusan', $jurusan);
+            })->count();
+
+        });
+
+
+        // KIRIM DATA KE VIEW
+        return view('admin.tefa.analitik', compact(
+            'produkTerlaris',
+            'labelBulan',
+            'jumlahPesananBulanan',
+            'labelStatus',
+            'jumlahStatus',
+            'labelJurusan',
+            'jumlahPesananJurusan'
+        ));
+    }
+
+
     
     public function produk()
     {
