@@ -70,6 +70,62 @@ class AdminJurusanController extends Controller
         ));
     }
 
+    
+    /**
+     * Manajemen Pesanan Admin Jurusan
+     */
+    public function index()
+    {
+        $userLogin = Auth::user();
+        $jurusanUser = $userLogin->jurusan;
+
+        // Ambil pesanan hanya dari produk milik jurusan admin login
+        $baseQuery = Pesanan::with([
+            'tefa',
+            'worker',
+            'user',
+            'progress'
+        ])
+        ->whereHas('tefa', function ($q) use ($jurusanUser) {
+            $q->where('jurusan', $jurusanUser);
+        });
+
+        // PESANAN MASUK
+        // Pesanan yang belum ditugaskan kepada worker
+        $pesananMasuk = (clone $baseQuery)
+            ->whereIn('status', ['pending', 'diproses'])
+            ->get();
+
+        // DALAM PENGERJAAN
+        $dalamPengerjaan = (clone $baseQuery)
+            ->whereIn('status', ['ditugaskan', 'pengerjaan'])
+            ->get();
+
+        // PENINJAUAN DAN QC
+        $peninjauanQC = (clone $baseQuery)
+            ->where('status', 'review')
+            ->get();
+
+        // PESANAN SELESAI
+        $pesananSelesai = (clone $baseQuery)
+            ->where('status', 'selesai')
+            ->get();
+
+        // WORKER SESUAI JURUSAN ADMIN
+        $workers = User::where('role', 'worker')
+            ->where('jurusan', $jurusanUser)
+            ->orderBy('nama')
+            ->get();
+
+        return view('admin.jurusan.pesanan.index', compact(
+            'pesananMasuk',
+            'dalamPengerjaan',
+            'peninjauanQC',
+            'pesananSelesai',
+            'workers'
+        ));
+    }
+
 
     /**
      * Update status pesanan

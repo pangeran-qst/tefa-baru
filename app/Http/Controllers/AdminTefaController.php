@@ -758,10 +758,9 @@ public function setujuiPembatalan($id_pesanan)
             'role' => 'required|in:admin_jurusan,worker',
             'jurusan' => 'required|string|max:100',
             'kelas' => 'required|string|max:100',
-            'status_akun' => true,
         ]);
 
-        $user = User::create([
+        User::create([
             'nama' => $request->nama,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -770,6 +769,8 @@ public function setujuiPembatalan($id_pesanan)
             'role' => $request->role,
             'jurusan' => $request->jurusan,
             'kelas' => $request->kelas,
+
+          
         ]);
 
         return redirect()
