@@ -5,83 +5,68 @@
 
 @section('content')
 
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-    /* ================= ANALITIK TEFA ================= */
+    body {
+        font-family: 'Inter', sans-serif;
+    }
 
     .tefa-analitik {
         font-family: 'Inter', sans-serif;
         color: #334155;
     }
 
-    .tefa-analitik .dashboard-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 4px;
+    .tefa-chart-wrapper {
+        height: 240px;
+        position: relative;
     }
 
-    .tefa-analitik .dashboard-description {
-        font-size: 12px;
-        color: #64748b;
-    }
-
-    /* ================= CONTENT CARD ================= */
-
-    .tefa-analitik .tefa-content-card {
+    .tefa-content-card {
         background: #ffffff;
         border: 1px solid rgba(226, 232, 240, 0.8);
         border-radius: 16px;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-        height: 100%;
     }
 
-    .tefa-analitik .tefa-card-title {
+    .tefa-card-title {
         font-size: 16px;
         font-weight: 700;
         color: #1e293b;
         margin-bottom: 2px;
     }
 
-    .tefa-analitik .tefa-card-description {
+    .tefa-card-description {
         font-size: 12px;
         color: #94a3b8;
         margin-bottom: 16px;
     }
-
-    /* ================= CHART ================= */
-
-    .tefa-analitik .tefa-chart-wrapper {
-        height: 240px;
-        position: relative;
-    }
-
 </style>
 
+{{-- MAIN CONTENT --}}
+<main class="flex-1 p-8 overflow-y-auto">
 
-<div class="tefa-analitik">
+    <div class="tefa-analitik">
 
-    {{-- ================= HEADER ================= --}}
+        {{-- HEADER --}}
+        <div class="mb-8">
 
-    <div class="mb-4">
+            <h1 class="text-2xl font-bold text-slate-800">
+                Analitik & Statistik TEFA
+            </h1>
 
-        <h1 class="dashboard-title">
-            Analitik & Statistik TEFA
-        </h1>
+            <p class="text-xs text-slate-500 mt-1">
+                Informasi aktivitas pesanan dan produk TEFA
+            </p>
 
-        <p class="dashboard-description mb-0">
-            Informasi aktivitas pesanan dan produk TEFA
-        </p>
-
-    </div>
+        </div>
 
 
-    {{-- ================= GRAFIK 1 ================= --}}
+        {{-- GRAFIK 1: PRODUK TERLARIS --}}
+        <div class="mb-6">
 
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="tefa-content-card p-4">
+            <div class="tefa-content-card p-6">
 
                 <h2 class="tefa-card-title">
                     Produk/Jasa Terlaris
@@ -99,16 +84,11 @@
 
         </div>
 
-    </div>
 
+        {{-- GRAFIK 2: TREN PESANAN BULANAN --}}
+        <div class="mb-6">
 
-    {{-- ================= GRAFIK 2 ================= --}}
-
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="tefa-content-card p-4">
+            <div class="tefa-content-card p-6">
 
                 <h2 class="tefa-card-title">
                     Tren Pesanan Bulanan
@@ -126,16 +106,11 @@
 
         </div>
 
-    </div>
 
+        {{-- GRAFIK 3: DISTRIBUSI STATUS PESANAN --}}
+        <div class="mb-6">
 
-    {{-- ================= GRAFIK 3 ================= --}}
-
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="tefa-content-card p-4">
+            <div class="tefa-content-card p-6">
 
                 <h2 class="tefa-card-title">
                     Distribusi Status Pesanan
@@ -153,16 +128,11 @@
 
         </div>
 
-    </div>
 
+        {{-- GRAFIK 4: PESANAN ANTARJURUSAN --}}
+        <div class="mb-6">
 
-    {{-- ================= GRAFIK 4 ================= --}}
-
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="tefa-content-card p-4">
+            <div class="tefa-content-card p-6">
 
                 <h2 class="tefa-card-title">
                     Pesanan Antarjurusan
@@ -182,24 +152,21 @@
 
     </div>
 
-</div>
+</main>
 
 
-{{-- ================= CHART JS ================= --}}
-
+{{-- CHART JS --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ================= KONFIGURASI UMUM =================
-
+    // KONFIGURASI UMUM
     Chart.defaults.font.family = 'Inter, sans-serif';
 
 
-    // ================= BAR CHART =================
-
+    // FUNGSI BAR CHART
     function buatBarChart(element, labels, data, label) {
 
         const canvas = document.getElementById(element);
@@ -243,11 +210,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
 
                     tooltip: {
+
                         callbacks: {
+
                             label: function(context) {
                                 return context.parsed.y + ' Pesanan';
                             }
+
                         }
+
                     }
 
                 },
@@ -259,12 +230,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         beginAtZero: true,
 
                         ticks: {
+
                             precision: 0,
+
                             stepSize: 1,
+
                             color: '#94a3b8',
+
                             font: {
                                 size: 11
                             }
+
                         },
 
                         grid: {
@@ -276,10 +252,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     x: {
 
                         ticks: {
+
                             color: '#64748b',
+
                             font: {
                                 size: 11
                             }
+
                         },
 
                         grid: {
@@ -297,8 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // ================= GRAFIK 1: PRODUK TERLARIS =================
-
+    // GRAFIK 1: PRODUK TERLARIS
     buatBarChart(
         'chartPopular',
         @json($produkTerlaris->pluck('nama_produk')),
@@ -307,8 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
-    // ================= GRAFIK 2: PESANAN BULANAN =================
-
+    // GRAFIK 2: PESANAN BULANAN
     const chartBulanan = document.getElementById('chartBulanan');
 
     if (chartBulanan) {
@@ -362,20 +339,27 @@ document.addEventListener('DOMContentLoaded', function () {
                 scales: {
 
                     y: {
+
                         beginAtZero: true,
 
                         ticks: {
+
                             precision: 0,
+
                             stepSize: 1,
+
                             color: '#94a3b8'
+
                         },
 
                         grid: {
                             color: '#f1f5f9'
                         }
+
                     },
 
                     x: {
+
                         ticks: {
                             color: '#64748b'
                         },
@@ -383,6 +367,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         grid: {
                             display: false
                         }
+
                     }
 
                 }
@@ -394,8 +379,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // ================= GRAFIK 3: STATUS PESANAN =================
-
+    // GRAFIK 3: STATUS PESANAN
     buatBarChart(
         'chartStatus',
         @json($labelStatus),
@@ -404,8 +388,7 @@ document.addEventListener('DOMContentLoaded', function () {
     );
 
 
-    // ================= GRAFIK 4: ANTARJURUSAN =================
-
+    // GRAFIK 4: PESANAN ANTARJURUSAN
     buatBarChart(
         'chartJurusan',
         @json($labelJurusan),
