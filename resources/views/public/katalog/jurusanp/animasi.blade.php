@@ -46,12 +46,19 @@
       .hero-icon {
         width: 56px;
         height: 56px;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 28px;
+        overflow: hidden;
+        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+      }
+
+      .hero-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
 
       .hero h1 {
@@ -505,7 +512,9 @@
     <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
     <div class="hero-title-container">
         <!-- Ikonnya bisa disesuaikan, di sini saya pakai clapperboard/film 🎬 -->
-        <div class="hero-icon">✨</div> 
+        <div class="hero-icon">
+          <img src="{{ asset('gambar/tefa/animasi.png') }}" alt="Logo ANIMASI">
+        </div>
         <div>
             <h1>Portofolio ANIMASI</h1>
             <p>Animasi</p>
@@ -593,8 +602,6 @@
 
                   <div style="grid-column:1 / -1; text-align:center; padding:60px 20px; background:white; border-radius:12px;">
 
-                      <div style="font-size:50px;">✨</div>
-
                       <h3 style="margin-top:15px; font-size:18px; color:#0f172a;">
                           Belum Ada Karya ANIMASI
                       </h3>
@@ -643,7 +650,6 @@
           </div>
           <div class="flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-blue-300">
           <span>© 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.</span>
-          <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
           </div>
     </footer>
 

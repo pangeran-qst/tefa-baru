@@ -46,12 +46,19 @@
     .hero-icon {
       width: 56px;
       height: 56px;
-      background-color: rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+    }
+
+    .hero-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .hero h1 {
@@ -506,7 +513,9 @@
     <section class="hero">
         <a href="{{ route('portofolio') }}" class="back-link">← Kembali ke Portofolio</a>
         <div class="hero-title-container">
-            <div class="hero-icon">💻</div>
+            <div class="hero-icon">
+              <img src="{{ asset('gambar/tefa/rpl.png') }}" alt="Logo RPL">
+            </div>
             <div>
                 <h1>Portofolio RPL</h1>
                 <p>Rekayasa Perangkat Lunak</p>
@@ -626,7 +635,6 @@
           </div>
           <div class="flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-blue-300">
           <span>© 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.</span>
-          <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
           </div>
     </footer>
 
