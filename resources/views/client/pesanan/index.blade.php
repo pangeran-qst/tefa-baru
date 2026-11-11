@@ -511,10 +511,6 @@
             <span>
                 © 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.
             </span>
-
-            <span>
-                Dibuat dengan ❤️ oleh siswa-siswi TeFA
-            </span>
         </div>
     </footer>
 
