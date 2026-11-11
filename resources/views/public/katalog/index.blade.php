@@ -364,7 +364,6 @@
         </div>
         <div class="flex flex-col md:flex-row justify-between items-center gap-2 border-t border-white/10 pt-5 text-center text-xs text-blue-300">
         <span>© 2026 TeFA SMKN 4 Tanjungpinang. Semua hak dilindungi.</span>
-        <span>Dibuat dengan ❤️ oleh siswa-siswi TeFA</span>
         </div>
   </footer>
 
