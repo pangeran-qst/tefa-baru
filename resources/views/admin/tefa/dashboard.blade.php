@@ -1,41 +1,35 @@
+
 @extends('admin.tefa.layouts.app')
 
 @section('title', 'Dashboard Admin TEFA')
 
 @section('content')
 
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-    /* ================= DASHBOARD TEFA ================= */
+    body {
+        font-family: 'Inter', sans-serif;
+    }
 
     .tefa-dashboard {
         font-family: 'Inter', sans-serif;
         color: #334155;
     }
 
-    .tefa-dashboard .dashboard-title {
-        font-size: 24px;
-        font-weight: 700;
-        color: #1e293b;
-        margin-bottom: 4px;
-    }
-
-    .tefa-dashboard .dashboard-description {
-        font-size: 12px;
-        color: #64748b;
-    }
-
     /* ================= STAT CARD ================= */
 
     .tefa-stat-card {
-      background: #ffffff;
-    border: 1px solid rgba(226, 232, 240, 0.8);
-    border-radius: 16px;
-    padding: 20px;
-    height: 100%;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-
-    min-width: 0;
-    overflow: hidden;
+        background: #ffffff;
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        border-radius: 16px;
+        padding: 20px;
+        height: 100%;
+        min-width: 0;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
     }
 
     .tefa-stat-icon {
@@ -53,21 +47,14 @@
         font-size: 2.5rem;
         font-weight: 700;
         line-height: 1;
-
         width: 100%;
         max-width: 100%;
-
-        /* Tinggi area angka dibuat tetap */
         height: 48px;
-
-        /* Angka selalu berada di tengah area */
         display: flex;
         align-items: center;
-
         white-space: nowrap;
         overflow: hidden;
         text-overflow: clip;
-
         letter-spacing: -0.03em;
     }
 
@@ -94,13 +81,6 @@
         margin-top: 6px;
     }
 
-    .tefa-stat-note {
-        display: inline-block;
-        font-size: 11px;
-        font-weight: 600;
-        margin-top: 8px;
-    }
-
     .icon-amber {
         background: #fffbeb;
         color: #f59e0b;
@@ -111,30 +91,9 @@
         color: #a855f7;
     }
 
-    .icon-blue {
-        background: #eff6ff;
-        color: #3b82f6;
-    }
-
     .icon-green {
         background: #ecfdf5;
         color: #10b981;
-    }
-
-    .text-green {
-        color: #059669;
-    }
-
-    .text-purple {
-        color: #9333ea;
-    }
-
-    .text-blue {
-        color: #2563eb;
-    }
-
-    .text-amber {
-        color: #f59e0b;
     }
 
     /* ================= CONTENT CARD ================= */
@@ -166,237 +125,143 @@
         position: relative;
     }
 
-    /* ================= DISPOSISI ================= */
-
-    .tefa-order-item {
-        background: rgba(248, 250, 252, 0.6);
-        border: 1px solid #f1f5f9;
-        border-radius: 12px;
-        padding: 14px;
-    }
-
-    .tefa-order-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-top: 6px;
-        flex-shrink: 0;
-    }
-
-    .tefa-order-number {
-        font-size: 12px;
-        font-weight: 700;
-        color: #4f46e5;
-    }
-
-    .tefa-order-name {
-        color: #334155;
-    }
-
-    .tefa-order-description {
-        font-size: 12px;
-        color: #64748b;
-        margin-top: 2px;
-    }
-
-    .tefa-order-time {
-        font-size: 11px;
-        color: #94a3b8;
-    }
-
-    .tefa-btn-disposisi {
-        background: #4f46e5;
-        color: #ffffff;
-        border: none;
-        padding: 6px 16px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-        transition: 0.2s;
-        text-decoration: none;
-    }
-
-    .tefa-btn-disposisi:hover {
-        background: #4338ca;
-        color: #ffffff;
-    }
-
-    .tefa-badge-danger {
-        background: #fff1f2;
-        color: #f43f5e;
-        border: 1px solid #ffe4e6;
-        font-size: 12px;
-        font-weight: 600;
-        padding: 5px 12px;
-        border-radius: 999px;
-    }
-
-    /* ================= AKTIVITAS ================= */
-
-    .tefa-activity-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .tefa-activity-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-top: 6px;
-        flex-shrink: 0;
-    }
-
-    .tefa-activity-text {
-        font-size: 12px;
-        color: #475569;
-        line-height: 1.45;
-    }
-
-    .tefa-activity-time {
-        font-size: 10px;
-        color: #94a3b8;
-        margin-top: 2px;
-    }
-
-    .dot-green {
-        background: #10b981;
-    }
-
-    .dot-indigo {
-        background: #6366f1;
-    }
-
-    .dot-purple {
-        background: #a855f7;
-    }
-
-    .dot-amber {
-        background: #f59e0b;
-    }
-
-    .dot-gray {
-        background: #94a3b8;
-    }
 </style>
 
 
-<div class="tefa-dashboard">
+{{-- MAIN CONTENT --}}
+<main class="flex-1 p-8 overflow-y-auto">
 
-    {{-- ================= HEADER ================= --}}
+    <div class="tefa-dashboard">
 
-    <div class="mb-6">
+        {{-- ================= HEADER ================= --}}
 
-        <h1 class="dashboard-title">
-            Selamat datang kembali, {{ Auth::user()->nama }} 👋
-        </h1>
+        <div class="mb-8">
 
-            <h4>{{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}</h4>
+            <h1 class="text-2xl font-bold text-slate-800">
+                Selamat datang kembali, {{ Auth::user()->nama }} 👋
+            </h1>
 
-    </div>
+            <p class="text-xs text-slate-500 mt-1">
+                {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('l, d F Y') }}
+            </p>
 
-
-    {{-- ================= STATISTIK ================= --}}
-
-    <div class="row g-4 mb-4">
-
-
-        {{-- CARD 1 --}}
-
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="tefa-stat-card">
-
-                <div class="tefa-stat-icon icon-amber">
-                📁
-                </div>
-
-                <div class="tefa-stat-number">
-                {{ $totalPesanan }}
-                </div>
-
-                <div class="tefa-stat-label">
-                Total Pesanan Masuk
-                </div>
-
-            </div>
         </div>
 
 
-        {{-- CARD 2 --}}
-    <div class="col-12 col-md-6 col-xl-3">
-        <div class="tefa-stat-card">
+        {{-- ================= STATISTIK ================= --}}
 
-            <div class="tefa-stat-icon icon-purple">
-                ⚡
-            </div>
+        <div class="row g-4 mb-6">
 
-            <div class="tefa-stat-number 
-            @if($totalOmset >= 1000000000)
-                text-kecil-1
-            @elseif($totalOmset >= 100000000)
-                text-kecil
-            @elseif($totalOmset >= 10000000)
-                text-sedang
-            @else
-                text-normal
-            @endif"> 
-            Rp {{ number_format($totalOmset, 0, ',', '.') }}
-            </div>
+            {{-- CARD 1: TOTAL PESANAN --}}
 
-            <div class="tefa-stat-label">
-                Total Omset / Kas BLUD
-            </div>
-        </div>
-    </div>
+            <div class="col-12 col-md-6 col-xl-3">
 
+                <div class="tefa-stat-card">
 
-        {{-- CARD 3 --}}
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="tefa-stat-card">
+                    <div class="tefa-stat-icon icon-amber">
+                        📁
+                    </div>
 
-                <div class="tefa-stat-icon icon-amber">
-                    👷
-                </div>
+                    <div class="tefa-stat-number">
+                        {{ $totalPesanan }}
+                    </div>
 
-                <div class="tefa-stat-number">
-                    {{ $projectAktif }}
-                </div>
+                    <div class="tefa-stat-label">
+                        Total Pesanan Masuk
+                    </div>
 
-                <div class="tefa-stat-label">
-                    Jumlah Project Aktif
                 </div>
 
             </div>
+
+
+            {{-- CARD 2: TOTAL OMSET --}}
+
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="tefa-stat-card">
+
+                    <div class="tefa-stat-icon icon-purple">
+                        ⚡
+                    </div>
+
+                    <div class="tefa-stat-number
+                        @if($totalOmset >= 1000000000)
+                            text-kecil-1
+                        @elseif($totalOmset >= 100000000)
+                            text-kecil
+                        @elseif($totalOmset >= 10000000)
+                            text-sedang
+                        @else
+                            text-normal
+                        @endif">
+
+                        Rp {{ number_format($totalOmset, 0, ',', '.') }}
+
+                    </div>
+
+                    <div class="tefa-stat-label">
+                        Total Omset / Kas BLUD
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- CARD 3: PROJECT AKTIF --}}
+
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="tefa-stat-card">
+
+                    <div class="tefa-stat-icon icon-amber">
+                        👷
+                    </div>
+
+                    <div class="tefa-stat-number">
+                        {{ $projectAktif }}
+                    </div>
+
+                    <div class="tefa-stat-label">
+                        Jumlah Project Aktif
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {{-- CARD 4: PROJECT SELESAI --}}
+
+            <div class="col-12 col-md-6 col-xl-3">
+
+                <div class="tefa-stat-card">
+
+                    <div class="tefa-stat-icon icon-green">
+                        ✅
+                    </div>
+
+                    <div class="tefa-stat-number">
+                        {{ $projectSelesai }}
+                    </div>
+
+                    <div class="tefa-stat-label">
+                        Total Project Selesai
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
 
-        {{-- CARD 4 --}}
+        {{-- ================= GRAFIK ================= --}}
 
-    <div class="col-12 col-md-6 col-xl-3">
-        <div class="tefa-stat-card">
+        <div class="mb-6">
 
-            <div class="tefa-stat-icon icon-green">
-                ✅
-            </div>
-
-            <div class="tefa-stat-number">
-                {{ $projectSelesai }}
-            </div>
-
-            <div class="tefa-stat-label">
-                Total Project Selesai
-            </div>
-        </div>
-    </div>
-
-
-    {{-- ================= GRAFIK ================= --}}
-
-    <div class="row g-4 mb-4">
-
-        <div class="col-12">
-
-            <div class="tefa-content-card p-4">
+            <div class="tefa-content-card p-6">
 
                 <h2 class="tefa-card-title">
                     Produk/Jasa Terlaris
@@ -416,10 +281,7 @@
 
     </div>
 
-
-   
-
-</div>
+</main>
 
 
 {{-- ================= CHART JS ================= --}}
@@ -427,11 +289,16 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // ================= BAR CHART PRODUK TERLARIS =================
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // BAR CHART PRODUK TERLARIS
 
     const barElement = document.getElementById('barChart');
 
     if (barElement) {
+
+        Chart.defaults.font.family = 'Inter, sans-serif';
 
         new Chart(barElement, {
 
@@ -472,11 +339,15 @@
                     },
 
                     tooltip: {
+
                         callbacks: {
+
                             label: function(context) {
                                 return context.parsed.y + ' Pesanan';
                             }
+
                         }
+
                     }
 
                 },
@@ -488,12 +359,17 @@
                         beginAtZero: true,
 
                         ticks: {
+
                             precision: 0,
+
                             stepSize: 1,
+
                             color: '#94a3b8',
+
                             font: {
                                 size: 11
                             }
+
                         },
 
                         grid: {
@@ -505,10 +381,13 @@
                     x: {
 
                         ticks: {
+
                             color: '#64748b',
+
                             font: {
                                 size: 11
                             }
+
                         },
 
                         grid: {
@@ -524,6 +403,8 @@
         });
 
     }
+
+});
 
 </script>
 
