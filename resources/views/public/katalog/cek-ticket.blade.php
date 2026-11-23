@@ -152,27 +152,6 @@
     </div>
 
     <div class="mx-auto max-w-[580px] rounded-xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-      <form
-          action="{{ route('cek.ticket') }}"
-          method="GET"
-          class="flex flex-col md:flex-row gap-2.5">
-          <input
-              type="text"
-              name="ticket"
-              value="{{ request('ticket') }}"
-              placeholder="Contoh: TF-0001"
-              autocomplete="off"
-              class="flex-1 rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20"
-              required
-          >
-
-          <button
-              type="submit"
-              class="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 w-full md:w-auto"
-          >
-              Cek Tiket
-          </button>
-      </form>
 
        <div
           id="hasilTiket"

@@ -8,7 +8,86 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
+
+
+
+        /* KONSISTENSI SEMUA TABEL PESANAN */
+        .table-pesanan {
+            width: 100%;
+            min-width: 1000px;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        /* Tinggi header seragam */
+        .table-pesanan thead {
+            height: 52px;
+            background: #ffffff;
+        }
+
+        .table-pesanan thead th {
+            height: 52px;
+            padding: 12px 14px !important;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            vertical-align: middle;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .table-pengajuan {
+            width: 100%;
+            min-width: 900px;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .table-pengajuan thead th {
+            height: 52px;
+            padding: 12px 14px !important;
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        /* Lebar masing-masing kolom */
+        .table-pesanan th:nth-child(1),
+        .table-pesanan td:nth-child(1) { width: 14%; }
+
+        .table-pesanan th:nth-child(2),
+        .table-pesanan td:nth-child(2) { width: 19%; }
+
+        .table-pesanan th:nth-child(3),
+        .table-pesanan td:nth-child(3) { width: 19%; }
+
+        .table-pesanan th:nth-child(4),
+        .table-pesanan td:nth-child(4) { width: 14%; }
+
+        .table-pesanan th:nth-child(5),
+        .table-pesanan td:nth-child(5) { width: 13%; }
+
+        .table-pesanan th:nth-child(6),
+        .table-pesanan td:nth-child(6) { width: 11%; }
+
+        .table-pesanan th:nth-child(7),
+        .table-pesanan td:nth-child(7) { width: 10%; }
+
+        /* Isi tabel */
+        .table-pesanan tbody td {
+            padding: 14px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            .table-pesanan {
+                min-width: 1000px;
+            }
+        }
+
+
   </style>
 
 
@@ -30,14 +109,14 @@
     $jumlahDibatalkan = $pesanans->where('status', 'ditolak')->count();
     @endphp
 
-    <div class="flex flex-wrap gap-3 mb-6">
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap gap-3 mb-6">
 
       {{-- PESANAN BARU --}}
       <button
           type="button"
           id="btn-baru"
           onclick="switchTab('baru')"
-          class="tab-btn px-6 py-3 rounded-xl bg-orange-500 text-white font-semibold text-xs shadow-sm transition">
+          class="tab-btn w-full lg:w-auto px-3 sm:px-6 py-3 rounded-xl bg-orange-500 text-white font-semibold text-xs shadow-sm transition">
           Pesanan Baru
           <span class="ml-1 opacity-90">
               {{ $jumlahPesananBaru }}
@@ -110,7 +189,7 @@
     <div id="tab-baru" class="tab-content">
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto">
 
-            <table class="w-full text-left text-xs">
+            <table class="table-pesanan text-left text-xs">
 
                 <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                     <tr>
@@ -120,7 +199,7 @@
                         <th class="py-4 px-3">Tanggal</th>
                         <th class="py-4 px-3">Nilai</th>
                         <th class="py-4 px-3">Status</th>
-                        <th class="py-4 px-3 text-right">Aksi</th>
+                        <th class="py-4 px-3">Aksi</th>
                     </tr>
                 </thead>
 
@@ -225,17 +304,16 @@
     <div id="tab-menunggu" class="tab-content hidden">
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto">
 
-            <table class="w-full text-left text-xs">
+            <table class="table-pesanan text-left text-xs">
 
                 <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                     <tr>
-                        <th class="py-4 px-3">ID Pesanan</th>
-                        <th class="py-4 px-3">Klien</th>
-                        <th class="py-4 px-3">Layanan</th>
-                        <th class="py-4 px-3">Tanggal</th>
-                        <th class="py-4 px-3">Nilai</th>
-                        <th class="py-4 px-3">Status</th>
-                        <th class="py-4 px-3 text-right">Aksi</th>
+                        <th class="py-3.5 px-3">ID Pesanan</th>
+                        <th class="py-3.5 px-3">Klien</th>
+                        <th class="py-3.5 px-3">Layanan</th>
+                        <th class="py-3.5 px-3">Tanggal</th>
+                        <th class="py-3.5 px-3">Nilai</th>
+                        <th class="py-3.5 px-3">Status</th>
                     </tr>
                 </thead>
 
@@ -291,24 +369,6 @@
                                 </span>
                             </td>
 
-                            <td class="py-3.5 px-3">
-                                <div class="flex items-center justify-end gap-2">
-
-                                    <form
-                                        action="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
-                                        method="GET">
-
-                                        <button
-                                            type="submit"
-                                            class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
-                                            Detail
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
                         </tr>
 
                     @empty
@@ -333,7 +393,7 @@
     <div id="tab-pengerjaan" class="tab-content hidden">
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto">
 
-            <table class="w-full text-left text-xs">
+            <table class="table-pesanan text-left text-xs">
 
                 <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                     <tr>
@@ -343,7 +403,6 @@
                         <th class="py-4 px-3">Tanggal</th>
                         <th class="py-4 px-3">Nilai</th>
                         <th class="py-4 px-3">Status</th>
-                        <th class="py-4 px-3 text-right">Aksi</th>
                     </tr>
                 </thead>
 
@@ -393,28 +452,10 @@
                                 </span>
                             </td>
 
-                            <td class="py-3.5 px-3">
+                            <td class="py-2 px-3">
                                 <span class="inline-flex px-2.5 py-1 rounded-lg bg-purple-50 text-purple-600 font-semibold text-[10px]">
                                     Dalam Pengerjaan
                                 </span>
-                            </td>
-
-                            <td class="py-3.5 px-3">
-                                <div class="flex items-center justify-end gap-2">
-
-                                    <form
-                                        action="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
-                                        method="GET">
-
-                                        <button
-                                            type="submit"
-                                            class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
-                                            Detail
-                                        </button>
-
-                                    </form>
-
-                                </div>
                             </td>
 
                         </tr>
@@ -441,7 +482,7 @@
     <div id="tab-selesai" class="tab-content hidden">
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto">
 
-            <table class="w-full text-left text-xs">
+            <table class="table-pesanan text-left text-xs">
 
                 <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                     <tr>
@@ -451,7 +492,6 @@
                         <th class="py-4 px-3">Tanggal</th>
                         <th class="py-4 px-3">Nilai</th>
                         <th class="py-4 px-3">Status</th>
-                        <th class="py-4 px-3 text-right">Aksi</th>
                     </tr>
                 </thead>
 
@@ -507,24 +547,6 @@
                                 </span>
                             </td>
 
-                            <td class="py-3.5 px-3">
-                                <div class="flex items-center justify-end gap-2">
-
-                                    <form
-                                        action="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
-                                        method="GET">
-
-                                        <button
-                                            type="submit"
-                                            class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
-                                            Detail
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
                         </tr>
 
                     @empty
@@ -549,7 +571,7 @@
     <div id="tab-ditolak" class="tab-content hidden">
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto">
 
-            <table class="w-full text-left text-xs">
+            <table class="table-pesanan text-left text-xs">
 
                 <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                     <tr>
@@ -559,7 +581,6 @@
                         <th class="py-4 px-3">Tanggal</th>
                         <th class="py-4 px-3">Nilai</th>
                         <th class="py-4 px-3">Status</th>
-                        <th class="py-4 px-3 text-right">Aksi</th>
                     </tr>
                 </thead>
 
@@ -615,24 +636,6 @@
                                 </span>
                             </td>
 
-                            <td class="py-3.5 px-3">
-                                <div class="flex items-center justify-end gap-2">
-
-                                    <form
-                                        action="{{ route('admin.tefa.pesanan.detail', $pesanan->id_pesanan) }}"
-                                        method="GET">
-
-                                        <button
-                                            type="submit"
-                                            class="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-600 text-[10px] font-semibold transition">
-                                            Detail
-                                        </button>
-
-                                    </form>
-
-                                </div>
-                            </td>
-
                         </tr>
 
                     @empty
@@ -655,7 +658,7 @@
     <div id="tab-pengajuan-batal" class="tab-content hidden">
 
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-x-auto mb-8">
-        <table class="w-full text-left text-xs">
+        <table class="table-pengajuan text-left text-xs">
             <thead class="border-b border-slate-100 text-slate-400 font-semibold uppercase text-[11px] tracking-wider">
                 <tr>
                     <th class="py-4 px-3">ID Pesanan</th>

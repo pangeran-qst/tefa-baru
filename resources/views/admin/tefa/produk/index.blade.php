@@ -110,18 +110,75 @@
         background: #ffffff;
     }
 
+    
+    /* RESPONSIVE MOBILE */
+    
+    /* Sembunyikan gambar produk dan portofolio di HP */
     @media (max-width: 768px) {
+
+        #table-produk tbody tr td:first-child img,
+        #table-produk tbody tr td:first-child .w-12.h-12,
+
+        #table-portofolio tbody tr td:first-child img,
+        #table-portofolio tbody tr td:first-child .w-12.h-12 {
+            display: none !important;
+        }
+
+
+
+
+        /* Header menjadi vertikal */
         .tefa-cms-header {
             flex-direction: column;
             align-items: flex-start;
             gap: 16px;
         }
 
+        /* Tombol tetap sejajar */
         .tefa-cms-actions {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
             width: 100%;
-            flex-wrap: wrap;
+            gap: 8px;
         }
+
+        .tefa-cms-actions button {
+            flex: 1;
+            justify-content: center;
+            white-space: nowrap;
+            padding: 10px 8px;
+            font-size: 11px;
+        }
+
+        /* Tab bisa digeser horizontal */
+        .tefa-content-card {
+            min-width: 0;
+        }
+
+        .tab-switch {
+            flex-shrink: 0;
+            padding: 10px 12px;
+            font-size: 11px;
+        }
+
+        /* Padding konten lebih kecil */
+        main {
+            padding: 16px !important;
+        }
+
+        .tefa-content-card.p-6 {
+            padding: 14px !important;
+        }
+
+        /* Tabel tetap bisa digeser */
+        .overflow-x-auto {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
     }
+
 </style>
 
 <main class="flex-1 p-8 overflow-y-auto">
@@ -144,6 +201,7 @@
             <div class="flex items-center gap-2 tefa-cms-actions">
 
                 <button
+                    id="btn-cetak-pdf"
                     type="button"
                     onclick="cetakKatalogPDF()"
                     class="bg-red-600 hover:bg-red-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition flex items-center gap-2">
@@ -1272,6 +1330,11 @@
 
         const buttons = document.querySelectorAll('.tab-switch');
         const btnTambah = document.getElementById('btn-tambah');
+
+        const btnCetakPDF = document.getElementById('btn-cetak-pdf');
+
+        // PDF hanya muncul pada tab katalog produk
+        btnCetakPDF.style.display = tab === 'produk' ? 'flex' : 'none';
 
         tabJurusan.classList.add('hidden');
         tabProduk.classList.add('hidden');

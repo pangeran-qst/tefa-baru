@@ -105,55 +105,64 @@
         <form
             action="{{ route('admin.tefa.transaksi') }}"
             method="GET"
-            class="flex items-center gap-3 text-xs">
+            class="flex flex-wrap items-center gap-3 text-xs w-full lg:w-auto">
 
-            <span class="text-slate-500 font-medium">
-                Dari
-            </span>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <span class="text-slate-500 font-medium shrink-0">
+                    Dari
+                </span>
 
-            <div class="relative">
                 <input
                     type="date"
                     name="tanggal_dari"
-                    value="{{ $tanggalDari }}"
-                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700
-                          w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+                    value="{{ request('tanggal_dari', $tanggalDari) }}"
+                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 w-full sm:w-36 min-w-0">
             </div>
 
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+                <span class="text-slate-500 font-medium shrink-0">
+                    Sampai
+                </span>
 
-            <span class="text-slate-500 font-medium">
-                Sampai
-            </span>
-
-            <div class="relative">
                 <input
                     type="date"
                     name="tanggal_sampai"
-                    value="{{ $tanggalSampai }}"
-                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700
-                          w-36 focus:outline-none focus:ring-2 focus:ring-indigo-500/20">
+                    value="{{ request('tanggal_sampai', $tanggalSampai) }}"
+                    class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 w-full sm:w-36 min-w-0">
             </div>
 
-
             <button
-                type="submit"
-                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold
-                      px-5 py-2 rounded-xl text-xs transition shadow-sm">
-                Tampilkan
-            </button>
+              type="submit"
+              class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-5 py-2 rounded-xl text-xs transition shadow-sm whitespace-nowrap shrink-0 w-full sm:w-auto">
+              Tampilkan
+          </button>
 
         </form>
 
 
-        {{-- EXPORT --}}
-        <div class="flex items-center gap-2">
 
-            <a href="{{ route('admin.tefa.transaksi.excel', [ 'tanggal_dari' => $tanggalDari, 'tanggal_sampai' => $tanggalSampai ]) }}" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
-              📥 Export Excel
+        {{-- EXPORT --}}
+        <div class="flex items-center gap-3 w-full lg:w-auto">
+
+            <a
+                href="{{ route('admin.tefa.transaksi.excel', [
+                    'tanggal_dari' => $tanggalDari,
+                    'tanggal_sampai' => $tanggalSampai
+                ]) }}"
+                class="flex-1 lg:flex-none justify-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm whitespace-nowrap">
+
+                📥 Export Excel
             </a>
 
-            <a href="{{ route('admin.tefa.transaksi.pdf', [ 'tanggal_dari' => $tanggalDari, 'tanggal_sampai' => $tanggalSampai ]) }}" target="_blank" class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm">
-              📥 Export PDF
+            <a
+                href="{{ route('admin.tefa.transaksi.pdf', [
+                    'tanggal_dari' => $tanggalDari,
+                    'tanggal_sampai' => $tanggalSampai
+                ]) }}"
+                target="_blank"
+                class="flex-1 lg:flex-none justify-center bg-rose-500 hover:bg-rose-600 text-white font-semibold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-sm whitespace-nowrap">
+
+                📥 Export PDF
             </a>
 
         </div>

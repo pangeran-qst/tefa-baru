@@ -15,207 +15,237 @@
   <!-- MAIN CONTENT -->
   <main class="flex-1 p-8 overflow-y-auto">
     <!-- Header Area -->
-    <div class="flex justify-between items-start mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-slate-800">Manajemen Pengguna</h1>
-        <p class="text-xs text-slate-500 mt-0.5">Kelola akun dan lihat bagan organisasi TeFA</p>
-      </div>
+    <!-- HEADER AREA -->
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
 
-      <button
-        type="button"
-        onclick="openTambahPengguna()"
-        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center gap-2 shadow-sm transition">
-        + Tambah Pengguna
-      </button>
-    </div>
+        <!-- JUDUL -->
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">
+                Manajemen Pengguna
+            </h1>
 
-    <!-- Main Navigation Tabs -->
-    <div class="flex items-center bg-slate-200/60 p-1 rounded-xl w-fit mb-6 text-xs font-semibold text-slate-600">
-      <button id="tab-kelola" class="px-5 py-2 rounded-lg bg-indigo-600 text-white shadow-sm transition">
-        Kelola Akun
-      </button>
+            <p class="text-xs text-slate-500 mt-0.5">
+                Kelola akun dan lihat bagan organisasi TeFA
+            </p>
+        </div>
+
+        <!-- TOMBOL TAMBAH PENGGUNA -->
+        <button
+            type="button"
+            onclick="openTambahPengguna()"
+            class="w-full sm:w-auto justify-center bg-indigo-600 hover:bg-indigo-700 text-white
+                px-4 py-2.5 rounded-lg text-xs font-semibold
+                flex items-center gap-2 shadow-sm transition">
+
+            <span class="text-sm">+</span>
+            Tambah Pengguna
+
+        </button>
+
     </div>
 
     <!-- VIEW 1: KELOLA AKUN -->
     <div id="view-kelola-akun" class="space-y-6">
       <!-- Sub-filter Role -->
-      <div class="flex gap-2 text-xs font-semibold">
+      
+        <div class="flex flex-wrap items-center gap-2 text-xs font-semibold mb-5">
 
-        <button type="button"
-            id="btn-semua"
-            onclick="switchUserTab('semua')"
-            class="user-tab-btn px-5 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition">
-            Semua
-        </button>
+            <button type="button"
+                id="btn-semua"
+                onclick="switchUserTab('semua')"
+                class="user-tab-btn px-4 py-2 rounded-lg bg-indigo-600 text-white shadow-sm transition">
+                Semua
+            </button>
 
-        <button type="button"
-            id="btn-admin_jurusan"
-            onclick="switchUserTab('admin_jurusan')"
-            class="user-tab-btn px-5 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
-            Admin Jurusan
-        </button>
+            <button type="button"
+                id="btn-admin_jurusan"
+                onclick="switchUserTab('admin_jurusan')"
+                class="user-tab-btn px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+                Admin Jurusan
+            </button>
 
-        <button type="button"
-            id="btn-worker"
-            onclick="switchUserTab('worker')"
-            class="user-tab-btn px-5 py-2 rounded-xl bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
-            Worker
-        </button>
+            <button type="button"
+                id="btn-worker"
+                onclick="switchUserTab('worker')"
+                class="user-tab-btn px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 transition">
+                Worker
+            </button>
+
+        </div>
+
 
     </div>
 
-      <!-- Table Container -->
-      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-        <table class="w-full table-fixed text-left text-xs "> 
-          <thead class="bg-slate-50/50 border-b border-slate-200 text-slate-400 uppercase font-semibold">
-            <tr>
-              <th class="py-4 px-6 w-[18%] text-left">Nama Lengkap</th>
-              <th class="py-4 px-6 w-[25%] text-left">Email</th>
-              <th class="py-4 px-6 w-[15%] text-left">Role</th>
-              <th class="py-4 px-6 w-[11%] text-left">Jurusan</th>
-              <th class="py-4 px-6 w-[11%] text-left">Kelas</th>
-              <th class="py-4 px-6 w-[10%] text-left">Status</th>
-              <th class="py-4 px-6 w-[12%] text-center">Aksi</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-slate-100 text-slate-600 font-medium">
+      
+    <!-- TABLE CONTAINER -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
-            @forelse($users as $user)
+        <div class="overflow-x-auto lg:overflow-x-hidden">
+            <table class="w-full min-w-[850px] lg:min-w-0 table-fixed text-left text-xs border-collapse">
 
-                <tr data-role="{{ $user->role }}" class="user-row hover:bg-slate-50/80 transition-colors" class="hover:bg-slate-50/80 transition-colors">
+                <thead class="bg-slate-50 border-b border-slate-200">
+                    <tr class="text-[11px] uppercase tracking-wider text-slate-500 font-semibold">
+                        <th class="px-3 py-3.5 w-[12%]">Nama Lengkap</th>
+                        <th class="px-3 py-3.5 w-[13%]">Email</th>
+                        <th class="px-1 py-3.5 w-[10%]">Role</th>
+                        <th class="px-1 py-3.5 w-[10%]">Jurusan</th>
+                        <th class="px-3 py-3.5 w-[9%]">Kelas</th>
+                        <th class="px-2 py-3.5 w-[5%]">Status</th>
+                        <th class="px-3 py-3.5 w-[10%] text-center">Aksi</th>
+                    </tr>
+                </thead>
 
-                    {{-- Nama --}}
-                    <td class="py-4 px-6">
-                        <div class="flex items-center gap-3">
+                <tbody class="divide-y divide-slate-100 text-slate-600">
 
-                            <div class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center text-xs">
-                                {{ strtoupper(substr($user->nama, 0, 1)) }}
+                    @forelse($users as $user)
+
+                    <tr data-role="{{ $user->role }}"
+                        class="user-row hover:bg-slate-50 transition-colors">
+
+                        <!-- NAMA KAMPANG -->
+                        <td class="px-3 py-3.5">
+                            <div class="flex items-center gap-3 min-w-0">
+
+                                <div class="w-8 h-8 shrink-0 rounded-full
+                                    bg-indigo-100 text-indigo-700
+                                    font-bold flex items-center justify-center text-xs">
+                                    {{ strtoupper(substr($user->nama, 0, 1)) }}
+                                </div>
+
+                                <span class="font-semibold text-slate-800 truncate">
+                                    {{ $user->nama }}
+                                </span>
+
                             </div>
+                        </td>
 
-                            <span class="font-semibold text-slate-800">
-                                {{ $user->nama }}
+                        <!-- EMAIL -->
+                        <td class="px-3 py-3.5 text-slate-500">
+                            <span class="block truncate max-w-[220px]">
+                                {{ $user->email }}
                             </span>
+                        </td>
 
-                        </div>
-                    </td>
+                        <!-- ROLE -->
+                        <td class="px-1 py-3.5">
 
-                    {{-- Email --}}
-                    <td class="py-4 px-6 whitespace-nowrap text-slate-500">
-                      {{ $user->email }}
-                    </td>
+                            @if($user->role === 'admin_tefa')
+                                <span class="inline-flex px-2.5 py-1 rounded-md
+                                    text-[10px] font-semibold
+                                    bg-violet-50 text-violet-700">
+                                    Admin TEFA
+                                </span>
 
-                    {{-- Role --}}
-                    <td class="py-4 px-4">
-                      @if($user->role === 'admin_tefa')
-                          <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-violet-100 text-violet-800">
-                              Admin TEFA
-                          </span>
+                            @elseif($user->role === 'admin_jurusan')
+                                <span class="inline-flex px-2.5 py-1 rounded-md
+                                    text-[10px] font-semibold
+                                    bg-blue-50 text-blue-700">
+                                    Admin Jurusan
+                                </span>
 
-                      @elseif($user->role === 'admin_jurusan')
-                          <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-blue-100 text-blue-700">
-                              Admin Jurusan
-                          </span>
+                            @elseif($user->role === 'worker')
+                                <span class="inline-flex px-2.5 py-1 rounded-md
+                                    text-[10px] font-semibold
+                                    bg-emerald-50 text-emerald-700">
+                                    Worker
+                                </span>
+                            @endif
 
-                      @elseif($user->role === 'worker')
-                          <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-100 text-emerald-700">
-                              Worker
-                          </span>
-                      @endif
-                  </td>
+                        </td>
 
-                    {{-- Jurusan --}}
-                    <td class="py-4 px-4">
+                        <!-- JURUSAN -->
+                        <td class="px-1 py-3.5">
 
-                        @if($user->jurusan)
+                            @if($user->jurusan)
+                                <span class="inline-flex px-2 py-1 rounded-md
+                                    text-[10px] font-semibold
+                                    bg-slate-100 text-slate-600">
+                                    {{ $user->jurusan }}
+                                </span>
+                            @else
+                                <span class="text-slate-400">-</span>
+                            @endif
 
-                            <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 text-indigo-600">
-                                {{ $user->jurusan }}
-                            </span>
+                        </td>
 
-                        @else
+                        <!-- KELAS -->
+                        <td class="px-3 py-3.5 text-slate-600">
+                            {{ $user->kelas ?: '-' }}
+                        </td>
 
-                            <span class="text-slate-400">
-                                -
-                            </span>
+                        <!-- STATUS -->
+                        <td class="px-2 py-3.5">
 
-                        @endif
+                            @if($user->status_akun)
+                                <span class="inline-flex items-center gap-1.5
+                                    text-[11px] font-semibold text-emerald-600">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="inline-flex items-center gap-1.5
+                                    text-[11px] font-semibold text-red-500">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span>
+                                    Nonaktif
+                                </span>
+                            @endif
 
-                    </td>
+                        </td>
 
+                        <!-- AKSI -->
+                        <td class="px-3 py-3.5">
+                            <div class="flex items-center justify-center gap-1.5">
 
-                    {{-- Kelas --}}
-                    <td class="py-4 px-15">
-                        @if($user->kelas)
-                            <span class="text-slate-700">
-                                {{ $user->kelas }}
-                            </span>
-                        @else
-                            <span class="text-slate-400">
-                                -
-                            </span>
-                        @endif
-                    </td>
+                                <button
+                                    type="button"
+                                    onclick="openEditPengguna({{ $user->id_user }})"
+                                    class="px-2.5 py-1.5 rounded-md
+                                        bg-slate-100 hover:bg-indigo-50
+                                        text-slate-600 hover:text-indigo-600
+                                        text-[10px] font-semibold transition">
+                                    Edit
+                                </button>
 
-                    {{-- Status Akun --}}
-                    <td class="py-4 px-4">
+                                <form
+                                    action="{{ route('admin.tefa.pengguna.destroy', $user->id_user) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus akun {{ $user->nama }}?')">
 
-                        @if($user->status_akun)
-                            <span class="font-bold text-emerald-600">
-                                Aktif
-                            </span>
-                        @else
-                            <span class="font-bold text-red-600">
-                                Nonaktif
-                            </span>
-                        @endif
+                                    @csrf
+                                    @method('DELETE')
 
-                    </td>
+                                    <button
+                                        type="submit"
+                                        class="px-2.5 py-1.5 rounded-md
+                                            bg-red-50 hover:bg-red-100
+                                            text-red-600 text-[10px]
+                                            font-semibold transition">
+                                        Hapus
+                                    </button>
 
-                    {{-- Aksi --}}
-                    <td class="py-4 px-6 text-center space-x-2">
+                                </form>
 
-                        <button
-                          type="button"
-                          onclick="openEditPengguna({{ $user->id_user }})"
-                          class="px-3 py-1 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-xs transition">
-                          Edit
-                        </button>
+                            </div>
+                        </td>
 
-                        <form
-                          action="{{ route('admin.tefa.pengguna.destroy', $user->id_user) }}"
-                          method="POST"
-                          class="inline-block"
-                          onsubmit="return confirm('Yakin ingin menghapus akun {{ $user->nama }}?')">
+                    </tr>
 
-                          @csrf
-                          @method('DELETE')
+                    @empty
 
-                          <button
-                              type="submit"
-                              class="px-3 py-1 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg text-xs transition">
-                              Hapus
-                          </button>
+                    <tr>
+                        <td colspan="7"
+                            class="px-5 py-12 text-center text-slate-400">
+                            Belum ada akun pengguna.
+                        </td>
+                    </tr>
 
-                        </form>
+                    @endforelse
 
-                    </td>
-
-                </tr>
-
-            @empty
-
-                <tr>
-                    <td colspan="7" class="py-10 text-center text-slate-400">
-                        Belum ada akun Admin Jurusan atau Worker.
-                    </td>
-                </tr>
-
-            @endforelse
-
-        </tbody>
-        </table>
-      </div>
+                </tbody>
+            </table>
+        </div>
     </div>
+
 
     <!-- VIEW 2: BAGAN ORGANISASI -->
     <div id="view-bagan-organisasi" class="hidden bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm">

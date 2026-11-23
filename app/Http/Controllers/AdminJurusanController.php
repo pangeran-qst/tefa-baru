@@ -93,7 +93,7 @@ class AdminJurusanController extends Controller
         // PESANAN MASUK
         // Pesanan yang belum ditugaskan kepada worker
         $pesananMasuk = (clone $baseQuery)
-            ->whereIn('status', ['pending', 'diproses'])
+            ->whereIn('status', ['diproses']) //JANGAN SALAH LAGI WOI
             ->get();
 
         // DALAM PENGERJAAN
@@ -351,6 +351,14 @@ class AdminJurusanController extends Controller
                 $q->where('jurusan', $jurusanUser);
             }
         })
+        ->whereIn('status', [
+            'diproses',
+            'ditugaskan',
+            'pengerjaan',
+            'review',
+            'selesai',
+            'ditolak',
+        ])
         ->latest('tanggal_pesan')
         ->get();
 

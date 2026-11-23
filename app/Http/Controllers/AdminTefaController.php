@@ -836,6 +836,12 @@ public function setujuiPembatalan($id_pesanan)
             'tefa',
             'user',
             'worker',
+        ])->whereIn('status', [
+            'diproses',
+            'ditugaskan',
+            'pengerjaan',
+            'review',
+            'selesai',
         ]);
 
         if ($tanggalDari) {
@@ -903,8 +909,8 @@ public function setujuiPembatalan($id_pesanan)
 
     public function transaksiPdf(Request $request)
     {
-        $tanggalDari = $request->tanggal_dari;
-        $tanggalSampai = $request->tanggal_sampai;
+        $tanggalDari = $request->input('tanggal_dari');
+        $tanggalSampai = $request->input('tanggal_sampai');
 
         $query = Pesanan::with([
             'tefa',
